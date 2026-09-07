@@ -1,2 +1,212 @@
-{}
-
+{
+  "scene|six-weeks": {
+    "audio": "/audio/dialogue/concerns/f6c0c0f3d7fd8fae469e.mp3",
+    "text": "This cloth has passed through three generations of hands, you know. Now the new lease wants more than double the rent. I can teach someone the trade, but if I cannot afford the shop, how to teach? What would you protect first?",
+    "source": "elevenlabs",
+    "voice_id": "eK3wlgmpYx5IkCGQIyQ4",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|six-weeks|later": {
+    "audio": "/audio/dialogue/concerns/541bce64d4ed6cfd78bf.mp3",
+    "text": "To keep a trade alive, the people doing it need room to stay also. Every decision changes what that takes. So how do we make space for the next generation?",
+    "source": "elevenlabs",
+    "voice_id": "eK3wlgmpYx5IkCGQIyQ4",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|empty-stool": {
+    "audio": "/audio/dialogue/concerns/fade272fd551f11ed5ef.mp3",
+    "text": "The tools are still here. But who is going to learn to use them? A photo can keep the pattern, sure. The feel of the hand, that one you must learn from someone. How do we give this trade a future?",
+    "source": "elevenlabs",
+    "voice_id": "NeOlp8LJc5MlFVUDFJRH",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|too-busy": {
+    "audio": "/audio/dialogue/concerns/be7601be2ad22e36e15d.mp3",
+    "text": "People come to Haji Lane for the independent shops. Their spending keeps our staff working, lah. But if every landlord only chases the tourist crowd, how will the small businesses stay? Some of that success should come back to the neighbourhood, right?",
+    "source": "elevenlabs",
+    "voice_id": "OkUTswg9GJbpA1rRSovW",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|after-dark": {
+    "audio": "/audio/dialogue/concerns/16ed350bcae88a300beb.mp3",
+    "text": "I understand why the food stalls want to stay open later. They have families to feed also. But our working day starts early, you know. If the street stays noisy all night, the people upstairs how to sleep?",
+    "source": "elevenlabs",
+    "voice_id": "eK3wlgmpYx5IkCGQIyQ4",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|hot-afternoon": {
+    "audio": "/audio/dialogue/concerns/a9da380f71611532e8a8.mp3",
+    "text": "Around the Malay Heritage Centre and Sultan Gate, walking should be part of the visit. But so hot, people need shade and somewhere to rest. Our shops still need deliveries also. Can we make these streets work better for the people using them every day?",
+    "source": "elevenlabs",
+    "voice_id": "OkUTswg9GJbpA1rRSovW",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|who-belongs": {
+    "audio": "/audio/dialogue/concerns/4df4c0be6fbb1251f0e5.mp3",
+    "text": "Around Sultan Mosque, people come to pray, work and meet one another. Visitors are welcome, of course. But the neighbours must still feel this is their place also. Can visitor income and affordable space help the next generation stay involved?",
+    "source": "elevenlabs",
+    "voice_id": "NeOlp8LJc5MlFVUDFJRH",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|new-keys": {
+    "audio": "/audio/dialogue/concerns/3f41cca0632730ea6206.mp3",
+    "text": "I am not saying every room must stay exactly the same, lah. A building needs a use. But when the new business moves in, what will it remember? Is there still room for the old work inside?",
+    "source": "elevenlabs",
+    "voice_id": "NeOlp8LJc5MlFVUDFJRH",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|cannot-relearn": {
+    "audio": "/audio/dialogue/concerns/42477ca8bb681696f700.mp3",
+    "text": "The tools, we can keep. The records also. But a record cannot teach you, right? Some of the knowledge is already gone. What can we protect now, even if we cannot bring everything back?",
+    "source": "elevenlabs",
+    "voice_id": "NeOlp8LJc5MlFVUDFJRH",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "scene|everyday-space": {
+    "audio": "/audio/dialogue/concerns/352f08b18948fe890795.mp3",
+    "text": "Aliwal Arts Centre gives us a place for the arts. But joining in takes time and affordable space also. Young people need to believe they can stay nearby. Can we make room for artists and residents, not just the visitors who can pay?",
+    "source": "elevenlabs",
+    "voice_id": "NeOlp8LJc5MlFVUDFJRH",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|six-weeks": {
+    "audio": "/audio/dialogue/concerns/25356d9bf0c51f32bd6b.mp3",
+    "text": "My parents taught me to repair things other people would throw away. Now the rent keeps going up, and visitors take photos of the shop more often than they bring things to repair. Like that, how to convince an apprentice there is a future here?",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|six-weeks|later": {
+    "audio": "/audio/dialogue/concerns/cf598cc260614d5cd742.mp3",
+    "text": "The lease is only one part, you know. We need customers, room to learn and neighbours who can still afford to stay. So which part of that promise will this council keep?",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|empty-stool": {
+    "audio": "/audio/dialogue/concerns/6d124edd4c709dd40172.mp3",
+    "text": "At Kreta Ayer Heritage Gallery, we have records of opera, puppetry and all these practices. But in our imagined neighbourhood workshop, we still need people to teach and learn. Put a costume on display, can. But that cannot replace years of practice, right? Who will have the time and space to learn?",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|cannot-relearn": {
+    "audio": "/audio/dialogue/concerns/05da97ee71be016493fb.mp3",
+    "text": "The recordings are there. But now nobody here remembers how to correct the little mistakes. The teaching chain is broken already. We can start again with what is left, but cannot say everything is recovered just like that.",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|who-belongs": {
+    "audio": "/audio/dialogue/concerns/87bb35d8eaf157277927.mp3",
+    "text": "Around Thian Hock Keng, people come to pray, work and visit. Busy is good, but the neighbours must be comfortable also. Can some visitor spending support shared spaces and affordable shops nearby? And we must respect the temple, of course.",
+    "source": "elevenlabs",
+    "voice_id": "OkUTswg9GJbpA1rRSovW",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|hot-afternoon": {
+    "audio": "/audio/dialogue/concerns/2e185398dcec1368c1b4.mp3",
+    "text": "On the brochure, the route looks fine. But in the afternoon, so hot. People need shade and somewhere to rest. Our staff and suppliers use these streets also, you know. The route must work for everyday life, not just the tours.",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|too-busy": {
+    "audio": "/audio/dialogue/concerns/7f10aa5fe590ea294361.mp3",
+    "text": "A busy street helps my staff earn a living. But if every shop chases the same tourists, the regular customers come back for what? I want the visitor business to do well, lah, but leave some room for everyday neighbourhood life also.",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|new-keys": {
+    "audio": "/audio/dialogue/concerns/462439e1bdb07b722e47.mp3",
+    "text": "The Chinatown Heritage Centre remembers how the early migrants lived. But the shophouses nearby need a future also. When a new business takes over, will it keep space for local stories and skills? Or just put up some heritage decorations and call it a day?",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|after-dark": {
+    "audio": "/audio/dialogue/concerns/cc204ddad8ba6a693808.mp3",
+    "text": "At Maxwell Food Centre, people come together over a meal. In this imagined future, the hawkers want more evening business. Understandable, lah, but their day already starts so early. Can we help them earn a living and keep access comfortable, without making life harder for the neighbours?",
+    "source": "elevenlabs",
+    "voice_id": "2iz7QMSyagQNkSdLwewp",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "chinatown|scene|everyday-space": {
+    "audio": "/audio/dialogue/concerns/77b803a5faa922854f16.mp3",
+    "text": "At Chinatown Complex, you come for a meal and see familiar faces also. But in this imagined future, older neighbours and young workers are finding it harder to afford life here. Can visitor income help them? Or should we put the money into community space and the next generation of hawkers?",
+    "source": "elevenlabs",
+    "voice_id": "OkUTswg9GJbpA1rRSovW",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|six-weeks": {
+    "audio": "/audio/dialogue/concerns/90492998d301305c6de5.mp3",
+    "text": "My regular customers come for cloth, advice and someone who remembers what they need. But in this imagined future, the next lease is harder to afford. An apprentice needs time to learn, and the rent cannot wait, you know. How do we keep this a working shop, not just somewhere to visit?",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|six-weeks|later": {
+    "audio": "/audio/dialogue/concerns/861d79d70350d594250e.mp3",
+    "text": "The lease is only one part, you know. We need customers, room to learn and neighbours who can still afford to stay. So which part of that promise will this council keep?",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|empty-stool": {
+    "audio": "/audio/dialogue/concerns/d8c1300079d3475a1cbd.mp3",
+    "text": "A flower garland is made by hand. The rhythm, you learn by sitting beside someone. Around Campbell Lane, our imagined workshop needs time to teach and orders to fill also. A photo can show the finished garland, but who will pay for the hours of learning?",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|cannot-relearn": {
+    "audio": "/audio/dialogue/concerns/60f4131b7d8ffa42b7f5.mp3",
+    "text": "In this future, our teaching chain has broken already. We still have photos and oral histories, but fewer people who can guide a learner. New funding can protect what is left. It cannot bring every lost skill back just like that.",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|who-belongs": {
+    "audio": "/audio/dialogue/concerns/5d63a737862ae5b1ce51.mp3",
+    "text": "Around Sri Veeramakaliamman Temple, people come to pray, work and visit. Older neighbours need comfortable access. People need room to gather also, without blocking the way. Can visitor income help the neighbourhood while respecting the temple?",
+    "source": "elevenlabs",
+    "voice_id": "B3BDA9stcRPo06xNKneN",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|hot-afternoon": {
+    "audio": "/audio/dialogue/concerns/deff0c07cde5023e4515.mp3",
+    "text": "People stop to take photos of the Former House of Tan Teng Niah. But the walk around it needs shade and somewhere to rest, especially for older people and those working nearby. Can we improve the space around it? The heritage house itself, we must look after, lah.",
+    "source": "elevenlabs",
+    "voice_id": "eK3wlgmpYx5IkCGQIyQ4",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|too-busy": {
+    "audio": "/audio/dialogue/concerns/1a1afdc6c0b6ee996fc0.mp3",
+    "text": "Shopping around Mustafa Centre brings customers here. But crowded does not mean the small shops and late-night workers all benefit, right? Should we protect the tenants, share the visitor income, or put more into evening business?",
+    "source": "elevenlabs",
+    "voice_id": "eK3wlgmpYx5IkCGQIyQ4",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|new-keys": {
+    "audio": "/audio/dialogue/concerns/9ad0eb7a0a363768fd1d.mp3",
+    "text": "The Indian Heritage Centre keeps stories of our communities. Nearby, our imagined workshop needs a place where the skills can still be practised. If a shophouse gets a new use, will there be room for teaching and community memories also?",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|after-dark": {
+    "audio": "/audio/dialogue/concerns/7e0f4ac961d3ddaba3b2.mp3",
+    "text": "At Tekka Centre, you buy groceries, have a meal and see a familiar face, all in one day. In this imagined future, our food business wants more evening trade. But staff need rest, deliveries need access, and the streets must stay comfortable also. What would make the extra business worthwhile?",
+    "source": "elevenlabs",
+    "voice_id": "zl8erCWL6xVcWgMnd11c",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "little-india|scene|everyday-space": {
+    "audio": "/audio/dialogue/concerns/c78ad4749fe192988376.mp3",
+    "text": "Some people come here to meet friends on their day off. Others live nearby and want a shared space everyone looks after. To sit down and feel welcome, you should not have to buy something, right? How can we fund places where people can just gather?",
+    "source": "elevenlabs",
+    "voice_id": "B3BDA9stcRPo06xNKneN",
+    "model_id": "eleven_multilingual_v2"
+  }
+}

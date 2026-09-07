@@ -44,9 +44,11 @@ const base: DecisionRecord = { v: 3, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
   districtId,
+  isActive = true,
 }: {
   embedded?: boolean;
   districtId?: DistrictId;
+  isActive?: boolean;
 }) {
   const storyId = useId();
   const nextId = useId();
@@ -56,6 +58,8 @@ export default function CouncilGame({
   const [sceneId, setSceneId] = useState<string | null>(null);
   const [lever, setLever] = useState<LeverId | null>(null);
   const [accepted, setAccepted] = useState(false);
+  const [concernOpen, setConcernOpen] = useState(false);
+  useEffect(() => { if (!isActive) setConcernOpen(false); }, [isActive]);
   const [future, setFuture] = useState<State | null>(null);
   const [draft, setDraft] = useState<Decision[]>([]);
   const [notice, setNotice] = useState('');
@@ -197,6 +201,7 @@ export default function CouncilGame({
     document.getElementById(storyId)?.scrollTo({ top: 0 });
   }
   function selectPlace(id: string) {
+    setConcernOpen(false);
     setNotice('');
     setSceneId(parcelScenario(id, state));
     document.getElementById(storyId)?.scrollTo({ top: 0 });
@@ -377,7 +382,7 @@ export default function CouncilGame({
                   <small>{scene.place}</small>
                 </div>
               </div>
-              <details className="scene-voice">
+              <details className="scene-voice" open={concernOpen} onToggle={(event) => setConcernOpen(event.currentTarget.open)}>
                 <summary>Their concern</summary>
                 <RecordedDialogue
                   key={scene.id + year}
@@ -388,6 +393,7 @@ export default function CouncilGame({
                     (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
                   }
                   text={scene.dialogue}
+                  active={concernOpen && isActive}
                 />
               </details>
               <div className="scene-choices" hidden={!!lever}>

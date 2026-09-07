@@ -4,14 +4,17 @@
     "title": "A shop worth keeping",
     "place": "Pagoda Street shophouses",
     "speaker": "tenant_salmah",
-    "dialogue": "My parents taught me to repair things people would otherwise throw away. Now the renewal costs more, and visitors photograph the shop more often than they bring work through the door. I need a reason for an apprentice to believe there is a future here.",
+    "dialogue": "My parents taught me to repair things other people would throw away. Now the rent keeps going up, and visitors take photos of the shop more often than they bring things to repair. Like that, how to convince an apprentice there is a future here?",
     "question": "Protect the lease, fund an apprentice, or invest in shared ownership?",
     "options": [
       [
         "rent_covenant",
         "Keep independent traders in place, with owner compensation."
       ],
-      ["trade_grant", "Pay for skills to be taught; rent pressure remains."],
+      [
+        "trade_grant",
+        "Pay for skills to be taught; rent pressure remains."
+      ],
       [
         "land_trust",
         "Put premises into shared ownership at a high upfront cost."
@@ -24,11 +27,17 @@
     "title": "Who learns the next verse?",
     "place": "Kreta Ayer Heritage Gallery",
     "speaker": "custodian_rahim",
-    "dialogue": "At Kreta Ayer Heritage Gallery, records help us encounter opera, puppetry and other cultural practices. But our fictional neighbourhood workshop still needs teachers and learners. Displaying a costume cannot replace years of rehearsal. Who gets the time and space to learn the next verse?",
+    "dialogue": "At Kreta Ayer Heritage Gallery, we have records of opera, puppetry and all these practices. But in our imagined neighbourhood workshop, we still need people to teach and learn. Put a costume on display, can. But that cannot replace years of practice, right? Who will have the time and space to learn?",
     "question": "Support teaching, secure a home for it, or adapt another space?",
     "options": [
-      ["trade_grant", "Fund mentoring and time to practise."],
-      ["rent_covenant", "Protect affordable premises with compensation."],
+      [
+        "trade_grant",
+        "Fund mentoring and time to practise."
+      ],
+      [
+        "rent_covenant",
+        "Protect affordable premises with compensation."
+      ],
       [
         "adaptive_reuse",
         "Bring an old unit into use while retaining its archive."
@@ -41,15 +50,21 @@
     "title": "The missing teacher",
     "place": "Kreta Ayer Heritage Gallery",
     "speaker": "custodian_rahim",
-    "dialogue": "There are recordings, but nobody here remembers how to correct the smallest mistakes. The chain of teaching has been broken. We can start again with what survives, but we cannot call it an instant recovery.",
+    "dialogue": "The recordings are there. But now nobody here remembers how to correct the little mistakes. The teaching chain is broken already. We can start again with what is left, but cannot say everything is recovered just like that.",
     "question": "Rebuild teaching, secure long-term space, or protect surviving records?",
     "options": [
       [
         "trade_grant",
         "Rebuild practice gradually; lost knowledge limits recovery."
       ],
-      ["land_trust", "Secure space for a long commitment."],
-      ["adaptive_reuse", "Keep surviving records inside a newly used space."]
+      [
+        "land_trust",
+        "Secure space for a long commitment."
+      ],
+      [
+        "adaptive_reuse",
+        "Keep surviving records inside a newly used space."
+      ]
     ],
     "consequence": "Once continuity crosses the lasting-loss threshold, grants cannot instantly restore it."
   },
@@ -58,15 +73,21 @@
     "title": "Room around a living temple",
     "place": "Thian Hock Keng · surrounding streets",
     "speaker": "youth_faiz",
-    "dialogue": "Around Thian Hock Keng, people come to worship, work and visit. A busy heritage stop should still be comfortable for neighbours to use. Can visitor spending support shared spaces and affordable premises nearby, while respecting the temple’s religious life?",
+    "dialogue": "Around Thian Hock Keng, people come to pray, work and visit. Busy is good, but the neighbours must be comfortable also. Can some visitor spending support shared spaces and affordable shops nearby? And we must respect the temple, of course.",
     "question": "Share visitor income, support nearby community premises, or invest in learning?",
     "options": [
-      ["land_trust", "Support community ownership of nearby premises."],
+      [
+        "land_trust",
+        "Support community ownership of nearby premises."
+      ],
       [
         "visitor_levy",
         "Raise funds and distribute benefits, with a ten-year sunset."
       ],
-      ["trade_grant", "Make learning and participation more viable."]
+      [
+        "trade_grant",
+        "Make learning and participation more viable."
+      ]
     ],
     "consequence": "A busy district does not automatically share its gains. Equity needs direct support."
   },
@@ -75,15 +96,21 @@
     "title": "The walk between stops",
     "place": "Ann Siang Hill",
     "speaker": "operator_jo",
-    "dialogue": "The route works on a brochure. In the afternoon, people need shade and somewhere to pause. Our staff and suppliers use these streets too. A comfortable route must work for everyday journeys as well as a guided visit.",
+    "dialogue": "On the brochure, the route looks fine. But in the afternoon, so hot. People need shade and somewhere to rest. Our staff and suppliers use these streets also, you know. The route must work for everyday life, not just the tours.",
     "question": "Cool buildings, shade the route, or raise capacity first?",
     "options": [
-      ["cooling_retrofit", "Improve comfort in existing spaces."],
+      [
+        "cooling_retrofit",
+        "Improve comfort in existing spaces."
+      ],
       [
         "pedestrianise",
         "Add shade and walking space while retaining a loading window."
       ],
-      ["visitor_levy", "Fund community improvements, with a sunset review."]
+      [
+        "visitor_levy",
+        "Fund community improvements, with a sunset review."
+      ]
     ],
     "consequence": "Cooling directly improves habitability. Pedestrianisation also attracts activity and can increase rent pressure."
   },
@@ -92,11 +119,17 @@
     "title": "A crowd is not a community",
     "place": "Smith Street",
     "speaker": "operator_jo",
-    "dialogue": "A full street helps my staff earn a living. But when every unit chases the same visitor, regular customers lose their reasons to come. I want a working visitor economy that leaves room for ordinary neighbourhood life.",
+    "dialogue": "A busy street helps my staff earn a living. But if every shop chases the same tourists, the regular customers come back for what? I want the visitor business to do well, lah, but leave some room for everyday neighbourhood life also.",
     "question": "Redistribute benefits, protect traders, or expand evening activity?",
     "options": [
-      ["visitor_levy", "Share visitor income, accepting some loss of demand."],
-      ["rent_covenant", "Protect existing traders from rising rent pressure."],
+      [
+        "visitor_levy",
+        "Share visitor income, accepting some loss of demand."
+      ],
+      [
+        "rent_covenant",
+        "Protect existing traders from rising rent pressure."
+      ],
       [
         "night_economy",
         "Bring more evening activity, with a quiet-hours agreement."
@@ -109,15 +142,21 @@
     "title": "More than a preserved doorway",
     "place": "Chinatown Heritage Centre · nearby shophouses",
     "speaker": "custodian_rahim",
-    "dialogue": "The Chinatown Heritage Centre remembers how earlier migrants lived. But the shophouses nearby also need a future. If a new business takes over one of those spaces, will it make room for local stories and living skills, or only a heritage-themed interior?",
+    "dialogue": "The Chinatown Heritage Centre remembers how the early migrants lived. But the shophouses nearby need a future also. When a new business takes over, will it keep space for local stories and skills? Or just put up some heritage decorations and call it a day?",
     "question": "Adapt the space, support teaching, or pursue shared ownership?",
     "options": [
       [
         "adaptive_reuse",
         "Allow new activity with an archive protection clause."
       ],
-      ["trade_grant", "Fund living practice instead of a display alone."],
-      ["land_trust", "Invest in long-term shared ownership."]
+      [
+        "trade_grant",
+        "Fund living practice instead of a display alone."
+      ],
+      [
+        "land_trust",
+        "Invest in long-term shared ownership."
+      ]
     ],
     "consequence": "Reuse brings activity but may increase rent pressure. Records alone do not keep a living practice alive."
   },
@@ -126,12 +165,21 @@
     "title": "More than the lunch queue",
     "place": "Maxwell Food Centre",
     "speaker": "tenant_salmah",
-    "dialogue": "Maxwell Food Centre brings people together over a meal. In this imagined future, the hawkers want more evening trade, but their working day already starts early. Can we support their livelihoods and comfortable access without making the surrounding neighbourhood harder to live in?",
+    "dialogue": "At Maxwell Food Centre, people come together over a meal. In this imagined future, the hawkers want more evening business. Understandable, lah, but their day already starts so early. Can we help them earn a living and keep access comfortable, without making life harder for the neighbours?",
     "question": "Extend evenings, improve comfort, or make room for walking?",
     "options": [
-      ["night_economy", "Expand evening activity with a noise curfew."],
-      ["cooling_retrofit", "Make existing spaces more comfortable."],
-      ["pedestrianise", "Improve walking and shade with delivery access."]
+      [
+        "night_economy",
+        "Expand evening activity with a noise curfew."
+      ],
+      [
+        "cooling_retrofit",
+        "Make existing spaces more comfortable."
+      ],
+      [
+        "pedestrianise",
+        "Improve walking and shade with delivery access."
+      ]
     ],
     "consequence": "A curfew reduces some harms; it does not remove the long-term trade-offs of night activity."
   },
@@ -140,15 +188,21 @@
     "title": "A table for the neighbourhood",
     "place": "Chinatown Complex",
     "speaker": "youth_faiz",
-    "dialogue": "At Chinatown Complex, a meal is also a reason to see familiar faces. In this imagined future, older neighbours and young workers are finding it harder to afford everyday life here. Can the district’s visitor income support them, or should we invest in community premises and the next generation of hawkers?",
+    "dialogue": "At Chinatown Complex, you come for a meal and see familiar faces also. But in this imagined future, older neighbours and young workers are finding it harder to afford life here. Can visitor income help them? Or should we put the money into community space and the next generation of hawkers?",
     "question": "Share visitor income, support community premises, or fund the next generation?",
     "options": [
-      ["land_trust", "Support community ownership of nearby premises."],
+      [
+        "land_trust",
+        "Support community ownership of nearby premises."
+      ],
       [
         "visitor_levy",
         "Raise funds and distribute benefits, with a ten-year sunset."
       ],
-      ["trade_grant", "Make learning and participation more viable."]
+      [
+        "trade_grant",
+        "Make learning and participation more viable."
+      ]
     ],
     "consequence": "A busy district does not automatically share its gains. Equity needs direct support."
   }

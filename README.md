@@ -38,7 +38,11 @@ This project uses the Next App Router API through Vinext, React, strict TypeScri
 
 ## Prerecorded dialogue
 
-The application uses local audio files and rule-based negotiation. It makes no ElevenLabs or OpenAI API calls and needs no API keys or microphone permissions. The live SDK, signed-session route and API generation scripts have been removed.
+Concern dropdowns now play bundled Singlish recordings in the saved Singaporean Chinese, Malay and Indian male/female voices, assigned per character in `scripts/generate-concerns.mjs`. Jo uses the Chinese female voice until a dedicated voice is available. Closing the dropdown, changing locations or leaving the district stops playback. If browser autoplay is blocked, the audio controls remain available. Recordings must match the current concern text exactly; stale clips fall back to text.
+
+To regenerate concern audio, set `ELEVENLABS_API_KEY` in the ignored `.env.local`, then run `node --experimental-strip-types scripts/generate-concerns.mjs`. This optional build-time script uses ElevenLabs credits and caches audio by text, voice and model. It updates the dialogue manifest after each clip and safely resumes completed work. Rebuild after generation for offline caching. Playback itself makes no live voice API calls and needs no credentials.
+
+The application uses local audio files and rule-based negotiation. It makes no ElevenLabs or OpenAI API calls and needs no API keys or microphone permissions. The live SDK and signed-session route have been removed; audio generation is an optional local script.
 
 Place supplied MP3, WAV or OGG files in `public/audio/dialogue/`. Add their exact transcripts to `public/audio/dialogue/manifest.json`:
 

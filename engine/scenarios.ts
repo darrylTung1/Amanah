@@ -58,7 +58,7 @@ export function getScenario(
             ? 'Keeping a place in Little India'
             : 'Keeping a place in Chinatown',
         dialogue:
-          'The lease is only one part of staying here. People need customers, room to learn and neighbours who can afford to remain. Which part of that promise will this council keep?',
+          'The lease is only one part, you know. We need customers, room to learn and neighbours who can still afford to stay. So which part of that promise will this council keep?',
       };
     return scene;
   }
@@ -70,7 +70,7 @@ export function getScenario(
       ...scene,
       title: 'Room to stay',
       dialogue:
-        'Keeping a trade alive means keeping room for the people who practise it. Each decision changes what staying here requires. What will make room for the next generation?',
+        'To keep a trade alive, the people doing it need room to stay also. Every decision changes what that takes. So how do we make space for the next generation?',
     };
   return scene;
 }

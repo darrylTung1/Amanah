@@ -90,7 +90,7 @@ export default function Home() {
             inert={district !== id}
             aria-hidden={district !== id}
           >
-            <CouncilGame embedded districtId={id} />
+            <CouncilGame embedded districtId={id} isActive={district === id} />
           </div>
         ))}
       </div>
