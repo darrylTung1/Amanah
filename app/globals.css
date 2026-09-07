@@ -1706,7 +1706,7 @@ summary:focus-visible {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 10px;
-  padding: 6px 0 0;
+  padding: 2px 0 0;
 }
 .game-shell .councilhead {
   margin: 0;
@@ -2245,9 +2245,10 @@ summary:focus-visible {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 24px;
-  padding: 2px 6px 0;
+  min-height: 21px;
+  padding: 0 6px;
   font-size: 14px;
+  line-height: 21px;
 }
 
 @media (max-width: 450px) {
