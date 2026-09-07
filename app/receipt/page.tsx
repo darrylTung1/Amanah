@@ -128,7 +128,7 @@ export default function Receipt() {
               <div className="winner" key={p.id}>
                 <div>
                   <p>{p.name}</p>
-                  <small>{p.role}</small>
+                  <small>{p.reason}</small>
                 </div>
                 <strong className={p.change >= 0 ? 'status' : 'warning'}>
                   {p.change >= 0 ? '+' : ''}

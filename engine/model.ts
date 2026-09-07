@@ -355,6 +355,20 @@ export const utilities = (s: State) =>
   people
     .map((p) => ({
       ...p,
+      reason: (() => {
+        const impact = keys
+          .map((key, i) => ({
+            key,
+            delta: s[key] - initial[key],
+            contribution: (s[key] - initial[key]) * p.weights[i],
+          }))
+          .sort(
+            (a, b) => Math.abs(b.contribution) - Math.abs(a.contribution),
+          )[0];
+        if (Math.abs(impact.delta) < 0.0001)
+          return 'No material change from the starting district.';
+        return `${impact.key[0].toUpperCase() + impact.key.slice(1)} ${impact.delta >= 0 ? 'rose' : 'fell'} ${Math.round(Math.abs(impact.delta) * 100)} points; their largest ${impact.contribution >= 0 ? 'gain' : 'loss'}.`;
+      })(),
       change:
         keys.reduce(
           (sum, k, i) => sum + (s[k] - initial[k]) * p.weights[i],

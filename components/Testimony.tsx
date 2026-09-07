@@ -99,7 +99,9 @@ export default function Testimony({
         <span className="gold">speaks back.</span>
       </h1>
       <p className="quote">“{text}”</p>
-      {audio && <audio className="narration-audio" controls src={audio} />}
+      {audio && (
+        <audio className="narration-audio" autoPlay controls src={audio} />
+      )}
       <div className="actions">
         {!audio && (
           <Button className="secondary" onClick={speak}>
