@@ -1,0 +1,346 @@
+[
+  {
+    "id": "keep-the-door-open",
+    "title": "Keep the door open",
+    "premise": "Protect affordability first, then skills, then everyday liveability.",
+    "moves": [
+      [
+        "rent_covenant",
+        "compensation_fund"
+      ],
+      [
+        "trade_grant"
+      ],
+      [
+        "cooling_retrofit"
+      ]
+    ],
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "trade_grant",
+          "riders": []
+        },
+        {
+          "lever": "cooling_retrofit",
+          "riders": []
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "year": 2036,
+        "values": {
+          "affordability": 61,
+          "continuity": 60,
+          "vitality": 73,
+          "equity": 45,
+          "habitability": 44
+        },
+        "capacity": 50.20867566910622
+      },
+      {
+        "year": 2050,
+        "values": {
+          "affordability": 52,
+          "continuity": 75,
+          "vitality": 88,
+          "equity": 43,
+          "habitability": 34
+        },
+        "capacity": 74.48276631386597
+      },
+      {
+        "year": 2126,
+        "values": {
+          "affordability": 2,
+          "continuity": 2,
+          "vitality": 2,
+          "equity": 2,
+          "habitability": 17
+        },
+        "capacity": 100
+      }
+    ],
+    "firstFlags": {
+      "HEAT_LOCK": 2049,
+      "EXODUS": 2067,
+      "MONOCULTURE": 2077,
+      "LINEAGE_BROKEN": 2086
+    }
+  },
+  {
+    "id": "district-that-never-sleeps",
+    "title": "The district that never sleeps",
+    "premise": "Pursue activity, reuse and visitor access; see whether success sustains the community.",
+    "moves": [
+      [
+        "night_economy",
+        "noise_curfew"
+      ],
+      [
+        "adaptive_reuse",
+        "archive_clause"
+      ],
+      [
+        "pedestrianise",
+        "loading_window"
+      ]
+    ],
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "night_economy",
+          "riders": [
+            "noise_curfew"
+          ]
+        },
+        {
+          "lever": "adaptive_reuse",
+          "riders": [
+            "archive_clause"
+          ]
+        },
+        {
+          "lever": "pedestrianise",
+          "riders": [
+            "loading_window"
+          ]
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "year": 2036,
+        "values": {
+          "affordability": 37,
+          "continuity": 47,
+          "vitality": 89,
+          "equity": 31,
+          "habitability": 39
+        },
+        "capacity": 83.14211461003006
+      },
+      {
+        "year": 2050,
+        "values": {
+          "affordability": 2,
+          "continuity": 4,
+          "vitality": 89,
+          "equity": 2,
+          "habitability": 21
+        },
+        "capacity": 100
+      },
+      {
+        "year": 2126,
+        "values": {
+          "affordability": 2,
+          "continuity": 2,
+          "vitality": 2,
+          "equity": 2,
+          "habitability": 2
+        },
+        "capacity": 100
+      }
+    ],
+    "firstFlags": {
+      "MONOCULTURE": 2039,
+      "HEAT_LOCK": 2039,
+      "EXODUS": 2043,
+      "LINEAGE_BROKEN": 2048
+    }
+  },
+  {
+    "id": "share-the-street",
+    "title": "Share the street",
+    "premise": "Raise shared resources, invest in ownership, then improve public space.",
+    "moves": [
+      [
+        "visitor_levy",
+        "sunset_10y"
+      ],
+      [
+        "land_trust",
+        "compensation_fund"
+      ],
+      [
+        "pedestrianise",
+        "loading_window"
+      ]
+    ],
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "visitor_levy",
+          "riders": [
+            "sunset_10y"
+          ]
+        },
+        {
+          "lever": "land_trust",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "pedestrianise",
+          "riders": [
+            "loading_window"
+          ]
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "year": 2036,
+        "values": {
+          "affordability": 42,
+          "continuity": 53,
+          "vitality": 69,
+          "equity": 50,
+          "habitability": 45
+        },
+        "capacity": 96.82146270137316
+      },
+      {
+        "year": 2050,
+        "values": {
+          "affordability": 43,
+          "continuity": 45,
+          "vitality": 74,
+          "equity": 57,
+          "habitability": 37
+        },
+        "capacity": 79.7336830334234
+      },
+      {
+        "year": 2126,
+        "values": {
+          "affordability": 2,
+          "continuity": 2,
+          "vitality": 2,
+          "equity": 2,
+          "habitability": 26
+        },
+        "capacity": 100
+      }
+    ],
+    "firstFlags": {
+      "MONOCULTURE": 2052,
+      "LINEAGE_BROKEN": 2064,
+      "EXODUS": 2074,
+      "HEAT_LOCK": 2094
+    }
+  },
+  {
+    "id": "teach-before-it-is-lost",
+    "title": "Teach before it is lost",
+    "premise": "Invest in skills before addressing the cost of staying, then improve habitability.",
+    "moves": [
+      [
+        "trade_grant"
+      ],
+      [
+        "rent_covenant",
+        "compensation_fund"
+      ],
+      [
+        "cooling_retrofit"
+      ]
+    ],
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "trade_grant",
+          "riders": []
+        },
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "cooling_retrofit",
+          "riders": []
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "year": 2036,
+        "values": {
+          "affordability": 40,
+          "continuity": 69,
+          "vitality": 81,
+          "equity": 39,
+          "habitability": 43
+        },
+        "capacity": 68.27496328712627
+      },
+      {
+        "year": 2050,
+        "values": {
+          "affordability": 41,
+          "continuity": 70,
+          "vitality": 91,
+          "equity": 26,
+          "habitability": 32
+        },
+        "capacity": 81.92434384333123
+      },
+      {
+        "year": 2126,
+        "values": {
+          "affordability": 2,
+          "continuity": 2,
+          "vitality": 2,
+          "equity": 2,
+          "habitability": 20
+        },
+        "capacity": 100
+      }
+    ],
+    "firstFlags": {
+      "HEAT_LOCK": 2047,
+      "EXODUS": 2053,
+      "MONOCULTURE": 2069,
+      "LINEAGE_BROKEN": 2079
+    }
+  }
+]

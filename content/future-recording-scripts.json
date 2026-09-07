@@ -1,0 +1,384 @@
+[
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl19XX0|2036",
+    "filename": "keep-the-door-open-2036.mp3",
+    "path": "keep-the-door-open",
+    "year": 2036,
+    "persona": "A neighbour, 2036",
+    "text": "I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl19LHsibGV2ZXIiOiJ0cmFkZV9ncmFudCIsInJpZGVycyI6W119XX0|2050",
+    "filename": "keep-the-door-open-2050.mp3",
+    "path": "keep-the-door-open",
+    "year": 2050,
+    "persona": "Salmah’s granddaughter, 2050",
+    "text": "My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The heat makes everyday life harder. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "trade_grant",
+          "riders": []
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl19LHsibGV2ZXIiOiJ0cmFkZV9ncmFudCIsInJpZGVycyI6W119LHsibGV2ZXIiOiJjb29saW5nX3JldHJvZml0IiwicmlkZXJzIjpbXX1dfQ|2126",
+    "filename": "keep-the-door-open-2126.mp3",
+    "path": "keep-the-door-open",
+    "year": 2126,
+    "persona": "An archivist, 2126",
+    "text": "I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "trade_grant",
+          "riders": []
+        },
+        {
+          "lever": "cooling_retrofit",
+          "riders": []
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJuaWdodF9lY29ub215IiwicmlkZXJzIjpbIm5vaXNlX2N1cmZldyJdfV19|2036",
+    "filename": "district-that-never-sleeps-2036.mp3",
+    "path": "district-that-never-sleeps",
+    "year": 2036,
+    "persona": "A neighbour, 2036",
+    "text": "I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. Staying here has become difficult for the people who made this place their home. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "night_economy",
+          "riders": [
+            "noise_curfew"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJuaWdodF9lY29ub215IiwicmlkZXJzIjpbIm5vaXNlX2N1cmZldyJdfSx7ImxldmVyIjoiYWRhcHRpdmVfcmV1c2UiLCJyaWRlcnMiOlsiYXJjaGl2ZV9jbGF1c2UiXX1dfQ|2050",
+    "filename": "district-that-never-sleeps-2050.mp3",
+    "path": "district-that-never-sleeps",
+    "year": 2050,
+    "persona": "A new tenant, 2050",
+    "text": "I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "night_economy",
+          "riders": [
+            "noise_curfew"
+          ]
+        },
+        {
+          "lever": "adaptive_reuse",
+          "riders": [
+            "archive_clause"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJuaWdodF9lY29ub215IiwicmlkZXJzIjpbIm5vaXNlX2N1cmZldyJdfSx7ImxldmVyIjoiYWRhcHRpdmVfcmV1c2UiLCJyaWRlcnMiOlsiYXJjaGl2ZV9jbGF1c2UiXX0seyJsZXZlciI6InBlZGVzdHJpYW5pc2UiLCJyaWRlcnMiOlsibG9hZGluZ193aW5kb3ciXX1dfQ|2126",
+    "filename": "district-that-never-sleeps-2126.mp3",
+    "path": "district-that-never-sleeps",
+    "year": 2126,
+    "persona": "An archivist, 2126",
+    "text": "I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "night_economy",
+          "riders": [
+            "noise_curfew"
+          ]
+        },
+        {
+          "lever": "adaptive_reuse",
+          "riders": [
+            "archive_clause"
+          ]
+        },
+        {
+          "lever": "pedestrianise",
+          "riders": [
+            "loading_window"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfV19|2036",
+    "filename": "share-the-street-2036.mp3",
+    "path": "share-the-street",
+    "year": 2036,
+    "persona": "A neighbour, 2036",
+    "text": "I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "visitor_levy",
+          "riders": [
+            "sunset_10y"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoibGFuZF90cnVzdCIsInJpZGVycyI6WyJjb21wZW5zYXRpb25fZnVuZCJdfV19|2050",
+    "filename": "share-the-street-2050.mp3",
+    "path": "share-the-street",
+    "year": 2050,
+    "persona": "Salmah’s granddaughter, 2050",
+    "text": "My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "visitor_levy",
+          "riders": [
+            "sunset_10y"
+          ]
+        },
+        {
+          "lever": "land_trust",
+          "riders": [
+            "compensation_fund"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoibGFuZF90cnVzdCIsInJpZGVycyI6WyJjb21wZW5zYXRpb25fZnVuZCJdfSx7ImxldmVyIjoicGVkZXN0cmlhbmlzZSIsInJpZGVycyI6WyJsb2FkaW5nX3dpbmRvdyJdfV19|2126",
+    "filename": "share-the-street-2126.mp3",
+    "path": "share-the-street",
+    "year": 2126,
+    "persona": "An archivist, 2126",
+    "text": "I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "visitor_levy",
+          "riders": [
+            "sunset_10y"
+          ]
+        },
+        {
+          "lever": "land_trust",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "pedestrianise",
+          "riders": [
+            "loading_window"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ0cmFkZV9ncmFudCIsInJpZGVycyI6W119XX0|2036",
+    "filename": "teach-before-it-is-lost-2036.mp3",
+    "path": "teach-before-it-is-lost",
+    "year": 2036,
+    "persona": "A neighbour, 2036",
+    "text": "I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. Staying here has become difficult for the people who made this place their home. The old trades remain a living practice. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "trade_grant",
+          "riders": []
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ0cmFkZV9ncmFudCIsInJpZGVycyI6W119LHsibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl19XX0|2050",
+    "filename": "teach-before-it-is-lost-2050.mp3",
+    "path": "teach-before-it-is-lost",
+    "year": 2050,
+    "persona": "Salmah’s granddaughter, 2050",
+    "text": "My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The heat makes everyday life harder. What happens next will depend on who keeps showing up.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "trade_grant",
+          "riders": []
+        },
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "kind": "future",
+    "key": "eyJ2IjoxLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJ0cmFkZV9ncmFudCIsInJpZGVycyI6W119LHsibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl19LHsibGV2ZXIiOiJjb29saW5nX3JldHJvZml0IiwicmlkZXJzIjpbXX1dfQ|2126",
+    "filename": "teach-before-it-is-lost-2126.mp3",
+    "path": "teach-before-it-is-lost",
+    "year": 2126,
+    "persona": "An archivist, 2126",
+    "text": "I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.",
+    "source": "script-only",
+    "record": {
+      "v": 1,
+      "weights": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "rounds": [
+        {
+          "lever": "trade_grant",
+          "riders": []
+        },
+        {
+          "lever": "rent_covenant",
+          "riders": [
+            "compensation_fund"
+          ]
+        },
+        {
+          "lever": "cooling_retrofit",
+          "riders": []
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "key": "tenant_salmah|intro",
+    "filename": "tenant_salmah-intro.mp3",
+    "direction": "Warm, direct, protective; no caricatured accent.",
+    "text": "My family sells cloth, but what we pass on is how to recognise it, handle it, and work with it. Keeping the shopfront is not enough if the work inside has nowhere to go.",
+    "kind": "council"
+  },
+  {
+    "key": "youth_faiz|intro",
+    "filename": "youth_faiz-intro.mp3",
+    "direction": "Energetic, thoughtful, impatient with token gestures.",
+    "text": "I want young people to do more than visit this neighbourhood. I want us to make things here, organise things here, and have a say in what comes next.",
+    "kind": "council"
+  },
+  {
+    "key": "custodian_rahim|intro",
+    "filename": "custodian_rahim-intro.mp3",
+    "direction": "Measured and precise; quietly concerned.",
+    "text": "Heritage is not only what survives in a cabinet. It is what someone still knows how to do, and what someone else has the chance to learn.",
+    "kind": "council"
+  },
+  {
+    "key": "landlord_teo|intro",
+    "filename": "landlord_teo-intro.mp3",
+    "direction": "Practical, composed; neither villain nor comic relief.",
+    "text": "A promise to keep rents affordable needs a plan behind it. Our obligations do not disappear when we sign. Tell me who carries the cost, and we can discuss the promise.",
+    "kind": "council"
+  },
+  {
+    "key": "operator_jo|intro",
+    "filename": "operator_jo-intro.mp3",
+    "direction": "Brisk, grounded, personable.",
+    "text": "People need a reason to come here, and businesses need a way to work. I care about the character of this street. I also need our staff and suppliers to get through the week.",
+    "kind": "council"
+  },
+  {
+    "key": "landlord_teo|rent_covenant|hold",
+    "filename": "landlord_teo-rent_covenant-hold.mp3",
+    "text": "You want a limit on rents. I need a compensation plan that makes that limit workable.",
+    "kind": "council"
+  },
+  {
+    "key": "landlord_teo|rent_covenant|compensation_fund",
+    "filename": "landlord_teo-rent_covenant-compensation_fund.mp3",
+    "text": "With an owner compensation fund, I can accept the covenant. Count that cost before you commit.",
+    "kind": "council"
+  },
+  {
+    "key": "landlord_teo|land_trust|hold",
+    "filename": "landlord_teo-land_trust-hold.mp3",
+    "text": "Community ownership needs more than a good intention. Show me how the transfer’s obligations will be covered.",
+    "kind": "council"
+  },
+  {
+    "key": "landlord_teo|land_trust|compensation_fund",
+    "filename": "landlord_teo-land_trust-compensation_fund.mp3",
+    "text": "Include the compensation fund, and I can agree to the land trust. It will take a substantial share of our capacity.",
+    "kind": "council"
+  },
+  {
+    "key": "operator_jo|pedestrianise|hold",
+    "filename": "operator_jo-pedestrianise-hold.mp3",
+    "text": "A street without cars still needs deliveries. How will our supplies reach the businesses?",
+    "kind": "council"
+  },
+  {
+    "key": "operator_jo|pedestrianise|loading_window",
+    "filename": "operator_jo-pedestrianise-loading_window.mp3",
+    "text": "Keep a morning loading window, and I can support the pedestrian scheme. We will share the street at different times.",
+    "kind": "council"
+  },
+  {
+    "key": "operator_jo|visitor_levy|hold",
+    "filename": "operator_jo-visitor_levy-hold.mp3",
+    "text": "Before you add a visitor charge, tell me when we get to reassess its effects.",
+    "kind": "council"
+  },
+  {
+    "key": "operator_jo|visitor_levy|sunset_10y",
+    "filename": "operator_jo-visitor_levy-sunset_10y.mp3",
+    "text": "Set a ten-year sunset. I can accept the levy on that condition.",
+    "kind": "council"
+  },
+  {
+    "key": "custodian_rahim|adaptive_reuse|hold",
+    "filename": "custodian_rahim-adaptive_reuse-hold.mp3",
+    "text": "Before changing the use, tell me what protects the records of the work already done here.",
+    "kind": "council"
+  },
+  {
+    "key": "custodian_rahim|adaptive_reuse|archive_clause",
+    "filename": "custodian_rahim-adaptive_reuse-archive_clause.mp3",
+    "text": "Include the archive protection clause, and I can accept the reuse. Preserving records still does not replace a living trade.",
+    "kind": "council"
+  },
+  {
+    "key": "tenant_salmah|night_economy|hold",
+    "filename": "tenant_salmah-night_economy-hold.mp3",
+    "text": "More evening trade may help businesses, but people still need rest. Where is the protection for quiet hours?",
+    "kind": "council"
+  },
+  {
+    "key": "tenant_salmah|night_economy|noise_curfew",
+    "filename": "tenant_salmah-night_economy-noise_curfew.mp3",
+    "text": "With a noise curfew, I can accept the expansion. That protection matters, even though it cannot settle every concern.",
+    "kind": "council"
+  }
+]

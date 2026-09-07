@@ -1,0 +1,202 @@
+[
+  {
+    "id": "six-weeks",
+    "title": "Six weeks to stay",
+    "place": "Arab Street textile shop",
+    "speaker": "tenant_salmah",
+    "when": "Opening round, 2026",
+    "dialogue": "This cloth came through three generations of hands. The new lease asks for more than twice the rent. I can teach someone the trade, but I cannot teach in a shop I cannot afford. What would you protect first?",
+    "question": "Keep traders in place, invest in their skills, or build community ownership?",
+    "options": [
+      [
+        "rent_covenant",
+        "Buy tenants time, with owner compensation."
+      ],
+      [
+        "trade_grant",
+        "Support apprenticeships; this does not directly reduce rent."
+      ],
+      [
+        "land_trust",
+        "Invest heavily in shared ownership."
+      ]
+    ],
+    "consequence": "Rent protection improves affordability; it does not permanently end rent pressure. A skills grant improves continuity but cannot substitute for affordable premises.",
+    "visual": "Focus the Arab Street parcel. Use its existing affordability condition; do not claim an individual eviction unless a future individual-shop model tracks it."
+  },
+  {
+    "id": "empty-stool",
+    "title": "The empty apprentice’s stool",
+    "place": "Traditional trade workshop",
+    "speaker": "custodian_rahim",
+    "when": "Later round when continuity < 0.45, unless lineage is already broken",
+    "dialogue": "The tools are still here. The question is who will learn to use them. A photograph can preserve the pattern. It cannot teach the pressure of a hand. What will make learning this trade a possible future?",
+    "question": "Support transmission of skills, protect premises, or find a new use?",
+    "options": [
+      [
+        "trade_grant",
+        "Fund teaching and apprenticeships."
+      ],
+      [
+        "rent_covenant",
+        "Reduce the pressure that makes staying difficult."
+      ],
+      [
+        "adaptive_reuse",
+        "Support a new use with an archive protection clause."
+      ]
+    ],
+    "consequence": "Grants directly support continuity. Reuse improves activity and equity, but its annual affordability penalty can undermine living trades.",
+    "visual": "Use the lineage-trades parcel condition. An empty stool is a proposed narrative prop, not an existing animated asset."
+  },
+  {
+    "id": "too-busy",
+    "title": "A street everyone visits",
+    "place": "Bussorah Street",
+    "speaker": "operator_jo",
+    "when": "Later round with vitality > 0.70 and affordability < 0.50, or MONOCULTURE",
+    "dialogue": "People come because this street feels alive. Their spending keeps our staff working. But if the people who make the place cannot stay, what exactly are we asking visitors to come and see?",
+    "question": "Keep growing visitor activity, redistribute its benefits, or protect tenants?",
+    "options": [
+      [
+        "visitor_levy",
+        "Raise community capacity and equity, with a ten-year sunset."
+      ],
+      [
+        "rent_covenant",
+        "Counter affordability pressure."
+      ],
+      [
+        "night_economy",
+        "Expand activity, accepting wider social and heat costs."
+      ]
+    ],
+    "consequence": "Higher vitality can intensify rent pressure. If MONOCULTURE is active, that stronger pressure persists even after the mix improves.",
+    "visual": "Compare visitor-economy activity with Arab Street occupancy indicators; do not equate a busy street with a healthy district."
+  },
+  {
+    "id": "after-dark",
+    "title": "Whose night is it?",
+    "place": "Food and gathering spaces",
+    "speaker": "tenant_salmah",
+    "when": "Any round when considering night-economy expansion",
+    "dialogue": "I understand why the food stalls want longer evenings. They have families to support too. But our working day starts early. If the street stays awake, who makes sure the people upstairs can sleep?",
+    "question": "Expand the evening economy, improve daytime access, or invest in cooling?",
+    "options": [
+      [
+        "night_economy",
+        "Negotiate a noise curfew before expansion."
+      ],
+      [
+        "pedestrianise",
+        "Improve walking and shade while retaining delivery access."
+      ],
+      [
+        "cooling_retrofit",
+        "Improve habitability without directly expanding activity."
+      ]
+    ],
+    "consequence": "The curfew softens the night policy’s habitability and equity penalties and reduces its immediate vitality boost. It does not remove the continuity penalty.",
+    "visual": "Night lighting is proposed. Existing board activity and conditions can already show the calculated trade-off."
+  },
+  {
+    "id": "hot-afternoon",
+    "title": "The afternoon nobody stays",
+    "place": "Shade corridor",
+    "speaker": "operator_jo",
+    "when": "Later round with habitability < 0.40, or HEAT_LOCK",
+    "dialogue": "Getting people here is only half the work. They need a street they can walk along, somewhere to pause, somewhere to sit. And our deliveries still need a way through. Can we make room for all of that?",
+    "question": "Cool existing buildings, redesign the street, or raise money first?",
+    "options": [
+      [
+        "cooling_retrofit",
+        "Directly improve habitability."
+      ],
+      [
+        "pedestrianise",
+        "Add shade and walking space with a morning loading window."
+      ],
+      [
+        "visitor_levy",
+        "Raise capacity, without directly repairing heat conditions."
+      ]
+    ],
+    "consequence": "HEAT_LOCK halves positive habitability recovery and adds a vitality penalty. Cooling is more effective before the threshold is crossed.",
+    "visual": "Use the existing shade corridor and tree-health changes; heat shimmer and crowd avoidance remain proposed."
+  },
+  {
+    "id": "who-belongs",
+    "title": "Who gets to belong?",
+    "place": "Community courtyard",
+    "speaker": "youth_faiz",
+    "when": "Later round with equity < 0.35, or EXODUS",
+    "dialogue": "We keep inviting the next generation to take part. Taking part needs space, time, and a reason to believe you can stay. When we say this is a place for everyone, who gets to help make that true?",
+    "question": "Change ownership, share visitor income, or invest in learning?",
+    "options": [
+      [
+        "land_trust",
+        "Support affordability and equity at a high capacity cost."
+      ],
+      [
+        "visitor_levy",
+        "Redistribute visitor gains and raise capacity."
+      ],
+      [
+        "trade_grant",
+        "Support skills with a smaller annual equity benefit."
+      ]
+    ],
+    "consequence": "Once EXODUS has triggered, equity cannot rise above 0.50 in this model. Later improvements do not automatically rebuild lost networks.",
+    "visual": "Highlight residents and makers, then show the actual equity condition and irreversible flag."
+  },
+  {
+    "id": "new-keys",
+    "title": "New keys, old walls",
+    "place": "Bussorah Street shophouse",
+    "speaker": "custodian_rahim",
+    "when": "Any round when considering adaptive reuse; use when later-round vitality < 0.40",
+    "dialogue": "I am not asking you to leave every room untouched. A building needs a use. I am asking what the new use will remember, and whether the old work has any place inside it.",
+    "question": "Change the building’s use, invest in its trade, or cool it for everyday use?",
+    "options": [
+      [
+        "adaptive_reuse",
+        "Accept an archive protection clause and its added cost."
+      ],
+      [
+        "trade_grant",
+        "Strengthen living practice."
+      ],
+      [
+        "cooling_retrofit",
+        "Improve habitability; this does not directly create economic activity."
+      ]
+    ],
+    "consequence": "Archive protection adds immediate continuity and costs six capacity. It does not cancel the reuse policy’s annual affordability penalty.",
+    "visual": "Use the existing continuity and vitality conditions. A detailed before-and-after interior is proposed."
+  },
+  {
+    "id": "cannot-relearn",
+    "title": "The pattern no one can teach",
+    "place": "Traditional trade workshop",
+    "speaker": "custodian_rahim",
+    "when": "Later round with LINEAGE_BROKEN; highest narrative priority",
+    "dialogue": "We can keep the tools. We can keep the records. But a record is not a teacher. Some of what held this trade together has already been lost. What will you protect now, knowing it will not restore everything?",
+    "question": "Support remaining knowledge, protect remaining tenants, or sustain public space?",
+    "options": [
+      [
+        "trade_grant",
+        "Support surviving practice, within the recovery limit."
+      ],
+      [
+        "land_trust",
+        "Improve conditions for people who remain."
+      ],
+      [
+        "cooling_retrofit",
+        "Protect everyday habitability."
+      ]
+    ],
+    "consequence": "LINEAGE_BROKEN caps annual continuity recovery at 0.003. A grant still has its immediate effect; the flag is never removed.",
+    "visual": "Show the flag and its actual trigger year on the receipt. Do not describe a grant as restoring a vanished lineage."
+  }
+]
