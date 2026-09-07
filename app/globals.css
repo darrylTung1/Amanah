@@ -1606,10 +1606,13 @@ summary:focus-visible {
 .game-shell {
   height: 100dvh;
   display: grid;
-  grid-template-rows: 60px auto minmax(0, 1fr);
+  grid-template-rows: 60px minmax(0, 1fr);
   padding: 0 20px 12px;
   max-width: 1800px;
   overflow: hidden;
+}
+.game-shell.standalone-council {
+  grid-template-rows: 60px auto minmax(0, 1fr);
 }
 .game-shell .topbar {
   height: 60px;
@@ -1852,6 +1855,9 @@ summary:focus-visible {
 @media (max-width: 750px) {
   .game-shell {
     padding: 0 10px 8px;
+    grid-template-rows: 52px minmax(0, 1fr);
+  }
+  .game-shell.standalone-council {
     grid-template-rows: 52px auto minmax(0, 1fr);
   }
   .game-shell .topbar {

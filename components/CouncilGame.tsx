@@ -302,7 +302,11 @@ export default function CouncilGame({
     );
   }
   return (
-    <div className={embedded ? 'embedded-council' : 'shell game-shell'}>
+    <div
+      className={
+        embedded ? 'embedded-council' : 'shell game-shell standalone-council'
+      }
+    >
       {!embedded && <Header demo={demo} district={district} />}
       <div className="game-save-bar">
         <output aria-live="polite">{saveStatus}</output>
