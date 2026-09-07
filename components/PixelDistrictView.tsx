@@ -25,7 +25,24 @@ export default function PixelDistrictView({ state, compact = false, onParcel, di
   const [failed, setFailed] = useState('');
   const [zoomDone, setZoomDone] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [backgrounds, setBackgrounds] = useState<Record<string, string>>({});
   const src = selected ? artwork(state, selected) : '';
+  function matchBackground(image: HTMLImageElement, path: string) {
+    // Read only the empty corners so buildings do not tint the surrounding space.
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 16;
+    const context = canvas.getContext('2d', { willReadFrequently: true });
+    if (!context) return;
+    try {
+      context.drawImage(image, 0, 0, 16, 16);
+      const corners = [[0, 0], [15, 0], [0, 15], [15, 15]].map(([x, y]) => {
+        const [r, g, b] = context.getImageData(x, y, 1, 1).data;
+        return `rgb(${r} ${g} ${b})`;
+      });
+      const background = `radial-gradient(ellipse at top left, ${corners[0]}, transparent 70%), radial-gradient(ellipse at top right, ${corners[1]}, transparent 70%), linear-gradient(to right, ${corners[2]}, ${corners[3]})`;
+      setBackgrounds((previous) => ({ ...previous, [path]: background }));
+    } catch { /* Keep the neutral background if pixel access is unavailable. */ }
+  }
   function select(location: ArtLocation) {
     setZoomDone(selected !== null);
     setRevealed(selected !== null);
@@ -39,11 +56,12 @@ export default function PixelDistrictView({ state, compact = false, onParcel, di
   }
   return (
     <div className={`clothframe chinatown-art ${compact ? 'chinatown-art-compact' : ''}`}>
-      <div className="chinatown-art-stage">
+      <div className="chinatown-art-stage" style={{ background: backgrounds[selected && loaded === src && zoomDone ? src : overview] }}>
         <div className="chinatown-art-square">
           {!revealed && <m.img
             className="chinatown-overview"
             src={overview}
+            onLoad={(event) => matchBackground(event.currentTarget, overview)}
             alt={`Illustrated ${name} district, ${state.year}`}
             style={{ transformOrigin: selected ? `${selected.x}% ${selected.y}%` : '50% 50%' }}
             initial={false}
@@ -66,7 +84,7 @@ export default function PixelDistrictView({ state, compact = false, onParcel, di
               animate={{ opacity: loaded === src && zoomDone ? 1 : 0, scale: loaded === src && zoomDone ? 1 : 1.06 }}
               transition={{ opacity: { duration: 0.65, ease: 'easeInOut' }, scale: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } }}
               onAnimationComplete={() => { if (loaded === src && zoomDone) setRevealed(true); }}
-              onLoad={() => { setLoaded(src); setFailed(''); }}
+              onLoad={(event) => { matchBackground(event.currentTarget, src); setLoaded(src); setFailed(''); }}
               onError={() => setFailed(src)} />
           )}
         </div>
