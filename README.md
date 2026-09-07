@@ -1,6 +1,6 @@
-# Current game: three-period programmes (model v2)
+# Current game: three-period programmes (model v3)
 
-New games require two distinct policies per period, with an optional third. Older one-policy records still replay. Additions preview immediate effects; advancing commits the programme. Twenty capacity is added in 2036 and 2050. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 receipts retain their original equations.
+New games require two distinct policies per period, with an optional third. Older one-policy records still replay. Additions preview immediate effects; advancing commits the programme. New councils act in 2026, 2060 and 2093, reaching 2126 after intervals of 34, 33 and 33 years. Twenty capacity is added in 2060 and 2093. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 and v2 receipts retain their original equations and 2026 / 2036 / 2050 schedule. Version 3 changes timing only; it uses the same policy coefficients and maintenance rules as version 2.
 
 The overall district rating equally averages all five conditions (20% each), rounded once to /100. Categories below 30 are flagged separately; capacity and lasting harms are not folded into the score.
 
@@ -21,7 +21,7 @@ npm ci
 npm run dev
 ```
 
-Open the printed local URL. Click Kampong Glam on the Singapore map to enter the playable council immediately. There is no introduction or allocation screen; starting priorities default to [3,3,2,2]. Negotiate or choose an unrestricted policy and make three moves. The island and council stay mounted, so returning to the map preserves the game and camera without navigation. The horizons are 2026 → 2036 → 2050 → 2126. The last move is enacted in 2050; policies then decay over the long final horizon.
+Open the printed local URL. Click Kampong Glam on the Singapore map to enter the playable council immediately. There is no introduction or allocation screen; starting priorities default to [3,3,2,2]. Negotiate or choose an unrestricted policy and make three moves. The island and council stay mounted, so returning to the map preserves the game and camera without navigation. The new-game horizons are 2026 → 2060 → 2093 → 2126. The final intervention is in 2093, leaving 33 years until the ending.
 
 ```sh
 npm test
@@ -102,7 +102,7 @@ Trust dividend is a beneficial legacy, not listed as an unresolved harm. Utiliti
 
 ### Model limits worth explaining to judges
 
-The coefficients are illustrative, not calibrated urban forecasts. With three interventions ending in 2050, many trajectories converge to severe decline by 2126. This is an outcome of the supplied equations and long horizon, not hidden balancing. Intermediate-year tables and first-trigger dates expose differences that a final score alone would hide. A higher utility than another stakeholder does not necessarily mean an absolute gain.
+The coefficients are illustrative, not calibrated urban forecasts. For legacy v1 games, three interventions ending in 2050 often converge to severe decline by 2126. New v3 games spread the interventions across the century, but poor choices can still cause irreversible harm. This is an outcome of the supplied equations and long horizon, not hidden balancing. Intermediate-year tables and first-trigger dates expose differences that a final score alone would hide. A higher utility than another stakeholder does not necessarily mean an absolute gain.
 
 Intent weights are priorities out of ten; outcome indices are conditions out of a hundred. The paired receipt bars deliberately label those different units. They should not be interpreted as a numerical promise-fulfilment score.
 

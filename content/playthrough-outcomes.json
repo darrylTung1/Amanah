@@ -2,7 +2,7 @@
   {
     "id": "shared-stewardship",
     "record": {
-      "v": 2,
+      "v": 3,
       "weights": [
         3,
         3,
@@ -55,20 +55,20 @@
       ]
     },
     "final": {
-      "affordability": 63,
-      "continuity": 98,
-      "vitality": 98,
-      "equity": 82,
-      "habitability": 63
+      "affordability": 60,
+      "continuity": 90,
+      "vitality": 84,
+      "equity": 73,
+      "habitability": 67
     },
     "firstFlags": {
-      "TRUST_DIVIDEND": 2055
+      "TRUST_DIVIDEND": 2098
     }
   },
   {
     "id": "visitor-boom",
     "record": {
-      "v": 2,
+      "v": 3,
       "weights": [
         3,
         3,
@@ -123,21 +123,21 @@
     "final": {
       "affordability": 2,
       "continuity": 2,
-      "vitality": 8,
+      "vitality": 10,
       "equity": 2,
-      "habitability": 21
+      "habitability": 20
     },
     "firstFlags": {
-      "MONOCULTURE": 2047,
-      "EXODUS": 2052,
-      "LINEAGE_BROKEN": 2062,
-      "HEAT_LOCK": 2070
+      "MONOCULTURE": 2048,
+      "HEAT_LOCK": 2049,
+      "EXODUS": 2054,
+      "LINEAGE_BROKEN": 2064
     }
   },
   {
     "id": "skills-first",
     "record": {
-      "v": 2,
+      "v": 3,
       "weights": [
         3,
         3,
@@ -180,14 +180,14 @@
       ]
     },
     "final": {
-      "affordability": 31,
-      "continuity": 71,
-      "vitality": 89,
-      "equity": 18,
-      "habitability": 54
+      "affordability": 21,
+      "continuity": 57,
+      "vitality": 80,
+      "equity": 2,
+      "habitability": 57
     },
     "firstFlags": {
-      "EXODUS": 2119
+      "EXODUS": 2088
     }
   }
 ]

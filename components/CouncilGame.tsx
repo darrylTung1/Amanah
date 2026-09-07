@@ -10,6 +10,8 @@ import RecordedDialogue from '@/components/RecordedDialogue';
 import { Button } from '@/components/ui/button';
 import {
   allMoves,
+  councilYears,
+  outcomeYears,
   programme,
   type Decision,
   decode,
@@ -34,7 +36,7 @@ import {
   policyOwner,
 } from '@/engine/scenarios';
 import scripts from '@/content/council-recording-scripts.json';
-const base: DecisionRecord = { v: 2, weights: [3, 3, 2, 2], rounds: [] };
+const base: DecisionRecord = { v: 3, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
 }: {
@@ -77,14 +79,14 @@ export default function CouncilGame({
         <a href={'/receipt?d=' + encode(record)}>Open your legacy receipt →</a>
       </main>
     );
-  const year = [2026, 2036, 2050][record.rounds.length] ?? 2126;
+  const year = councilYears(record)[record.rounds.length] ?? 2126;
   const original = run(record, year).at(-1)!;
   const previewRecord = draft.length
     ? { ...record, rounds: [...record.rounds, programme(draft)] }
     : record;
   const state = run(previewRecord, year).at(-1)!;
-  const minPolicies = record.v === 2 ? 2 : 1;
-  const maxPolicies = record.v === 2 ? 3 : 1;
+  const minPolicies = record.v >= 2 ? 2 : 1;
+  const maxPolicies = record.v >= 2 ? 3 : 1;
   const scene = getScenario(sceneId ?? leadScenario(original), state);
   const speaker = people.find((p) => p.id === scene.speaker)!;
   const owner = lever ? policyOwner(lever) : null;
@@ -164,7 +166,7 @@ export default function CouncilGame({
   function commit() {
     if (!record || draft.length < minPolicies) return;
     const next = { ...record, rounds: [...record.rounds, programme(draft)] };
-    const target = [2036, 2050, 2126][record.rounds.length];
+    const target = outcomeYears(record)[record.rounds.length];
     const result = run(next, target).at(-1)!;
     if (!embedded)
       history.replaceState(
@@ -359,14 +361,14 @@ export default function CouncilGame({
                     </p>
                   )}
                   <p className="small">
-                    {record.v === 2 &&
+                    {record.v >= 2 &&
                     allMoves(record).some((d) => d.lever === lever)
                       ? 'Renewal replaces the earlier policy; immediate effect is halved: '
                       : 'Immediate effect: '}{' '}
                     {Object.entries(selected.immediate)
                       .map(
                         ([k, v]) =>
-                          `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100 * (record.v === 2 && allMoves(record).some((d) => d.lever === lever) ? 0.5 : 1))}`,
+                          `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100 * (record.v >= 2 && allMoves(record).some((d) => d.lever === lever) ? 0.5 : 1))}`,
                       )
                       .join(' · ')}
                   </p>
@@ -451,7 +453,7 @@ export default function CouncilGame({
               disabled={draft.length < minPolicies}
               onClick={commit}
             >
-              Advance to {[2036, 2050, 2126][record.rounds.length]} →
+              Advance to {outcomeYears(record)[record.rounds.length]} →
             </Button>
           </div>
         </main>

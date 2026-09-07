@@ -3,17 +3,19 @@ export function testimony(s: State) {
   const persona =
     s.year === 2126
       ? 'An archivist, 2126'
-      : s.year === 2050
+      : s.year === 2050 || s.year === 2060 || s.year === 2093
         ? s.affordability >= 0.4
-          ? 'Salmah’s granddaughter, 2050'
-          : 'A new tenant, 2050'
-        : 'A neighbour, 2036';
+          ? `Salmah’s ${s.year === 2093 ? 'great-granddaughter' : 'granddaughter'}, ${s.year}`
+          : `A new tenant, ${s.year}`
+        : `A neighbour, ${s.year}`;
   const opening =
     s.year === 2126
       ? 'I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik.'
-      : s.year === 2050
+      : s.year === 2050 || s.year === 2060 || s.year === 2093
         ? s.affordability >= 0.4
-          ? 'My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street.'
+          ? s.year === 2093
+            ? 'My family passed down Salmah’s knowledge of cloth. I think of her when I walk along Arab Street.'
+            : 'My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street.'
           : 'I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway.'
         : 'I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it.';
   const lines = [

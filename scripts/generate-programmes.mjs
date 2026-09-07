@@ -1,6 +1,8 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import {
   run,
+  councilYears,
+  outcomeYears,
   programme,
   encode,
   keys,
@@ -52,16 +54,16 @@ const paths = [
   },
 ];
 let report =
-  '# Current programmes — model v2\n\nThree periods, two required policies and an optional third each. These are fictional scenarios computed by the game, not forecasts. Existing v1 links use the previous engine. All policy costs, conditions and final values below are computed from source.\n\n';
+  '# Current programmes — model v3\n\nThree periods, two required policies and an optional third each. These are fictional scenarios computed by the game, not forecasts. Existing v1 and v2 links retain their original equations and 2026 / 2036 / 2050 decision years. New councils use 2026 / 2060 / 2093, with a final outcome in 2126. All policy costs, conditions and final values below are computed from source.\n\n';
 report +=
-  '## How the game plays\n\nEnter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add two or three different policies, then advance to 2036, 2050 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.\n\n';
+  '## How the game plays\n\nEnter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add two or three different policies, then advance to 2060, 2093 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.\n\n';
 report +=
-  '## Balance rules\n\nNew periods add 20 capacity. Annual capacity can fund upkeep at 1.2% of each policy’s positive upfront cost, retaining at least 60% of its annual strength. Positive policy effects are multiplied by (1 − the current index), so higher conditions have diminishing returns. Renewals have half the immediate effect and replace the old policy. Sunset policies keep their specified decay and receive no maintenance floor. Version 2 has gentler baseline drift and couplings; the exact coefficients are in engine/model.ts. The five irreversible thresholds remain.\n\n';
+  '## Balance rules\n\nNew periods add 20 capacity. Annual capacity can fund upkeep at 1.2% of each policy’s positive upfront cost, retaining at least 60% of its annual strength. Positive policy effects are multiplied by (1 − the current index), so higher conditions have diminishing returns. Renewals have half the immediate effect and replace the old policy. Sunset policies keep their specified decay and receive no maintenance floor. Versions 2 and 3 have gentler baseline drift and couplings; the exact coefficients are in engine/model.ts. The five irreversible thresholds remain.\n\n';
 const scripts = [],
   outcomes = [];
 for (const p of paths) {
   const record = {
-    v: 2,
+    v: 3,
     weights: [3, 3, 2, 2],
     rounds: p.rounds.map(programme),
   };
@@ -72,11 +74,11 @@ for (const p of paths) {
     '\n\n| Period | Programme | Upfront cost | Horizon | A | C | V | E | H |\n|---|---|---:|---:|---:|---:|---:|---:|---:|\n';
   for (let i = 0; i < 3; i++) {
     const prefix = { ...record, rounds: record.rounds.slice(0, i + 1) },
-      year = [2036, 2050, 2126][i];
+      year = outcomeYears(record)[i];
     const state = run(prefix, year).at(-1);
     report +=
       '| ' +
-      [2026, 2036, 2050][i] +
+      councilYears(record)[i] +
       ' | ' +
       p.rounds[i].map((m) => levers[m.lever].name).join(' + ') +
       ' | ' +
@@ -130,7 +132,7 @@ const council = JSON.parse(
 );
 const scenes = JSON.parse(await readFile('content/scenarios.json', 'utf8'));
 let text =
-  '# Current recording scripts — model v2\n\nWritten scripts only; no generated audio. Match each filename and key to its exact scene or decision record. Old v1 recordings are never reused for new v2 outcomes.\n\n';
+  '# Current recording scripts — model v3\n\nWritten scripts only; no generated audio. Match each filename and key to its exact scene or decision record. Old v1 recordings are never reused for new v2 outcomes.\n\n';
 for (const clip of council)
   text +=
     '## ' +

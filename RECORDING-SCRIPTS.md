@@ -1,4 +1,4 @@
-# Current recording scripts — model v2
+# Current recording scripts — model v3
 
 Written scripts only; no generated audio. Match each filename and key to its exact scene or decision record. Old v1 recordings are never reused for new v2 outcomes.
 
@@ -158,17 +158,17 @@ Key: scene|six-weeks|later · Speaker: tenant_salmah
 
 > Keeping a trade alive means keeping room for the people who practise it. Each decision changes what staying here requires. What will make room for the next generation?
 
-## shared-stewardship-2036.mp3
+## shared-stewardship-2060.mp3
 
-Voice: A neighbour, 2036
+Voice: Salmah’s granddaughter, 2060
 
-> I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
 
-## shared-stewardship-2050.mp3
+## shared-stewardship-2093.mp3
 
-Voice: Salmah’s granddaughter, 2050
+Voice: Salmah’s great-granddaughter, 2093
 
-> My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> My family passed down Salmah’s knowledge of cloth. I think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
 
 ## shared-stewardship-2126.mp3
 
@@ -176,17 +176,17 @@ Voice: An archivist, 2126
 
 > I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
 
-## visitor-boom-2036.mp3
+## visitor-boom-2060.mp3
 
-Voice: A neighbour, 2036
+Voice: A new tenant, 2060
 
-> I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. There is still room for people to stay, but it takes effort to hold that room open. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The heat makes everyday life harder. What happens next will depend on who keeps showing up.
 
-## visitor-boom-2050.mp3
+## visitor-boom-2093.mp3
 
-Voice: A new tenant, 2050
+Voice: A new tenant, 2093
 
-> I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.
 
 ## visitor-boom-2126.mp3
 
@@ -194,21 +194,21 @@ Voice: An archivist, 2126
 
 > I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades have thinned; keeping a building does not keep a skill alive. The street’s economy has faded. The gains have not reached the community fairly. The heat makes everyday life harder. Some knowledge in this record cannot simply be taught again.
 
-## skills-first-2036.mp3
+## skills-first-2060.mp3
 
-Voice: A neighbour, 2036
+Voice: A new tenant, 2060
 
-> I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.
 
-## skills-first-2050.mp3
+## skills-first-2093.mp3
 
-Voice: Salmah’s granddaughter, 2050
+Voice: A new tenant, 2093
 
-> My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street. There is still room for people to stay, but it takes effort to hold that room open. The old trades remain a living practice. Visitors and commerce keep the street busy. Some of the gains reach the people who live and work here. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway. Staying here has become difficult for the people who made this place their home. The old trades remain a living practice. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.
 
 ## skills-first-2126.mp3
 
 Voice: An archivist, 2126
 
-> I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades remain a living practice. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.
+> I am reading the record of Arab Street. Salmah’s name sits beside a folded piece of batik. Staying here has become difficult for the people who made this place their home. The old trades are still practised, though their future remains fragile. Visitors and commerce keep the street busy. The gains have not reached the community fairly. The street is still a place people can use. What happens next will depend on who keeps showing up.
 

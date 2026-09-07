@@ -139,10 +139,17 @@ export function programme(moves: Decision[]): Decision {
   };
 }
 export type DecisionRecord = {
-  v: 1 | 2;
+  v: 1 | 2 | 3;
   weights: [number, number, number, number];
   rounds: Decision[];
 };
+// Versioned schedules preserve every previously shared decision record.
+export const councilYears = (r: Pick<DecisionRecord, 'v'>): number[] =>
+  r.v === 3 ? [2026, 2060, 2093] : [2026, 2036, 2050];
+export const outcomeYears = (r: Pick<DecisionRecord, 'v'>): number[] => [
+  ...councilYears(r).slice(1),
+  2126,
+];
 export function allowedRiders(id: LeverId): RiderId[] {
   return [
     'sunset_10y',
@@ -257,18 +264,17 @@ export function run(record: DecisionRecord, end = 2126): State[] {
   const timeline: State[] = [];
   const active: { p: Policy; id: LeverId; year: number; sunset: boolean }[] =
     [];
-  if (record.v === 2) s.investments = [];
+  if (record.v >= 2) s.investments = [];
   while (s.year <= end) {
-    const round = [2026, 2036, 2050].indexOf(s.year);
-    if (record.v === 2 && round > 0)
-      s.capacity = clamp(s.capacity + 20, 0, 100);
+    const round = councilYears(record).indexOf(s.year);
+    if (record.v >= 2 && round > 0) s.capacity = clamp(s.capacity + 20, 0, 100);
     const d = record.rounds[round];
     for (const move of d ? roundMoves(d) : []) {
       const p = policy(move);
       if (s.capacity < p.cost) throw Error('Insufficient capacity');
       s.capacity = clamp(s.capacity - p.cost, 0, 100);
       const existing =
-        record.v === 2 ? active.findIndex((a) => a.id === move.lever) : -1;
+        record.v >= 2 ? active.findIndex((a) => a.id === move.lever) : -1;
       for (const k of keys)
         s[k] = clamp(s[k] + (p.immediate[k] ?? 0) * (existing >= 0 ? 0.5 : 1));
       if (existing >= 0) active.splice(existing, 1);
@@ -300,7 +306,7 @@ export function run(record: DecisionRecord, end = 2126): State[] {
       equity: -0.005 + 0.05 * (A - 0.5) - 0.03 * Math.max(0, V - 0.7),
       habitability: -0.004 - 0.02 * Math.max(0, V - 0.65),
     };
-    if (record.v === 2) {
+    if (record.v >= 2) {
       delta.affordability =
         -0.003 -
         (s.flags.includes('MONOCULTURE') ? 0.028 : 0.014) *
@@ -325,7 +331,7 @@ export function run(record: DecisionRecord, end = 2126): State[] {
           : Math.pow(a.p.decay, age);
       // Version 2 funds ongoing stewardship from annual capacity, rather than abandoning every policy.
       const maintained =
-        record.v === 2 &&
+        record.v >= 2 &&
         !a.sunset &&
         s.capacity >= Math.max(0, a.p.cost) * 0.012;
       const maintenance = maintained ? Math.max(0, a.p.cost) * 0.012 : 0;
@@ -333,7 +339,7 @@ export function run(record: DecisionRecord, end = 2126): State[] {
       const decay = maintained ? Math.max(0.6, rawDecay) : rawDecay;
       for (const k of keys) {
         const effect = (a.p.annual[k] ?? 0) * decay;
-        delta[k] += effect * (record.v === 2 && effect > 0 ? 1 - s[k] : 1);
+        delta[k] += effect * (record.v >= 2 && effect > 0 ? 1 - s[k] : 1);
       }
     }
     if (s.flags.includes('TRUST_DIVIDEND')) {
@@ -374,7 +380,7 @@ export function validate(x: unknown): asserts x is DecisionRecord {
   if (!x || typeof x !== 'object') throw Error('Invalid decision record');
   const r = x as DecisionRecord;
   if (
-    ![1, 2].includes(r.v) ||
+    ![1, 2, 3].includes(r.v) ||
     !Array.isArray(r.weights) ||
     r.weights.length !== 4 ||
     r.weights.some((n) => !Number.isInteger(n) || n < 0 || n > 10) ||
@@ -388,11 +394,11 @@ export function validate(x: unknown): asserts x is DecisionRecord {
       throw Error('Invalid decision');
     if (
       d.actions !== undefined &&
-      (r.v !== 2 || !Array.isArray(d.actions) || d.actions.length > 2)
+      (r.v === 1 || !Array.isArray(d.actions) || d.actions.length > 2)
     )
       throw Error('Invalid programme');
     const moves = roundMoves(d);
-    if (r.v === 2 && new Set(moves.map((m) => m.lever)).size !== moves.length)
+    if (r.v >= 2 && new Set(moves.map((m) => m.lever)).size !== moves.length)
       throw Error('Duplicate policy within a period');
     for (const move of moves) {
       if (

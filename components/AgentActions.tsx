@@ -44,7 +44,7 @@ export default function AgentActions() {
             annotations: { readOnlyHint: false, untrustedContentHint: false },
             execute(input) {
               const record = {
-                v: 2,
+                v: 3,
                 weights: (input as { weights: unknown }).weights,
                 rounds: [],
               };

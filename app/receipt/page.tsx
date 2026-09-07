@@ -7,6 +7,7 @@ import DistrictHistory from '@/components/DistrictHistory';
 import { Button } from '@/components/ui/button';
 import {
   roundMoves,
+  councilYears,
   decode,
   encode,
   run,
@@ -120,7 +121,7 @@ export default function Receipt() {
               At 2126, affordability is{' '}
               {Math.round((final.affordability - baseline.affordability) * 100)}{' '}
               points above the do-nothing trajectory.{' '}
-              {record.v === 2
+              {record.v >= 2
                 ? 'Ongoing policies are maintained from annual capacity.'
                 : 'A century without renewed policy can erase early gains.'}
             </p>
@@ -167,7 +168,7 @@ export default function Receipt() {
             <h2>Your programmes. A century.</h2>
             {record.rounds.map((d, i) => (
               <div className="winner" key={i}>
-                <span className="gold">{[2026, 2036, 2050][i]}</span>
+                <span className="gold">{councilYears(record)[i]}</span>
                 <div style={{ flex: 1 }}>
                   <p>
                     {roundMoves(d)
@@ -188,7 +189,10 @@ export default function Receipt() {
           </section>
           <section className="receiptcard">
             <h2>The years in between.</h2>
-            <DistrictHistory timeline={timeline} />
+            <DistrictHistory
+              timeline={timeline}
+              decisionYears={councilYears(record)}
+            />
             <details className="history-data">
               <summary>Data table</summary>
               <table className="history">
@@ -206,17 +210,19 @@ export default function Receipt() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[2026, 2036, 2050, 2075, 2100, 2126].map((y) => {
-                    const s = timeline.find((s) => s.year === y)!;
-                    return (
-                      <tr key={y}>
-                        <td>{y}</td>
-                        {keys.map((k) => (
-                          <td key={k}>{Math.round(s[k] * 100)}</td>
-                        ))}
-                      </tr>
-                    );
-                  })}
+                  {[...new Set([...councilYears(record), 2075, 2100, 2126])]
+                    .sort((a, b) => a - b)
+                    .map((y) => {
+                      const s = timeline.find((s) => s.year === y)!;
+                      return (
+                        <tr key={y}>
+                          <td>{y}</td>
+                          {keys.map((k) => (
+                            <td key={k}>{Math.round(s[k] * 100)}</td>
+                          ))}
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </details>

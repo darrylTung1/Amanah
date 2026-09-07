@@ -4,7 +4,13 @@ import { useReducedMotion } from 'motion/react';
 import * as m from 'motion/react-m';
 import { keys, type Metric, type State } from '@/engine/model';
 
-export default function DistrictHistory({ timeline }: { timeline: State[] }) {
+export default function DistrictHistory({
+  timeline,
+  decisionYears,
+}: {
+  timeline: State[];
+  decisionYears: number[];
+}) {
   const [metric, setMetric] = useState<Metric>('affordability');
   const reduced = useReducedMotion();
   const first = timeline[0];
@@ -65,7 +71,7 @@ export default function DistrictHistory({ timeline }: { timeline: State[] }) {
           strokeWidth="3"
           strokeLinejoin="round"
         />
-        {[first.year, 2050, last.year]
+        {[...decisionYears, last.year]
           .filter((year, i, all) => all.indexOf(year) === i)
           .map((year) => (
             <text key={year} x={x(year)} y="168" textAnchor="middle">

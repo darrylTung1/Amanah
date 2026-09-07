@@ -1,4 +1,4 @@
-import { run, validate } from '@/engine/model';
+import { run, validate, outcomeYears } from '@/engine/model';
 import { recordedTestimony } from '@/content/recordings';
 import { readBody, sameOrigin } from '@/lib/server';
 
@@ -8,8 +8,8 @@ export async function POST(request: Request) {
     const b = await readBody(request);
     validate(b.record);
     if (
-      ![2036, 2050, 2126].includes(b.year) ||
-      b.record.rounds.length !== [2036, 2050, 2126].indexOf(b.year) + 1
+      !outcomeYears(b.record).includes(b.year) ||
+      b.record.rounds.length !== outcomeYears(b.record).indexOf(b.year) + 1
     )
       throw Error('Invalid horizon');
     const state = run(b.record, b.year).at(-1)!;
