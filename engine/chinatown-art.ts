@@ -8,7 +8,7 @@ export const chinatownLocations = [
 ] as const;
 export type ChinatownLocation = (typeof chinatownLocations)[number];
 
-export function chinatownArtwork(state: State, location: ChinatownLocation) {
+export function chinatownArtwork(state: State, location: { start: string; future: string }) {
   const score = districtRating(state).score;
   // The supplied 2094 artwork represents the game's final (2093) council.
   const stage = state.year >= 2093 ? '2094' : state.year >= 2060 ? '2060' : 'start';

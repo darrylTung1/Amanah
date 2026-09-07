@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { districtParcels } from './district/parcels';
 import { districtNames } from '@/engine/districts';
 import type { DistrictView } from './district/scene';
-import ChinatownView from './ChinatownView';
+import PixelDistrictView from './PixelDistrictView';
 export default function Cloth({
   state,
   district = 'kampong-glam',
@@ -19,8 +19,8 @@ export default function Cloth({
   onParcel?: (id: string) => void;
   selectedParcel?: string;
 }) {
-  if (district === 'chinatown')
-    return <ChinatownView state={state} compact={compact} onParcel={onParcel} />;
+  if (district === 'chinatown' || district === 'kampong-glam')
+    return <PixelDistrictView key={district} district={district} state={state} compact={compact} onParcel={onParcel} />;
   return <DistrictModel state={state} district={district} compact={compact} onParcel={onParcel} selectedParcel={selectedParcel} />;
 }
 function DistrictModel({
