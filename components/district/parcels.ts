@@ -2,7 +2,7 @@ import type { Metric, State, DistrictId } from '../../engine/model';
 export const parcels = [
   {
     id: 'trades',
-    name: 'Lineage trades',
+    name: 'Kandahar Street',
     metric: 'continuity',
     x: -3.5,
     z: -2.5,
@@ -10,11 +10,12 @@ export const parcels = [
     depth: 1.8,
     color: '#bf884e',
     kind: 'shops',
-    detail: 'Living trades and apprenticeships, rather than preserved façades.',
+    detail:
+      'Kandahar Street connects the district’s cultural memory with living skills.',
   },
   {
     id: 'commons',
-    name: 'Community courtyard',
+    name: 'Sultan Mosque',
     metric: 'equity',
     x: 0,
     z: -2.5,
@@ -23,11 +24,11 @@ export const parcels = [
     color: '#70a994',
     kind: 'landmark',
     detail:
-      'Shared space represents who can participate in the district’s future.',
+      'Access and shared benefits in the streets surrounding Sultan Mosque.',
   },
   {
     id: 'shade',
-    name: 'Shade corridor',
+    name: 'Malay Heritage Centre',
     metric: 'habitability',
     x: 3.5,
     z: -2.5,
@@ -35,7 +36,8 @@ export const parcels = [
     depth: 1.8,
     color: '#8cb69d',
     kind: 'park',
-    detail: 'Tree cover and cooler gathering space respond to habitability.',
+    detail:
+      'Comfortable walking and gathering around the former Istana at Sultan Gate.',
   },
   {
     id: 'arab',
@@ -65,7 +67,7 @@ export const parcels = [
   },
   {
     id: 'visitors',
-    name: 'Visitor economy',
+    name: 'Haji Lane',
     metric: 'vitality',
     x: 3.5,
     z: 0.1,
@@ -73,12 +75,11 @@ export const parcels = [
     depth: 1.8,
     color: '#d2a332',
     kind: 'shops',
-    detail:
-      'Activity and lit storefronts rise and fall with economic vitality.',
+    detail: 'Independent shops and visitor activity along Haji Lane.',
   },
   {
     id: 'makers',
-    name: 'Residents & makers',
+    name: 'Aliwal Arts Centre',
     metric: 'equity',
     x: -2.6,
     z: 2.8,
@@ -87,11 +88,11 @@ export const parcels = [
     color: '#559b91',
     kind: 'shops',
     detail:
-      'The share of gains reaching residents and small tenants shapes this block.',
+      'Room for artists, young people and local participation around Aliwal Arts Centre.',
   },
   {
     id: 'food',
-    name: 'Food & gathering',
+    name: 'North Bridge Road',
     metric: 'vitality',
     x: 2.6,
     z: 2.8,
@@ -100,7 +101,7 @@ export const parcels = [
     color: '#bf7753',
     kind: 'shops',
     detail:
-      'A working food and visitor economy supports the district’s everyday life.',
+      'Food businesses along North Bridge Road balance livelihoods and neighbourhood comfort.',
   },
 ] as const satisfies readonly {
   id: string;
@@ -119,17 +120,17 @@ export const parcelCondition = (state: State, index: number) =>
 
 const chinatownPlaces = [
   [
-    'Kreta Ayer arts workshop',
+    'Kreta Ayer Heritage Gallery',
     'Rehearsal, mentoring and living cultural practice.',
     '#bb6b58',
   ],
   [
-    'Telok Ayer shared courtyard',
-    'A shared courtyard represents participation across communities.',
+    'Thian Hock Keng',
+    'The streets around this temple connect worshippers, neighbours and visitors.',
     '#77998d',
   ],
   [
-    'Ann Siang walking route',
+    'Ann Siang Hill',
     'Shade and places to pause support everyday journeys.',
     '#8ab17f',
   ],
@@ -139,23 +140,23 @@ const chinatownPlaces = [
     '#cf7055',
   ],
   [
-    'Bukit Pasoh association spaces',
-    'Community records and living activities need room together.',
+    'Chinatown Heritage Centre',
+    'Remembering migrant lives while keeping space for living trades nearby.',
     '#b8a47b',
   ],
   [
-    'Trengganu Street visitors',
+    'Smith Street',
     'Visitor activity brings trade, alongside pressure on everyday uses.',
     '#b79050',
   ],
   [
-    'Chinatown Complex community',
-    'A conceptual block for neighbours, learners and shared benefits.',
+    'Chinatown Complex',
+    'A market and food centre where everyday meals and neighbourhood life meet.',
     '#83a3aa',
   ],
   [
-    'Smith Street food businesses',
-    'Food businesses balance evening activity and neighbourhood comfort.',
+    'Maxwell Food Centre',
+    'Hawker livelihoods, evening trade and comfortable access around the food centre.',
     '#c47752',
   ],
 ];

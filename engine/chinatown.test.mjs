@@ -6,11 +6,34 @@ import {
   getScenario,
   parcelScenario,
   requiredProtection,
+  sceneParcel,
 } from './scenarios.ts';
 import { districtParcels } from '../components/district/parcels.ts';
 import { recordedTestimony } from '../content/recordings.ts';
 
 const move = (lever, rider) => ({ lever, riders: rider ? [rider] : [] });
+test('each landmark opens its own matching place and keeps its selection', () => {
+  for (const district of ['chinatown', 'kampong-glam']) {
+    for (const parcel of districtParcels(district)) {
+      const id = parcelScenario(parcel.id, initial);
+      const scene = getScenario(id, initial, district);
+      assert.ok(
+        scene.place.startsWith(parcel.name),
+        `${parcel.name}: ${scene.place}`,
+      );
+      assert.equal(sceneParcel(id), parcel.id);
+    }
+  }
+  const maxwell = districtParcels('chinatown').find(
+    (p) => p.name === 'Maxwell Food Centre',
+  );
+  assert.ok(maxwell);
+  assert.match(
+    getScenario(parcelScenario(maxwell.id, initial), initial, 'chinatown')
+      .dialogue,
+    /hawkers/,
+  );
+});
 test('Chinatown locations have local scenarios with valid, affordable opening choices', () => {
   const roster = districtPeople('chinatown');
   assert.equal(new Set(roster.map((p) => p.name)).size, 5);

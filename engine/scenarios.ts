@@ -79,7 +79,7 @@ export function parcelScenario(parcel: string, s: State): string {
     arab: 'six-weeks',
     bussorah: 'new-keys',
     visitors: 'too-busy',
-    makers: 'who-belongs',
+    makers: 'everyday-space',
     food: 'after-dark',
   };
   return mapping[parcel] ?? leadScenario(s);
@@ -95,6 +95,7 @@ export function sceneParcel(id: string): string {
         'after-dark': 'food',
         'hot-afternoon': 'shade',
         'who-belongs': 'commons',
+        'everyday-space': 'makers',
         'new-keys': 'bussorah',
       } as Record<string, string>
     )[id] ?? 'arab'
