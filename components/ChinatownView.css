@@ -1,0 +1,127 @@
+.chinatown-art {
+  padding: 0;
+  overflow: hidden;
+}
+.game-shell .district .clothframe.chinatown-art {
+  grid-template-rows: minmax(0, 1fr) auto auto;
+}
+.chinatown-art-stage {
+  position: relative;
+  height: 560px;
+  min-height: 240px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #a69783;
+  container-type: size;
+}
+.game-shell .district .chinatown-art-stage {
+  height: 100%;
+  min-height: 0;
+}
+.chinatown-art-square {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  width: max(100cqw, 100cqh);
+  height: max(100cqw, 100cqh);
+}
+.chinatown-overview,
+.chinatown-closeup {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.chinatown-closeup { position: absolute; inset: 0; }
+.chinatown-view-heading {
+  position: relative;
+  padding: 8px;
+  background: var(--indigo-deep);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.chinatown-view-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.chinatown-view-heading > * {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #101c32ed;
+  color: #f6e9cf;
+}
+.chinatown-view-heading button { pointer-events: auto; }
+.chinatown-location-pin {
+  position: absolute;
+  transform: translate(-8px, -8px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #fff4d7;
+  text-align: left;
+  font-size: 14px;
+}
+.chinatown-location-pin > span:last-child {
+  background: #101c32c9;
+  border: 1px solid #ffd37599;
+  border-radius: 5px;
+  padding: 5px 7px;
+  max-width: 125px;
+  line-height: 1.2;
+}
+.chinatown-location-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: #ffd375;
+  border: 2px solid #fff4d7;
+  box-shadow: 0 0 0 5px #101c3270;
+}
+.chinatown-location-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  background: var(--indigo-deep);
+}
+.chinatown-location-nav button {
+  flex: 1 1 100px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.chinatown-location-nav button[aria-pressed='true'] {
+  background: #d9a32328;
+  border-color: #ffd375;
+  color: #ffd375;
+}
+.chinatown-art button:focus-visible { outline: 2px solid #ffd375; outline-offset: 3px; }
+.chinatown-image-status {
+  position: absolute;
+  bottom: 8px;
+  margin: 8px;
+  padding: 8px;
+  background: #101c32ed;
+  color: #fff4d7;
+  font-size: 14px;
+}
+.chinatown-art-compact .chinatown-art-stage { height: 400px; }
+@media (max-width: 600px) {
+  .chinatown-art-stage { height: 360px; }
+  .chinatown-location-pin > span:last-child { max-width: 110px; padding: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chinatown-overview { transform: none !important; }
+  .chinatown-closeup { transform: none !important; transition: none !important; }
+}

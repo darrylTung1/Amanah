@@ -2214,7 +2214,8 @@ summary:focus-visible {
 }
 .island-pin-kampong-glam .island-pin-label {
   position: relative;
-  top: -26px;
+  left: 20px;
+  top: 34px;
 }
 @media (max-width: 750px) {
   .game-shell .island-pin {
@@ -2239,7 +2240,8 @@ summary:focus-visible {
     display: none;
   }
   .game-shell .island-pin-kampong-glam .island-pin-label {
-    top: -24px;
+    left: 10px;
+    top: 28px;
   }
   .game-shell .island-pin-chinatown .island-pin-label {
     right: 34px;
@@ -2315,3 +2317,33 @@ summary:focus-visible {
 }
 .disclosure-open, details[open] > summary .disclosure-closed { display: none; }
 details[open] > summary .disclosure-open { display: inline; }
+
+/* Preserve the supplied square portrait frames. */
+.personhead .avatar.character-portrait,
+.game-shell .personhead .avatar.character-portrait {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 0;
+  border-radius: 4px;
+  background: #101c32;
+}
+@media (max-width: 600px) {
+  .game-shell .personhead .avatar.character-portrait {
+    width: 52px;
+    height: 52px;
+  }
+}
+.character-agreement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.character-agreement .avatar.character-portrait {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border: 0;
+  border-radius: 4px;
+}

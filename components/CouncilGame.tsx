@@ -3,6 +3,7 @@ import { resolveDistrict } from '@/engine/model';
 import * as m from 'motion/react-m';
 import { useEffect, useState, useId, useCallback } from 'react';
 import Header from '@/components/Header';
+import CharacterPortrait from '@/components/CharacterPortrait';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
 import { districtRating } from '@/engine/rating';
@@ -369,7 +370,8 @@ export default function CouncilGame({
                 {notice && <p role="status">{notice}</p>}
               </div>
               <div className="personhead">
-                <span className="avatar">{speaker.initials}</span>
+                <CharacterPortrait name={speaker.name} initials={speaker.initials} state={state} weights={speaker.weights}
+                  agreement={owner === speaker.id ? cleared ? 'met' : 'unmet' : allMoves(previewRecord).some((move) => policyOwner(move.lever) === speaker.id && move.riders.length > 0) ? 'met' : 'none'} />
                 <div>
                   <h2>{speaker.name}</h2>
                   <small>{scene.place}</small>
@@ -426,7 +428,8 @@ export default function CouncilGame({
                   <p>{policyExplanation[lever]}</p>
                   {counterpart && protection && (
                     <div className="protection-offer">
-                      <p className="small">
+                      <p className="small character-agreement">
+                        <CharacterPortrait name={counterpart.name} initials={counterpart.initials} state={state} weights={counterpart.weights} agreement={accepted ? 'met' : 'unmet'} />
                         <strong>{counterpart.name}</strong> ·{' '}
                         {accepted
                           ? 'Agreement reached'
