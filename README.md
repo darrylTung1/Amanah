@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open the printed local URL. Allocate ten points, convene the council, negotiate or choose an unrestricted policy, and make three moves. The horizons are 2026 → 2036 → 2050 → 2126. The last move is enacted in 2050; policies then decay over the long final horizon.
+Open the printed local URL. Click Kampong Glam on the Singapore map to enter the playable council immediately. There is no introduction or allocation screen; starting priorities default to [3,3,2,2]. Negotiate or choose an unrestricted policy and make three moves. The island and council stay mounted, so returning to the map preserves the game and camera without navigation. The horizons are 2026 → 2036 → 2050 → 2126. The last move is enacted in 2050; policies then decay over the long final horizon.
 
 ```sh
 npm test

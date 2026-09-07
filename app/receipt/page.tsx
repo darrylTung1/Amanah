@@ -57,7 +57,7 @@ export default function Receipt() {
           Your <span className="gold">legacy receipt.</span>
         </h1>
         <p className="muted">
-          What you promised. What the district inherited. What cannot be undone.
+          What you chose. What the district inherited. What cannot be undone.
         </p>
         <div className="actions">
           <Button
@@ -87,9 +87,9 @@ export default function Receipt() {
         </div>
         <div className="receiptgrid">
           <section className="receiptcard">
-            <h2>Intent meets outcome.</h2>
+            <h2>Priorities and outcomes.</h2>
             <p className="small muted">
-              Gold: declared priority /10 · Green: achieved condition /100.
+              Gold: starting priority /10 · Green: achieved condition /100.
               These measure different things; compare the pattern, not the
               units.
             </p>

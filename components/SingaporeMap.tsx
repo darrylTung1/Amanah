@@ -2,7 +2,13 @@
 import { useEffect, useRef, useState } from 'react';
 import map from '@/content/singapore-map.json';
 
-export default function SingaporeMap({ onEnter }: { onEnter: () => void }) {
+export default function SingaporeMap({
+  active,
+  onEnter,
+}: {
+  active: boolean;
+  onEnter: () => void;
+}) {
   const [zooming, setZooming] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [x, y] = map.kampongGlam;
@@ -12,6 +18,10 @@ export default function SingaporeMap({ onEnter }: { onEnter: () => void }) {
     },
     [],
   );
+  useEffect(() => {
+    if (active) setZooming(false);
+    else if (timer.current) clearTimeout(timer.current);
+  }, [active]);
   function enter() {
     if (zooming) return;
     setZooming(true);
@@ -86,6 +96,8 @@ export default function SingaporeMap({ onEnter }: { onEnter: () => void }) {
             </g>
           </svg>
           <button
+            id="singapore-marker"
+            type="button"
             className="island-pin"
             style={{ left: `${x / 10}%`, top: `${y / 6.2}%` }}
             onClick={enter}
