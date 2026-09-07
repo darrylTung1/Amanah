@@ -2319,6 +2319,17 @@ summary:focus-visible {
 .disclosure-open, details[open] > summary .disclosure-closed { display: none; }
 details[open] > summary .disclosure-open { display: inline; }
 
+.game-shell .game-rating[open] > summary {
+  position: absolute;
+  inset: 8px 8px auto;
+  z-index: 26;
+  margin: 0;
+  box-shadow: 0 6px 20px #0007;
+}
+.game-shell .game-rating[open] .district-rating {
+  inset: 62px 8px 8px;
+}
+
 /* Preserve the supplied square portrait frames. */
 .personhead .avatar.character-portrait,
 .game-shell .personhead .avatar.character-portrait {
