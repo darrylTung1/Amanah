@@ -1,0 +1,12 @@
+Singapore silhouette
+Source: geoBoundaries gbOpen SGP ADM0, boundary ID SGP-ADM0-21272760.
+Boundary year represented: 2016. Source: Urban Redevelopment Authority, derived from ADM3.
+https://www.geoboundaries.org/api/current/gbOpen/SGP/ADM0/
+Original source: https://data.gov.sg/dataset/master-plan-2014-subzone-boundary-no-sea
+Download: https://github.com/wmgeolab/geoBoundaries/blob/9469f09/releaseData/gbOpen/SGP/ADM0/geoBoundaries-SGP-ADM0_simplified.geojson
+License reported by geoBoundaries: Open Data Commons Open Database License 1.0.
+https://opendatacommons.org/licenses/odbl/1-0/
+The supplied geographic data is retained in /maps/singapore.geojson under its source license.
+Display modifications: coordinates projected and rounded into SVG paths, styled as a silhouette.
+The district marker is approximate; this is game navigation, not a surveyed district boundary.
+

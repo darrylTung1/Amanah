@@ -938,3 +938,245 @@ small,
     font-size: 11pt;
   }
 }
+
+/* Island navigation */
+.island-screen {
+  padding: 38px 0 20px;
+}
+.island-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.island-heading h1 {
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  letter-spacing: -0.065em;
+  margin-top: 12px;
+}
+.island-heading > p {
+  color: var(--muted-foreground);
+  max-width: 360px;
+  padding-bottom: 8px;
+}
+.island-map {
+  position: relative;
+  margin-top: 24px;
+  aspect-ratio: 1000/620;
+  max-height: 68vh;
+  min-height: 360px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 48%, #253650 0%, #101c32 70%);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  isolation: isolate;
+}
+.island-cartography {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition:
+    transform 1.1s cubic-bezier(0.6, 0, 0.25, 1),
+    opacity 1.1s ease;
+}
+.island-cartography svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.island-outline {
+  filter: drop-shadow(0 12px 0 #080e1b88) drop-shadow(0 20px 30px #0005);
+}
+.island-map-zooming .island-cartography {
+  transform: scale(11);
+  opacity: 0;
+}
+.island-sea {
+  fill: #9daab8;
+  font-size: 12px;
+}
+.island-compass {
+  color: #c6c8c5;
+  fill: currentColor;
+  font-size: 14px;
+}
+.island-pin {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translate(-23px, -23px);
+  padding: 0;
+  color: #f6e9cf;
+  border: 0;
+  background: none;
+  text-align: left;
+  z-index: 2;
+  white-space: nowrap;
+  min-height: 46px;
+}
+.island-pin-dot {
+  width: 46px;
+  height: 46px;
+  display: block;
+  flex: none;
+  border: 1px solid #ffd375aa;
+  border-radius: 50%;
+  background: #d9a32330;
+  box-shadow: 0 0 0 9px #d9a32315;
+  position: relative;
+}
+.island-pin-dot::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 15px;
+  top: 15px;
+  border-radius: 50%;
+  background: #ffca58;
+  box-shadow: 0 0 22px #ffbf40;
+  border: 2px solid #fff4d7;
+}
+.island-pin-label {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 18px;
+  background: #101c32ed;
+  border: 1px solid #d9a32388;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px #0004;
+  transition: background 0.2s;
+}
+.island-pin-label small {
+  color: #dac99f;
+  font-size: 14px;
+}
+.island-pin-label strong {
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 500;
+}
+.island-pin:hover .island-pin-label,
+.island-pin:focus-visible .island-pin-label {
+  background: #35415a;
+  border-color: #ffd375;
+}
+.island-map-note {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #b5bbca;
+  font-size: 14px;
+  pointer-events: none;
+}
+.island-map-note span:first-child {
+  color: #d9b776;
+  letter-spacing: 0.1em;
+}
+.island-zoom-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: var(--primary);
+  font-size: 22px;
+}
+.island-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+.island-caption a {
+  text-decoration-color: #ffffff40;
+}
+.island-back {
+  margin-top: 24px;
+  border: 0;
+  padding: 8px 0;
+  color: var(--primary);
+  background: transparent;
+  font-size: 16px;
+}
+.district-arrival {
+  animation: district-arrive 0.6s ease both;
+}
+@keyframes district-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 900px) {
+  .island-map {
+    aspect-ratio: 1000/620;
+    width: min(100%, calc(68vh * 1000 / 620));
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 650px) {
+  .island-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .island-heading > p {
+    font-size: 16px;
+  }
+  .island-map {
+    min-height: 0;
+    aspect-ratio: 1000/800;
+    margin-top: 20px;
+  }
+  .island-cartography {
+    height: 77.5%;
+    top: 5%;
+  }
+  .island-pin {
+    gap: 4px;
+    flex-direction: column;
+    transform: translate(-50%, -23px);
+    text-align: center;
+  }
+  .island-pin-label {
+    padding: 8px;
+  }
+  .island-pin-label small {
+    font-size: 12px;
+  }
+  .island-pin-label strong {
+    font-size: 16px;
+  }
+  .island-map-note {
+    left: 14px;
+    right: 14px;
+    bottom: 16px;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+  }
+  .island-caption {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .island-cartography {
+    transition: none;
+  }
+  .district-arrival {
+    animation: none;
+  }
+}
