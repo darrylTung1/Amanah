@@ -19,7 +19,7 @@ export default function DistrictHistory({ timeline }: { timeline: State[] }) {
     )
     .join(' ');
   return (
-    <div className="district-history">
+    <div className="district-history" data-category={metric}>
       <div className="history-select">
         <label htmlFor="history-metric">Category</label>
         <select
@@ -61,7 +61,7 @@ export default function DistrictHistory({ timeline }: { timeline: State[] }) {
           animate={{ d: path }}
           transition={{ duration: reduced ? 0 : 0.55, ease: 'easeInOut' }}
           fill="none"
-          stroke="var(--primary)"
+          stroke="var(--category-color)"
           strokeWidth="3"
           strokeLinejoin="round"
         />

@@ -144,7 +144,11 @@ export default function Cloth({
           Drag to orbit · Pinch or scroll to zoom
         </span>
       </div>
-      <div className="district3d-inspector" aria-live="polite">
+      <div
+        className="district3d-inspector"
+        data-category={parcel.metric}
+        aria-live="polite"
+      >
         <div>
           <p>{parcel.name}</p>
           <small>

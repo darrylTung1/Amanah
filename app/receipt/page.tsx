@@ -93,12 +93,12 @@ export default function Receipt() {
           <section className="receiptcard">
             <h2>Priorities and outcomes.</h2>
             <p className="small muted">
-              Gold: starting priority /10 · Green: achieved condition /100.
-              These measure different things; compare the pattern, not the
+              Gold: starting priority /10 · Category colour: achieved condition
+              /100. These measure different things; compare the pattern, not the
               units.
             </p>
             {keys.slice(0, 4).map((k, i) => (
-              <div className="barrow" key={k}>
+              <div className="barrow" data-category={k} key={k}>
                 <div className="row">
                   <span>{k[0].toUpperCase() + k.slice(1)}</span>
                   <span>

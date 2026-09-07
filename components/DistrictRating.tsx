@@ -56,7 +56,7 @@ export default function DistrictRating({
           const before = previous ? Math.round(previous[key] * 100) : current;
           const change = current - before;
           return (
-            <div className="rating-category" key={key}>
+            <div className="rating-category" data-category={key} key={key}>
               <span className="category-name">{key}</span>
               <div className="category-values">
                 {previous && (

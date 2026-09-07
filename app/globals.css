@@ -2060,3 +2060,65 @@ summary:focus-visible {
     display: none;
   }
 }
+/* Shared category palette: identity stays separate from gain/loss status. */
+[data-category='affordability'] {
+  --category-color: #79bfff;
+}
+[data-category='continuity'] {
+  --category-color: #c4a1ff;
+}
+[data-category='vitality'] {
+  --category-color: #ffb56b;
+}
+[data-category='equity'] {
+  --category-color: #f49dc4;
+}
+[data-category='habitability'] {
+  --category-color: #72d8c6;
+}
+.category-name {
+  color: var(--category-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.category-name::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--category-color);
+}
+.rating-category .rating-bar > span:first-child {
+  background: var(--category-color);
+}
+.rating-category .rating-change-band.gain {
+  background: #ffffff44;
+}
+.rating-category .rating-change-band.loss {
+  background: repeating-linear-gradient(
+    120deg,
+    #ffffff70 0 3px,
+    #0e1729aa 3px 6px
+  );
+}
+.district-history .history-select select {
+  color: var(--category-color);
+  border-color: var(--category-color);
+}
+.district-history .history-select strong {
+  color: var(--category-color);
+}
+.district3d-inspector[data-category] small {
+  color: var(--category-color);
+}
+.district3d-inspector[data-category] strong:not(.warning) {
+  color: var(--category-color);
+}
+.barrow[data-category] .row > span:first-child {
+  color: var(--category-color);
+}
+.barrow[data-category] .track .outcome {
+  background: var(--category-color);
+}
