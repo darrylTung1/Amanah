@@ -1355,3 +1355,89 @@ summary:focus-visible {
     padding: 12px;
   }
 }
+
+.programme-tray {
+  padding: 20px;
+  background: var(--indigo-deep);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 24px;
+  margin-bottom: 20px;
+}
+.programme-tray h2 {
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+.programme-tray ol {
+  padding-left: 22px;
+  margin: 0;
+  grid-column: 1;
+}
+.programme-tray li {
+  padding: 5px 0;
+}
+.programme-tray li button {
+  margin-left: 18px;
+  font-size: 0.875rem;
+}
+.programme-tray > button {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+.programme-tray > details {
+  grid-column: 1/-1;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.programme-tray summary {
+  font-size: 0.875rem;
+}
+.policy-choice:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.investment-key {
+  font-size: 0.875rem;
+  padding: 12px 0;
+  color: var(--muted-foreground);
+}
+.causal-summary {
+  padding: 18px;
+  border-left: 3px solid var(--primary);
+  background: var(--indigo-deep);
+  display: grid;
+  gap: 10px;
+}
+.causal-summary h2 {
+  font-size: 1.35rem;
+}
+@media (max-width: 650px) {
+  .programme-tray {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+  .programme-tray > button {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .programme-tray > details {
+    grid-column: 1;
+  }
+  .scenario-game .district {
+    padding: 12px;
+  }
+  .scenario-game .district3d-stage {
+    height: 240px;
+    min-height: 240px;
+  }
+  .scenario-game .councilpanel {
+    padding: 18px;
+  }
+}
+.meet-salmah {
+  grid-column: 1 !important;
+  grid-row: auto !important;
+  width: fit-content;
+}

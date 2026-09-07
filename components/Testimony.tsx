@@ -5,7 +5,7 @@ import { recordedTestimony } from '@/content/recordings';
 import type { State, DecisionRecord } from '@/engine/model';
 import { Button } from '@/components/ui/button';
 import Cloth from '@/components/Cloth';
-import { keys, flagText } from '@/engine/model';
+import { keys, flagText, run, roundMoves, levers } from '@/engine/model';
 export default function Testimony({
   state,
   record,
@@ -20,6 +20,20 @@ export default function Testimony({
   previous?: State;
 }) {
   const clip = recordedTestimony(record, state, demo);
+  const without = run(
+    { ...record, rounds: record.rounds.slice(0, -1) },
+    state.year,
+  ).at(-1)!;
+  const impact = keys
+    .map((key) => ({
+      key,
+      points: Math.round((state[key] - without[key]) * 100),
+    }))
+    .sort((a, b) => Math.abs(b.points) - Math.abs(a.points))
+    .slice(0, 2);
+  const policies = roundMoves(record.rounds.at(-1)!)
+    .map((d) => levers[d.lever].name)
+    .join(', ');
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     setFailed(false);
@@ -32,6 +46,29 @@ export default function Testimony({
       <h1>
         {state.year}: <span className="gold">what changed.</span>
       </h1>
+      <div className="causal-summary">
+        <h2>Why this future changed</h2>
+        <p>{policies}.</p>
+        <p>
+          Compared with making no new changes in this period, your programme
+          left{' '}
+          {impact
+            .map(
+              (x) =>
+                x.key +
+                ' ' +
+                Math.abs(x.points) +
+                ' points ' +
+                (x.points >= 0 ? 'higher' : 'lower'),
+            )
+            .join(' and ')}
+          .
+        </p>
+        <small>
+          This comparison includes indirect effects and the ongoing costs of
+          your choices.
+        </small>
+      </div>
       <Cloth state={state} compact />
       {previous && (
         <div

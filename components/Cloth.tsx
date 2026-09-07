@@ -62,6 +62,7 @@ export default function Cloth({
     state.vitality,
     state.equity,
     state.habitability,
+    state.investments?.join(','),
   ]);
   function select(i: number) {
     setSelected(i);
@@ -171,6 +172,32 @@ export default function Cloth({
           </button>
         ))}
       </div>
+      {state.investments?.length ? (
+        <p className="investment-key">
+          Policy markers:{' '}
+          {[
+            state.investments.includes('rent_covenant')
+              ? 'tenancy plaque'
+              : null,
+            state.investments.includes('trade_grant')
+              ? 'apprentice workbench'
+              : null,
+            state.investments.some((x) =>
+              ['cooling_retrofit', 'pedestrianise'].includes(x),
+            )
+              ? 'shade canopies'
+              : null,
+            state.investments.includes('land_trust')
+              ? 'community meeting table'
+              : null,
+            state.investments.includes('night_economy')
+              ? 'evening lights'
+              : null,
+          ]
+            .filter(Boolean)
+            .join(' · ')}
+        </p>
+      ) : null}
       <div className="mapfoot">
         <span>Conceptual model · not a surveyed map</span>
         <span>Eight interwoven futures</span>

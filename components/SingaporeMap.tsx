@@ -118,7 +118,7 @@ export default function SingaporeMap({
         </span>
         <div className="island-map-note">
           <span>01 / KAMPONG GLAM</span>
-          <span>Five voices. Three decisions. One shared future.</span>
+          <span>Five voices. Three periods. One shared future.</span>
         </div>
       </div>
       <div className="island-caption">

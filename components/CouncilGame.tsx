@@ -6,6 +6,9 @@ import Testimony from '@/components/Testimony';
 import RecordedDialogue from '@/components/RecordedDialogue';
 import { Button } from '@/components/ui/button';
 import {
+  allMoves,
+  programme,
+  type Decision,
   decode,
   encode,
   run,
@@ -29,7 +32,7 @@ import {
   policyOwner,
 } from '@/engine/scenarios';
 import scripts from '@/content/council-recording-scripts.json';
-const base: DecisionRecord = { v: 1, weights: [3, 3, 2, 2], rounds: [] };
+const base: DecisionRecord = { v: 2, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
 }: {
@@ -42,6 +45,7 @@ export default function CouncilGame({
   const [lever, setLever] = useState<LeverId | null>(null);
   const [accepted, setAccepted] = useState(false);
   const [future, setFuture] = useState<State | null>(null);
+  const [draft, setDraft] = useState<Decision[]>([]);
   const [previous, setPrevious] = useState<State | null>(null);
   useEffect(() => {
     try {
@@ -71,13 +75,18 @@ export default function CouncilGame({
       </main>
     );
   const year = [2026, 2036, 2050][record.rounds.length] ?? 2126;
-  const state = run(record, year).at(-1)!;
-  const scene = getScenario(sceneId ?? leadScenario(state), state);
+  const original = run(record, year).at(-1)!;
+  const previewRecord = draft.length
+    ? { ...record, rounds: [...record.rounds, programme(draft)] }
+    : record;
+  const state = run(previewRecord, year).at(-1)!;
+  const maxPolicies = record.v === 2 ? 3 : 1;
+  const scene = getScenario(sceneId ?? leadScenario(original), state);
   const speaker = people.find((p) => p.id === scene.speaker)!;
   const owner = lever ? policyOwner(lever) : null;
   const previouslyCleared =
     owner === 'landlord_teo' &&
-    record.rounds.some((d) => d.riders.includes('compensation_fund'));
+    allMoves(previewRecord).some((d) => d.riders.includes('compensation_fund'));
   const protection =
     lever && !previouslyCleared ? requiredProtection[lever] : undefined;
   const decision = lever
@@ -99,9 +108,13 @@ export default function CouncilGame({
     setAccepted(false);
   }
   function costFor(id: LeverId) {
+    const added = draft.find((d) => d.lever === id);
+    if (added) return policy(added).cost;
     const waived =
       policyOwner(id) === 'landlord_teo' &&
-      record!.rounds.some((d) => d.riders.includes('compensation_fund'));
+      allMoves(previewRecord).some((d) =>
+        d.riders.includes('compensation_fund'),
+      );
     const condition = waived ? undefined : requiredProtection[id];
     return policy({ lever: id, riders: condition ? [condition] : [] }).cost;
   }
@@ -110,16 +123,28 @@ export default function CouncilGame({
     const p = scriptedPosition(lever, owner, protection.replaceAll('_', ' '));
     setAccepted(p.stance === 'conditional' && p.rider === protection);
   }
-  function commit() {
+  function addPolicy() {
     if (
-      !record ||
       !decision ||
       !selected ||
       !cleared ||
+      draft.length >= maxPolicies ||
+      draft.some((d) => d.lever === decision.lever) ||
       selected.cost > state.capacity
     )
       return;
-    const next = { ...record, rounds: [...record.rounds, decision] };
+    setDraft([...draft, decision]);
+    setLever(null);
+    setAccepted(false);
+  }
+  function removePolicy(index: number) {
+    setDraft(draft.slice(0, index));
+    setLever(null);
+    setAccepted(false);
+  }
+  function commit() {
+    if (!record || !draft.length) return;
+    const next = { ...record, rounds: [...record.rounds, programme(draft)] };
     const target = [2036, 2050, 2126][record.rounds.length];
     const result = run(next, target).at(-1)!;
     if (!embedded)
@@ -128,7 +153,8 @@ export default function CouncilGame({
         '',
         '/council?d=' + encode(next) + (demo ? '&demo=1' : ''),
       );
-    setPrevious(state);
+    setPrevious(original);
+    setDraft([]);
     setRecord(next);
     setFuture(result);
     setSceneId(null);
@@ -142,6 +168,9 @@ export default function CouncilGame({
         key={id}
         className={`policy-choice ${lever === id ? 'selected' : ''}`}
         aria-pressed={lever === id}
+        disabled={
+          draft.some((d) => d.lever === id) || draft.length >= maxPolicies
+        }
         onClick={() => choose(id)}
       >
         <span>
@@ -176,7 +205,7 @@ export default function CouncilGame({
           <div className="councilhead">
             <div>
               <p className="eyebrow">
-                {year} · Decision {record.rounds.length + 1} of 3
+                {year} · Period {record.rounds.length + 1} of 3
               </p>
               <h1>{scene.title}</h1>
             </div>
@@ -185,6 +214,65 @@ export default function CouncilGame({
               <small> /100</small>
             </p>
           </div>
+          <section className="programme-tray" aria-label="Your programme">
+            <div>
+              <h2>
+                Your programme · {draft.length}/{maxPolicies}
+              </h2>
+              <p className="small muted">
+                {draft.length
+                  ? 'The board previews your proposed changes. Advance time when ready.'
+                  : 'Start with Salmah’s shop, then explore other places. Policies share the capacity budget.'}
+              </p>
+            </div>
+            {record.rounds.length === 0 && draft.length === 0 && (
+              <button
+                className="secondary meet-salmah"
+                onClick={() => {
+                  setSceneId('six-weeks');
+                  const node = document.getElementById('scene-story');
+                  node?.scrollIntoView({ block: 'start' });
+                  node?.focus({ preventScroll: true });
+                }}
+              >
+                Meet Salmah →
+              </button>
+            )}
+            <ol>
+              {draft.map((d, i) => (
+                <li key={d.lever}>
+                  <span>{levers[d.lever].name}</span>
+                  <button
+                    className="text-action"
+                    onClick={() => removePolicy(i)}
+                    aria-label={
+                      'Undo ' + levers[d.lever].name + ' and later additions'
+                    }
+                  >
+                    Undo{i < draft.length - 1 ? ' from here' : ''}
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <Button
+              className="primary"
+              disabled={!draft.length}
+              onClick={commit}
+            >
+              Advance to {[2036, 2050, 2126][record.rounds.length]} →
+            </Button>
+            <details>
+              <summary>How the programme works</summary>
+              <p>
+                Choose one to {maxPolicies} different policies. Renew policies
+                in later periods. Undoing an earlier addition removes later
+                additions so funding and agreements remain valid.
+                {record.v === 2
+                  ? ' Each new period adds 20 capacity. Annual capacity pays upkeep. Renewals replace earlier policies, rather than stacking them.'
+                  : ''}
+              </p>
+            </details>
+          </section>
           <div className="councilgrid">
             <section className="district">
               <Cloth
@@ -193,8 +281,8 @@ export default function CouncilGame({
                 selectedParcel={sceneParcel(scene.id)}
               />
               <p className="small muted scene-map-help">
-                Select a place to explore its dilemma. You can make one decision
-                this round.
+                Select a place to explore its dilemma. Add up to {maxPolicies}{' '}
+                policies before advancing time.
               </p>
               <details className="district-conditions">
                 <summary>District conditions</summary>
@@ -211,7 +299,12 @@ export default function CouncilGame({
                 </div>
               </details>
             </section>
-            <aside className="councilpanel" aria-label="Scenario and choices">
+            <aside
+              id="scene-story"
+              tabIndex={-1}
+              className="councilpanel"
+              aria-label="Scenario and choices"
+            >
               <div className="personhead">
                 <span className="avatar">{speaker.initials}</span>
                 <div>
@@ -302,12 +395,16 @@ export default function CouncilGame({
                   )}
                   <Button
                     className="primary"
-                    disabled={!cleared || selected.cost > state.capacity}
-                    onClick={commit}
+                    disabled={
+                      !cleared ||
+                      selected.cost > state.capacity ||
+                      draft.length >= maxPolicies ||
+                      draft.some((d) => d.lever === lever)
+                    }
+                    onClick={addPolicy}
                   >
-                    Commit · {selected.cost < 0 ? 'raise' : 'spend'}{' '}
-                    {Math.abs(selected.cost)} →{' '}
-                    {[2036, 2050, 2126][record.rounds.length]}
+                    Add to programme · {selected.cost < 0 ? 'raise' : 'spend'}{' '}
+                    {Math.abs(selected.cost)} capacity
                   </Button>
                 </section>
               )}

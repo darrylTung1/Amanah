@@ -37,6 +37,8 @@ export function leadScenario(s: State): string {
 }
 export function getScenario(id: string, s: State): Scenario {
   const scene = scenarios.find((x) => x.id === id) ?? scenarios[0];
+  if (scene.id === 'hot-afternoon' && s.habitability >= 0.4)
+    return { ...scene, title: 'A cooler street' };
   if (scene.id === 'six-weeks' && s.year !== 2026)
     return {
       ...scene,

@@ -269,6 +269,81 @@ export function createDistrict(
           );
         }
       }
+      const has = (id: string) => s.investments?.some((x) => x === id);
+      // Policy symbols illustrate investment, not surveyed buildings or individual outcomes.
+      if (p.id === 'arab' && (has('rent_covenant') || has('land_trust'))) {
+        box(
+          0.5,
+          0.28,
+          0.035,
+          health > 0.4 ? '#e6b948' : '#85765d',
+          0,
+          0.3,
+          p.depth * 0.43,
+          block,
+        );
+        box(0.035, 0.3, 0.035, '#735944', -0.19, 0.15, p.depth * 0.43, block);
+        box(0.035, 0.3, 0.035, '#735944', 0.19, 0.15, p.depth * 0.43, block);
+      }
+      if (p.id === 'trades' && has('trade_grant')) {
+        box(0.9, 0.08, 0.32, '#c5915b', 0, 0.25, 0.64, block);
+        for (const x of [-0.35, 0.35]) {
+          box(0.08, 0.2, 0.08, '#765432', x, 0.12, 0.64, block);
+          mesh(
+            new THREE.CylinderGeometry(0.065, 0.08, 0.23, 8),
+            mat(health > 0.4 ? '#5fc5b3' : '#81766a'),
+            x,
+            0.22,
+            0.92,
+            block,
+          );
+          mesh(
+            new THREE.SphereGeometry(0.075, 8, 6),
+            mat('#c69c73'),
+            x,
+            0.39,
+            0.92,
+            block,
+          );
+        }
+        box(0.6, 0.018, 0.22, '#567bb5', 0, 0.3, 0.64, block);
+      }
+      if (
+        (p.id === 'shade' || p.id === 'food') &&
+        (has('cooling_retrofit') || has('pedestrianise'))
+      ) {
+        for (const x of [-0.65, 0.65])
+          box(0.045, 0.72, 0.045, '#85948d', x, 0.42, 0.4, block);
+        box(
+          1.6,
+          0.06,
+          0.72,
+          health > 0.4 ? '#6fbcb0' : '#86887c',
+          0,
+          0.81,
+          0.4,
+          block,
+        );
+      }
+      if (p.id === 'commons' && (has('land_trust') || has('visitor_levy'))) {
+        box(0.7, 0.08, 0.4, '#bd9663', 0, 0.26, 0.82, block);
+        for (const x of [-0.5, 0.5])
+          box(0.22, 0.16, 0.22, '#78ac9b', x, 0.15, 0.82, block);
+      }
+      if (p.id === 'bussorah' && has('adaptive_reuse')) {
+        box(0.6, 0.18, 0.04, '#828fc7', 0, 0.7, 0.46, block);
+      }
+      if (p.id === 'food' && has('night_economy')) {
+        for (const x of [-1.2, -0.6, 0, 0.6, 1.2])
+          mesh(
+            new THREE.SphereGeometry(0.055, 6, 4),
+            mat('#ffbf55'),
+            x,
+            1.4,
+            0.5,
+            block,
+          );
+      }
       // Activity markers are illustrative, not counts of real residents.
       for (let j = 0; j < Math.round(s.vitality * 4); j++) {
         const x = -p.width * 0.35 + j * 0.38;

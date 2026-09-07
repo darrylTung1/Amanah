@@ -18,6 +18,7 @@ export type State = Values & {
   capacity: number;
   flags: Flag[];
   streaks: [number, number, number];
+  investments?: LeverId[];
 };
 export const initial: State = {
   year: 2026,
@@ -118,9 +119,27 @@ export const riders = {
   archive_clause: 'Archive protection clause',
 };
 export type RiderId = keyof typeof riders;
-export type Decision = { lever: LeverId; riders: RiderId[] };
+export type Decision = {
+  lever: LeverId;
+  riders: RiderId[];
+  actions?: Decision[];
+};
+export const roundMoves = (d: Decision): Decision[] => [
+  { lever: d.lever, riders: d.riders },
+  ...(d.actions ?? []),
+];
+export const allMoves = (r: DecisionRecord): Decision[] =>
+  r.rounds.flatMap(roundMoves);
+export function programme(moves: Decision[]): Decision {
+  if (!moves.length || moves.length > 3)
+    throw Error('Choose one to three policies');
+  return {
+    ...moves[0],
+    ...(moves.length > 1 ? { actions: moves.slice(1) } : {}),
+  };
+}
 export type DecisionRecord = {
-  v: 1;
+  v: 1 | 2;
   weights: [number, number, number, number];
   rounds: Decision[];
 };
@@ -236,16 +255,31 @@ export function run(record: DecisionRecord, end = 2126): State[] {
   validate(record);
   let s = structuredClone(initial);
   const timeline: State[] = [];
-  const active: { p: Policy; year: number; sunset: boolean }[] = [];
+  const active: { p: Policy; id: LeverId; year: number; sunset: boolean }[] =
+    [];
+  if (record.v === 2) s.investments = [];
   while (s.year <= end) {
     const round = [2026, 2036, 2050].indexOf(s.year);
+    if (record.v === 2 && round > 0)
+      s.capacity = clamp(s.capacity + 20, 0, 100);
     const d = record.rounds[round];
-    if (d) {
-      const p = policy(d);
+    for (const move of d ? roundMoves(d) : []) {
+      const p = policy(move);
       if (s.capacity < p.cost) throw Error('Insufficient capacity');
       s.capacity = clamp(s.capacity - p.cost, 0, 100);
-      for (const k of keys) s[k] = clamp(s[k] + (p.immediate[k] ?? 0));
-      active.push({ p, year: s.year, sunset: d.riders.includes('sunset_10y') });
+      const existing =
+        record.v === 2 ? active.findIndex((a) => a.id === move.lever) : -1;
+      for (const k of keys)
+        s[k] = clamp(s[k] + (p.immediate[k] ?? 0) * (existing >= 0 ? 0.5 : 1));
+      if (existing >= 0) active.splice(existing, 1);
+      active.push({
+        p,
+        id: move.lever,
+        year: s.year,
+        sunset: move.riders.includes('sunset_10y'),
+      });
+      if (s.investments && !s.investments.includes(move.lever))
+        s.investments.push(move.lever);
     }
     timeline.push(structuredClone(s));
     if (s.year === end) break;
@@ -266,14 +300,41 @@ export function run(record: DecisionRecord, end = 2126): State[] {
       equity: -0.005 + 0.05 * (A - 0.5) - 0.03 * Math.max(0, V - 0.7),
       habitability: -0.004 - 0.02 * Math.max(0, V - 0.65),
     };
+    if (record.v === 2) {
+      delta.affordability =
+        -0.003 -
+        (s.flags.includes('MONOCULTURE') ? 0.028 : 0.014) *
+          Math.max(0, V - 0.6) +
+        0.01 * (E - 0.45);
+      delta.continuity =
+        -0.002 - 0.025 * Math.max(0, 0.5 - A) + 0.015 * Math.max(0, A - 0.55);
+      delta.vitality =
+        0.001 +
+        0.018 * (C - 0.5) -
+        0.015 * Math.max(0, 0.4 - H) -
+        0.015 * Math.max(0, V - 0.72);
+      delta.equity = -0.002 + 0.025 * (A - 0.5) - 0.015 * Math.max(0, V - 0.7);
+      delta.habitability = -0.002 - 0.008 * Math.max(0, V - 0.65);
+    }
     let dk = 1.2 + 6 * Math.max(0, V - 0.5);
     for (const a of active) {
       const age = s.year - a.year;
-      const decay =
+      const rawDecay =
         a.sunset && age >= 10
           ? Math.pow(a.p.decay, 10) * Math.pow(0.8, age - 10)
           : Math.pow(a.p.decay, age);
-      for (const k of keys) delta[k] += (a.p.annual[k] ?? 0) * decay;
+      // Version 2 funds ongoing stewardship from annual capacity, rather than abandoning every policy.
+      const maintained =
+        record.v === 2 &&
+        !a.sunset &&
+        s.capacity >= Math.max(0, a.p.cost) * 0.012;
+      const maintenance = maintained ? Math.max(0, a.p.cost) * 0.012 : 0;
+      s.capacity -= maintenance;
+      const decay = maintained ? Math.max(0.6, rawDecay) : rawDecay;
+      for (const k of keys) {
+        const effect = (a.p.annual[k] ?? 0) * decay;
+        delta[k] += effect * (record.v === 2 && effect > 0 ? 1 - s[k] : 1);
+      }
     }
     if (s.flags.includes('TRUST_DIVIDEND')) {
       dk += 3;
@@ -313,7 +374,7 @@ export function validate(x: unknown): asserts x is DecisionRecord {
   if (!x || typeof x !== 'object') throw Error('Invalid decision record');
   const r = x as DecisionRecord;
   if (
-    r.v !== 1 ||
+    ![1, 2].includes(r.v) ||
     !Array.isArray(r.weights) ||
     r.weights.length !== 4 ||
     r.weights.some((n) => !Number.isInteger(n) || n < 0 || n > 10) ||
@@ -325,7 +386,23 @@ export function validate(x: unknown): asserts x is DecisionRecord {
   for (const d of r.rounds) {
     if (!d || !Object.hasOwn(levers, d.lever) || !Array.isArray(d.riders))
       throw Error('Invalid decision');
-    policy(d);
+    if (
+      d.actions !== undefined &&
+      (r.v !== 2 || !Array.isArray(d.actions) || d.actions.length > 2)
+    )
+      throw Error('Invalid programme');
+    const moves = roundMoves(d);
+    if (r.v === 2 && new Set(moves.map((m) => m.lever)).size !== moves.length)
+      throw Error('Duplicate policy within a period');
+    for (const move of moves) {
+      if (
+        move.actions ||
+        !Object.hasOwn(levers, move.lever) ||
+        !Array.isArray(move.riders)
+      )
+        throw Error('Invalid programme policy');
+      policy(move);
+    }
   }
 }
 export const encode = (r: DecisionRecord) => {

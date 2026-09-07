@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import { Button } from '@/components/ui/button';
 import {
+  roundMoves,
   decode,
   encode,
   run,
@@ -115,8 +116,10 @@ export default function Receipt() {
             <p className="small muted">
               At 2126, affordability is{' '}
               {Math.round((final.affordability - baseline.affordability) * 100)}{' '}
-              points above the do-nothing trajectory. A century without renewed
-              policy can erase early gains.
+              points above the do-nothing trajectory.{' '}
+              {record.v === 2
+                ? 'Ongoing policies are maintained from annual capacity.'
+                : 'A century without renewed policy can erase early gains.'}
             </p>
           </section>
           <section className="receiptcard">
@@ -158,15 +161,22 @@ export default function Receipt() {
         </section>
         <div className="receiptgrid">
           <section className="receiptcard">
-            <h2>Three decisions. A century.</h2>
+            <h2>Your programmes. A century.</h2>
             {record.rounds.map((d, i) => (
               <div className="winner" key={i}>
                 <span className="gold">{[2026, 2036, 2050][i]}</span>
                 <div style={{ flex: 1 }}>
-                  <p>{levers[d.lever].name}</p>
+                  <p>
+                    {roundMoves(d)
+                      .map((m) => levers[m.lever].name)
+                      .join(' + ')}
+                  </p>
                   <small>
-                    {d.riders.length
-                      ? d.riders.map((r) => riders[r]).join(', ')
+                    {roundMoves(d).some((m) => m.riders.length)
+                      ? roundMoves(d)
+                          .flatMap((m) => m.riders)
+                          .map((r) => riders[r])
+                          .join(', ')
                       : 'No attached conditions'}
                   </small>
                 </div>
@@ -218,7 +228,7 @@ export default function Receipt() {
           </div>
         </section>
         <p className="small muted" style={{ marginTop: 25 }}>
-          Model v1 · Coefficients are calibrated for legibility, not
+          Model v{record.v} · Coefficients are calibrated for legibility, not
           forecasting. Characters and testimony are fictional. A shared URL
           reproduces the decisions and all outcomes; it is not a verified
           transcript of the negotiation.
