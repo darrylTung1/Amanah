@@ -19,7 +19,7 @@ export default function Cloth({
   onParcel?: (id: string) => void;
   selectedParcel?: string;
 }) {
-  if (district === 'chinatown' || district === 'kampong-glam')
+  if (district === 'chinatown' || district === 'kampong-glam' || district === 'little-india')
     return <PixelDistrictView key={district} district={district} state={state} compact={compact} onParcel={onParcel} />;
   return <DistrictModel state={state} district={district} compact={compact} onParcel={onParcel} selectedParcel={selectedParcel} />;
 }

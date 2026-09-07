@@ -1,25 +1,27 @@
 'use client';
 import { useState } from 'react';
 import * as m from 'motion/react-m';
-import type { State } from '@/engine/model';
+import type { State, DistrictId } from '@/engine/model';
+import { districtNames } from '@/engine/districts';
 import { districtRating } from '@/engine/rating';
 import { chinatownArtwork, chinatownLocations } from '@/engine/chinatown-art';
 import { kampongGlamArtwork, kampongGlamLocations } from '@/engine/kampong-glam-art';
+import { littleIndiaArtwork, littleIndiaLocations } from '@/engine/little-india-art';
 import { Button } from '@/components/ui/button';
 import './ChinatownView.css';
 
 type ArtLocation = { id: string; name: string; parcel: string; x: number; y: number; start: string; future: string };
 
 export default function PixelDistrictView({ state, compact = false, onParcel, district = 'chinatown' }: {
-  district?: 'chinatown' | 'kampong-glam';
+  district?: DistrictId;
   state: State;
   compact?: boolean;
   onParcel?: (id: string) => void;
 }) {
-  const name = district === 'chinatown' ? 'Chinatown' : 'Kampong Glam';
-  const locations = district === 'chinatown' ? chinatownLocations : kampongGlamLocations;
-  const artwork = district === 'chinatown' ? chinatownArtwork : kampongGlamArtwork;
-  const overview = district === 'chinatown' ? '/images/chinatown/start/chinatown.png' : kampongGlamArtwork(state);
+  const name = districtNames[district];
+  const locations = { chinatown: chinatownLocations, 'kampong-glam': kampongGlamLocations, 'little-india': littleIndiaLocations }[district];
+  const artwork = { chinatown: chinatownArtwork, 'kampong-glam': kampongGlamArtwork, 'little-india': littleIndiaArtwork }[district];
+  const overview = district === 'chinatown' ? '/images/chinatown/start/chinatown.png' : district === 'little-india' ? littleIndiaArtwork(state) : kampongGlamArtwork(state);
   const [selected, setSelected] = useState<ArtLocation | null>(null);
   const [loaded, setLoaded] = useState('');
   const [failed, setFailed] = useState('');
