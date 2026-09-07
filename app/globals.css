@@ -2240,3 +2240,49 @@ summary:focus-visible {
   padding: 12px 20px;
   font-size: 14px;
 }
+
+/* Make secondary disclosures visibly actionable without competing with Advance time. */
+.game-rating > summary,
+.other-policies > summary,
+.history-data > summary,
+.scene-voice > summary,
+.district-rating > details > summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+:is(.game-rating, .other-policies, .history-data, .scene-voice, .district-rating > details) > summary::-webkit-details-marker {
+  display: none;
+}
+:is(.game-rating, .other-policies, .history-data, .scene-voice, .district-rating > details) > summary::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+:is(.game-rating, .other-policies, .history-data, .scene-voice, .district-rating > details)[open] > summary::after {
+  transform: rotate(225deg);
+}
+:is(.game-rating, .other-policies, .history-data, .scene-voice, .district-rating > details) > summary:hover {
+  background: var(--accent);
+}
+:is(.game-rating, .other-policies, .history-data, .scene-voice, .district-rating > details)[open] > summary {
+  margin-bottom: 10px;
+}
+.disclosure-open, details[open] > summary .disclosure-closed { display: none; }
+details[open] > summary .disclosure-open { display: inline; }

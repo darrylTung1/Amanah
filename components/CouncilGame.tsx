@@ -344,8 +344,9 @@ export default function CouncilGame({
               <details className="game-rating">
                 <summary>
                   District rating{' '}
-                  <strong>{districtRating(state).score}/100</strong> · View
-                  categories
+                  <strong>{districtRating(state).score}/100</strong>
+                  <span className="disclosure-closed">Show categories</span>
+                  <span className="disclosure-open">Hide categories</span>
                 </summary>
                 <DistrictRating
                   state={state}
