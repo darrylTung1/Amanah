@@ -43,6 +43,8 @@ Place supplied MP3, WAV or OGG files in `public/audio/dialogue/`. Add their exac
 }
 ```
 
+Scene openings use `scene|SCENE_ID` (see `content/scenarios.json`); the later tenancy variant uses `scene|six-weeks|later`. The player reads the scene transcript if no recording is supplied. Negotiation uses explicit protection buttons rather than keyword matching in a text box.
+
 Council keys are `person|intro` for opening dialogue and `person|lever|rider` for conditional responses, or `person|lever|hold` for refusals. Person and policy IDs are in `engine/model.ts`. The engine decides the agreement; playing audio does not grant a policy or clear a veto.
 
 Future recordings use `public/audio/precached/manifest.json`, keyed by `encode(record) + "|" + year`, with `audio`, exact `text` and `source: "elevenlabs"`. This prevents a recording from describing a different decision path. Generate the standard path transcripts with `node scripts/prepare-demo.mjs`; record those scripts in ElevenLabs separately and update the manifest.
@@ -111,3 +113,7 @@ Submission materials are in `SUBMISSION.md`. The Sites judging URL is public. A 
 The board now uses a lazy-loaded Three.js diorama instead of the original SVG. Drag to orbit, scroll/pinch or use the buttons to zoom, and click a parcel to inspect its simulation condition. Left/right arrow keys rotate the focused model; Home resets it. The parcel buttons provide keyboard-accessible inspection and remain available if WebGL is unsupported.
 
 Shophouse colour and open storefronts reflect each parcel's index; trees reflect habitability and street activity reflects vitality. These are illustrative visual encodings, not actual counts or a surveyed model of Kampong Gelam. The model renders on changes, limits pixel density, preserves the camera when outcomes update, and disposes its graphics resources when leaving a page. Three.js is included in the production offline cache.
+
+## Scenario-driven play
+
+Click a parcel to meet its stakeholder and choose among three relevant policies. Other policies remain available in a disclosure. Lead scenarios reflect the actual conditions and irreversible flags in later rounds. Required agreements have explicit offer buttons and full capacity costs. Consequence screens show the updated district, before-and-after indices and newly triggered irreversible flags. The engine coefficients are unchanged.

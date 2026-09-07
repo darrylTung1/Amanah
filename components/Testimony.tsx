@@ -4,16 +4,20 @@ import { testimony } from '@/content/narration';
 import { recordedTestimony } from '@/content/recordings';
 import type { State, DecisionRecord } from '@/engine/model';
 import { Button } from '@/components/ui/button';
+import Cloth from '@/components/Cloth';
+import { keys, flagText } from '@/engine/model';
 export default function Testimony({
   state,
   record,
   demo,
   onContinue,
+  previous,
 }: {
   state: State;
   record: DecisionRecord;
   demo: boolean;
   onContinue: () => void;
+  previous?: State;
 }) {
   const clip = recordedTestimony(record, state, demo);
   const [failed, setFailed] = useState(false);
@@ -26,10 +30,42 @@ export default function Testimony({
         A voice from {state.year} · {testimony(state).persona}
       </p>
       <h1>
-        The future
-        <br />
-        <span className="gold">speaks back.</span>
+        {state.year}: <span className="gold">what changed.</span>
       </h1>
+      <Cloth state={state} compact />
+      {previous && (
+        <div
+          className="consequence-changes"
+          aria-label="Changes since your decision"
+        >
+          {keys.map((k) => {
+            const delta =
+              Math.round(state[k] * 100) - Math.round(previous[k] * 100);
+            return (
+              <div key={k}>
+                <small>{k}</small>
+                <strong>
+                  {Math.round(previous[k] * 100)} → {Math.round(state[k] * 100)}
+                </strong>
+                <span className={delta < 0 ? 'warning' : 'gold'}>
+                  {delta > 0 ? '+' : ''}
+                  {delta} points
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      <p className="small muted">
+        Changes include your policy and the district’s evolution over time.
+      </p>
+      {state.flags
+        .filter((f) => !previous?.flags.includes(f))
+        .map((f) => (
+          <p className="consequence-flag" key={f}>
+            {flagText[f]}
+          </p>
+        ))}
       <p className="quote">“{clip.text}”</p>
       {clip.audio && !failed && (
         <audio

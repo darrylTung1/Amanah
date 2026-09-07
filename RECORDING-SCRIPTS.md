@@ -188,7 +188,7 @@ Key: `tenant_salmah|night_economy|noise_curfew`
 
 ## Optional scene openings
 
-These require the proposed scene-trigger interface. They are not yet mapped to the live recording player.
+These use scene|SCENE_ID keys in the dialogue manifest. The later tenancy variant uses scene|six-weeks|later and must not reuse the 2026 lease-deadline recording.
 
 ### scene-six-weeks.mp3
 

@@ -3,15 +3,8 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import Testimony from '@/components/Testimony';
-import VoiceCouncil from '@/components/VoiceCouncil';
+import RecordedDialogue from '@/components/RecordedDialogue';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select';
 import {
   decode,
   encode,
@@ -25,7 +18,17 @@ import {
   type LeverId,
   type State,
 } from '@/engine/model';
-import { scriptedPosition, type Position } from '@/engine/negotiation';
+import { scriptedPosition } from '@/engine/negotiation';
+import {
+  leadScenario,
+  getScenario,
+  parcelScenario,
+  sceneParcel,
+  requiredProtection,
+  policyExplanation,
+  policyOwner,
+} from '@/engine/scenarios';
+import scripts from '@/content/council-recording-scripts.json';
 const base: DecisionRecord = { v: 1, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
@@ -35,12 +38,11 @@ export default function CouncilGame({
   const [record, setRecord] = useState<DecisionRecord | null>(null);
   const [error, setError] = useState('');
   const [demo, setDemo] = useState(false);
-  const [person, setPerson] = useState('landlord_teo');
-  const [lever, setLever] = useState<LeverId>('rent_covenant');
-  const [position, setPosition] = useState<Position | null>(null);
-  const [argument, setArgument] = useState('');
+  const [sceneId, setSceneId] = useState<string | null>(null);
+  const [lever, setLever] = useState<LeverId | null>(null);
+  const [accepted, setAccepted] = useState(false);
   const [future, setFuture] = useState<State | null>(null);
-  const [bleed, setBleed] = useState(false);
+  const [previous, setPrevious] = useState<State | null>(null);
   useEffect(() => {
     try {
       const q = new URLSearchParams(location.search);
@@ -49,80 +51,74 @@ export default function CouncilGame({
       setRecord(r);
       setDemo(q.get('demo') === '1');
     } catch {
-      setError(
-        'This council link is invalid. Start a new council to continue.',
-      );
+      setError('This council link is invalid. Start a new game to continue.');
     }
   }, []);
   if (error)
     return (
-      <div className={embedded ? 'embedded-council' : 'shell'}>
-        {!embedded && <Header />}
-        <main className="errorpage">
-          <h1>That thread is broken.</h1>
-          <p>{error}</p>
-          <a href="/">Start a new council →</a>
-        </main>
-      </div>
+      <main className="errorpage">
+        <h1>That link is incomplete.</h1>
+        <p>{error}</p>
+        <a href="/">Start a new game →</a>
+      </main>
     );
-  if (!record)
-    return (
-      <div className={embedded ? 'embedded-council' : 'shell'}>
-        {!embedded && <Header />}
-        <p style={{ padding: 40 }}>Opening the council…</p>
-      </div>
-    );
+  if (!record) return <p style={{ padding: 40 }}>Opening the district…</p>;
   if (record.rounds.length === 3 && !future)
     return (
-      <div className={embedded ? 'embedded-council' : 'shell'}>
-        {!embedded && <Header />}
-        <main className="errorpage">
-          <h1>Your council has concluded.</h1>
-          <div className="actions">
-            <a href={'/receipt?d=' + encode(record)}>
-              Open your legacy receipt →
-            </a>
-          </div>
-        </main>
-      </div>
+      <main className="errorpage">
+        <h1>Your council has concluded.</h1>
+        <a href={'/receipt?d=' + encode(record)}>Open your legacy receipt →</a>
+      </main>
     );
   const year = [2026, 2036, 2050][record.rounds.length] ?? 2126;
   const state = run(record, year).at(-1)!;
-  const p = people.find((p) => p.id === person)!;
-  const decision = {
-    lever,
-    riders:
-      position?.stance === 'conditional' && position.rider
-        ? [position.rider]
-        : [],
-  };
-  const selected = policy(decision);
-  const veto: string | undefined = policy({ lever, riders: [] }).veto;
-  const cleared =
-    !veto ||
-    position?.stance === 'concede' ||
-    position?.stance === 'conditional' ||
-    (veto === 'landlord_teo' &&
-      record.rounds.some((d) => d.riders.includes('compensation_fund')));
-  const pressure =
-    year === 2026
-      ? 'A rent renewal. Six weeks. One move.'
-      : state.flags.includes('EXODUS')
-        ? 'The community has begun to leave.'
-        : state.habitability < 0.4
-          ? 'The streets are becoming harder to live in.'
-          : state.continuity < 0.45
-            ? 'The trades that made this place are fading.'
-            : 'Success is pushing up the price of belonging.';
+  const scene = getScenario(sceneId ?? leadScenario(state), state);
+  const speaker = people.find((p) => p.id === scene.speaker)!;
+  const owner = lever ? policyOwner(lever) : null;
+  const previouslyCleared =
+    owner === 'landlord_teo' &&
+    record.rounds.some((d) => d.riders.includes('compensation_fund'));
+  const protection =
+    lever && !previouslyCleared ? requiredProtection[lever] : undefined;
+  const decision = lever
+    ? { lever, riders: accepted && protection ? [protection] : [] }
+    : null;
+  const selected = decision ? policy(decision) : null;
+  const cleared = !owner || previouslyCleared || accepted;
+  const counterpart = people.find((p) => p.id === owner);
+  const responseKey =
+    owner && lever ? `${owner}|${lever}|${accepted ? protection : 'hold'}` : '';
+  const response = scripts.find((x) => x.key === responseKey);
   function choose(id: LeverId) {
     setLever(id);
-    setPosition(null);
-    setArgument('');
-    const v = 'veto' in levers[id] ? levers[id].veto : null;
-    if (typeof v === 'string') setPerson(v);
+    setAccepted(false);
+  }
+  function selectPlace(id: string) {
+    setSceneId(parcelScenario(id, state));
+    setLever(null);
+    setAccepted(false);
+  }
+  function costFor(id: LeverId) {
+    const waived =
+      policyOwner(id) === 'landlord_teo' &&
+      record!.rounds.some((d) => d.riders.includes('compensation_fund'));
+    const condition = waived ? undefined : requiredProtection[id];
+    return policy({ lever: id, riders: condition ? [condition] : [] }).cost;
+  }
+  function offer() {
+    if (!lever || !owner || !protection) return;
+    const p = scriptedPosition(lever, owner, protection.replaceAll('_', ' '));
+    setAccepted(p.stance === 'conditional' && p.rider === protection);
   }
   function commit() {
-    if (!record || !cleared || selected.cost > state.capacity) return;
+    if (
+      !record ||
+      !decision ||
+      !selected ||
+      !cleared ||
+      selected.cost > state.capacity
+    )
+      return;
     const next = { ...record, rounds: [...record.rounds, decision] };
     const target = [2036, 2050, 2126][record.rounds.length];
     const result = run(next, target).at(-1)!;
@@ -132,233 +128,192 @@ export default function CouncilGame({
         '',
         '/council?d=' + encode(next) + (demo ? '&demo=1' : ''),
       );
+    setPrevious(state);
     setRecord(next);
     setFuture(result);
-    setBleed(true);
-    setTimeout(() => setBleed(false), 2100);
-    setPosition(null);
+    setSceneId(null);
+    setLever(null);
+    setAccepted(false);
+  }
+  function choice(id: LeverId, description: string) {
+    const cost = costFor(id);
+    return (
+      <button
+        key={id}
+        className={`policy-choice ${lever === id ? 'selected' : ''}`}
+        aria-pressed={lever === id}
+        onClick={() => choose(id)}
+      >
+        <span>
+          <strong>{levers[id].name}</strong>
+          <small>{description}</small>
+        </span>
+        <span className="policy-cost">
+          {cost < 0 ? '+' : '−'}
+          {Math.abs(cost)}
+          <small>capacity</small>
+        </span>
+      </button>
+    );
   }
   return (
     <div className={embedded ? 'embedded-council' : 'shell'}>
       {!embedded && <Header demo={demo} />}
-      {bleed && (
-        <div className="bleed" aria-hidden>
-          <strong>{future?.year}</strong>
-        </div>
-      )}
       {future ? (
         <Testimony
           state={future}
+          previous={previous ?? undefined}
           record={record}
           demo={demo}
           onContinue={() => {
             if (future.year === 2126)
               location.href = '/receipt?d=' + encode(record);
-            else {
-              setFuture(null);
-              setArgument('');
-            }
+            else setFuture(null);
           }}
         />
       ) : (
-        <main>
+        <main className="scenario-game">
           <div className="councilhead">
             <div>
               <p className="eyebrow">
-                {year} · Round {record.rounds.length + 1} of 3
+                {year} · Decision {record.rounds.length + 1} of 3
               </p>
-              <h1>The council is yours.</h1>
+              <h1>{scene.title}</h1>
             </div>
-            <div className="timeline">
-              {[2026, 2036, 2050, 2126].map((y) => (
-                <span className={y === year ? 'current' : ''} key={y}>
-                  {y}
-                </span>
-              ))}
-            </div>
+            <p className="capacity">
+              Available capacity <strong>{Math.floor(state.capacity)}</strong>
+              <small> /100</small>
+            </p>
           </div>
-          <p style={{ marginBottom: 20 }}>{pressure}</p>
           <div className="councilgrid">
             <section className="district">
-              <Cloth state={state} />
-              <div className="metrics">
-                {keys.map((k) => (
-                  <div className="metric" key={k}>
-                    <label>{k[0].toUpperCase() + k.slice(1)}</label>
-                    <strong>
-                      {Math.round(state[k] * 100)}
-                      <small> /100</small>
-                    </strong>
-                    <div className="track">
-                      <span style={{ width: state[k] * 100 + '%' }} />
+              <Cloth
+                state={state}
+                onParcel={selectPlace}
+                selectedParcel={sceneParcel(scene.id)}
+              />
+              <p className="small muted scene-map-help">
+                Select a place to explore its dilemma. You can make one decision
+                this round.
+              </p>
+              <details className="district-conditions">
+                <summary>District conditions</summary>
+                <div className="metrics">
+                  {keys.map((k) => (
+                    <div className="metric" key={k}>
+                      <label>{k}</label>
+                      <strong>
+                        {Math.round(state[k] * 100)}
+                        <small> /100</small>
+                      </strong>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <div className="rail" aria-label="Council members">
-                {people.map((member) => (
-                  <button
-                    key={member.id}
-                    className={person === member.id ? 'active' : ''}
-                    aria-pressed={person === member.id}
-                    onClick={() => {
-                      setPerson(member.id);
-                      setArgument('');
-                    }}
-                  >
-                    <span className="avatar">{member.initials}</span>
-                    {member.name
-                      .replace('Mdm ', '')
-                      .replace('Ustaz ', '')
-                      .replace('Mr ', '')}
-                  </button>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </details>
             </section>
-            <aside className="councilpanel">
+            <aside className="councilpanel" aria-label="Scenario and choices">
               <div className="personhead">
-                <span className="avatar">{p.initials}</span>
+                <span className="avatar">{speaker.initials}</span>
                 <div>
-                  <h2>{p.name}</h2>
-                  <small>{p.role}</small>
+                  <h2>{speaker.name}</h2>
+                  <small>{scene.place}</small>
                 </div>
               </div>
-              <p className="quote">“{p.concern}”</p>
-              <div className="evidence">
-                <small>At the council table</small>
-                <p>{p.evidence}</p>
-              </div>
-              {veto === person && !cleared && (
-                <p className="warning">● Holds a veto on this proposal</p>
-              )}
-              <VoiceCouncil
-                key={
-                  person +
-                  lever +
-                  year +
-                  (position?.rider ?? position?.stance ?? '')
+              <RecordedDialogue
+                key={scene.id + year}
+                clipKey={
+                  'scene|' +
+                  scene.id +
+                  (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
                 }
-                person={person}
-                lever={lever}
-                position={veto === person ? position : null}
+                text={scene.dialogue}
               />
-              <div className="negotiation">
-                <label htmlFor="argument" className="small">
-                  {demo ? 'Scripted rehearsal' : 'Make your proposal'}
-                </label>
-                <textarea
-                  id="argument"
-                  value={argument}
-                  onChange={(e) => setArgument(e.target.value)}
-                  placeholder={
-                    veto === 'landlord_teo'
-                      ? 'Offer a compensation fund…'
-                      : lever === 'pedestrianise'
-                        ? 'Offer a morning loading window…'
-                        : lever === 'visitor_levy'
-                          ? 'Offer a ten-year sunset review…'
-                          : lever === 'adaptive_reuse'
-                            ? 'Offer an archive protection clause…'
-                            : 'Offer a noise curfew…'
-                  }
-                  maxLength={1200}
-                />
-                <Button
-                  className="secondary"
-                  disabled={argument.trim().length < 8 || veto !== person}
-                  onClick={() =>
-                    setPosition(scriptedPosition(lever, person, argument))
-                  }
-                >
-                  Put your case forward →
-                </Button>
-                {!veto && <small>This move needs no veto release.</small>}
-                {veto && veto !== person && (
-                  <small>
-                    Negotiate this move with{' '}
-                    {people.find((x) => x.id === veto)?.name}.
-                  </small>
+              <div className="scene-choices">
+                <h3>{scene.question}</h3>
+                {scene.options.map(([id, description]) =>
+                  choice(id, description),
                 )}
-                {position && (
-                  <p
-                    role="status"
-                    className={
-                      position.stance === 'hold' ? 'warning' : 'status'
-                    }
-                  >
-                    {position.reason_line}
-                  </p>
-                )}
+                <details className="other-policies">
+                  <summary>Other policies</summary>
+                  {Object.keys(levers)
+                    .filter(
+                      (id) => !scene.options.some(([option]) => option === id),
+                    )
+                    .map((id) =>
+                      choice(id as LeverId, policyExplanation[id as LeverId]),
+                    )}
+                </details>
+                <small>Costs include required protections.</small>
               </div>
+              {lever && selected && (
+                <section
+                  className="decision-review"
+                  aria-label="Review decision"
+                >
+                  <h3>{levers[lever].name}</h3>
+                  <p>{policyExplanation[lever]}</p>
+                  {counterpart && protection && (
+                    <div className="protection-offer">
+                      <p className="small">
+                        <strong>{counterpart.name}</strong> ·{' '}
+                        {accepted
+                          ? 'Agreement reached'
+                          : 'Requires an agreement'}
+                      </p>
+                      <RecordedDialogue
+                        key={responseKey}
+                        clipKey={responseKey}
+                        text={response?.text ?? counterpart.concern}
+                      />
+                      {!accepted ? (
+                        <Button className="secondary" onClick={offer}>
+                          Offer: {riders[protection]}
+                        </Button>
+                      ) : (
+                        <button
+                          className="text-action"
+                          onClick={() => setAccepted(false)}
+                        >
+                          Withdraw this offer
+                        </button>
+                      )}
+                    </div>
+                  )}
+                  {previouslyCleared && (
+                    <p className="small">
+                      The earlier owner compensation agreement already covers
+                      this proposal.
+                    </p>
+                  )}
+                  <p className="small">
+                    Immediate effect:{' '}
+                    {Object.entries(selected.immediate)
+                      .map(
+                        ([k, v]) =>
+                          `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100)}`,
+                      )
+                      .join(' · ')}
+                  </p>
+                  {selected.cost > state.capacity && (
+                    <p role="status" className="warning">
+                      Not enough capacity. Choose a cheaper policy or raise
+                      funds with the visitor levy.
+                    </p>
+                  )}
+                  <Button
+                    className="primary"
+                    disabled={!cleared || selected.cost > state.capacity}
+                    onClick={commit}
+                  >
+                    Commit · {selected.cost < 0 ? 'raise' : 'spend'}{' '}
+                    {Math.abs(selected.cost)} →{' '}
+                    {[2036, 2050, 2126][record.rounds.length]}
+                  </Button>
+                </section>
+              )}
             </aside>
           </div>
-          <div className="movebar">
-            <div>
-              <p className="eyebrow" style={{ marginBottom: 10 }}>
-                Your one move for this era
-              </p>
-              <Select
-                value={lever}
-                onValueChange={(id) => id && choose(id as LeverId)}
-              >
-                <SelectTrigger className="select" aria-label="Choose a policy">
-                  <SelectValue>{levers[lever].name}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(levers).map(([id, l]) => (
-                    <SelectItem key={id} value={id}>
-                      {l.name} · {l.cost < 0 ? '+' : ''}
-                      {-l.cost} capacity
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="small muted" style={{ marginTop: 8 }}>
-                Condition:{' '}
-                {decision.riders.length ? riders[decision.riders[0]] : 'None'} ·{' '}
-                {selected.cost < 0 ? 'Raises' : 'Costs'}{' '}
-                {Math.abs(selected.cost)} capacity
-              </p>
-              <p className="small muted">
-                Immediate:{' '}
-                {Object.entries(selected.immediate)
-                  .map(
-                    ([k, v]) =>
-                      `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100)}`,
-                  )
-                  .join(' · ')}
-              </p>
-            </div>
-            <div>
-              <p className="capacity">
-                Capacity <strong>{Math.floor(state.capacity)}</strong> /100
-              </p>
-              <div className="actions">
-                <Button
-                  className="primary"
-                  disabled={!cleared || selected.cost > state.capacity}
-                  onClick={commit}
-                >
-                  Commit & move to {[2036, 2050, 2126][record.rounds.length]} ↗
-                </Button>
-              </div>
-              {!cleared && (
-                <p className="warning" style={{ marginTop: 8 }}>
-                  Resolve the veto to commit.
-                </p>
-              )}
-              {selected.cost > state.capacity && (
-                <p className="warning">This agreement exceeds your capacity.</p>
-              )}
-            </div>
-          </div>
         </main>
-      )}
-      {!embedded && (
-        <footer className="footer">
-          <span>The council negotiates. The simulation computes.</span>
-          <span>Illustrative model · Irreversible decisions</span>
-        </footer>
       )}
     </div>
   );

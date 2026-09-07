@@ -7,14 +7,20 @@ import type { DistrictView } from './district/scene';
 export default function Cloth({
   state,
   compact = false,
+  onParcel,
+  selectedParcel,
 }: {
   state: State;
   compact?: boolean;
+  onParcel?: (id: string) => void;
+  selectedParcel?: string;
 }) {
   const host = useRef<HTMLDivElement>(null);
   const view = useRef<DistrictView | null>(null);
   const current = useRef(state);
   current.current = state;
+  const callback = useRef(onParcel);
+  callback.current = onParcel;
   const [selected, setSelected] = useState(0);
   const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable'>(
     'loading',
@@ -28,7 +34,10 @@ export default function Cloth({
           view.current = createDistrict(
             host.current,
             current.current,
-            setSelected,
+            (index) => {
+              setSelected(index);
+              callback.current?.(parcels[index].id);
+            },
           );
           setStatus('ready');
         } catch {
@@ -57,7 +66,15 @@ export default function Cloth({
   function select(i: number) {
     setSelected(i);
     view.current?.select(i);
+    onParcel?.(parcels[i].id);
   }
+  useEffect(() => {
+    const i = parcels.findIndex((p) => p.id === selectedParcel);
+    if (i >= 0) {
+      setSelected(i);
+      view.current?.select(i);
+    }
+  }, [selectedParcel, status]);
   const parcel = parcels[selected];
   const value = Math.round(state[parcel.metric] * 100);
   return (
