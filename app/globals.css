@@ -1617,6 +1617,8 @@ summary:focus-visible {
 .game-shell-frontpage {
   position: relative;
   isolation: isolate;
+  max-width: none;
+  padding-inline: max(20px, calc((100% - 1760px) / 2));
   background-color: var(--background);
 }
 .game-shell-frontpage::before {
