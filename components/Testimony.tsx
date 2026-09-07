@@ -5,6 +5,8 @@ import { recordedTestimony } from '@/content/recordings';
 import type { State, DecisionRecord } from '@/engine/model';
 import { Button } from '@/components/ui/button';
 import Cloth from '@/components/Cloth';
+import DistrictRating from '@/components/DistrictRating';
+import { getScenario, leadScenario } from '@/engine/scenarios';
 import { keys, flagText, run, roundMoves, levers } from '@/engine/model';
 export default function Testimony({
   state,
@@ -46,6 +48,7 @@ export default function Testimony({
       <h1>
         {state.year}: <span className="gold">what changed.</span>
       </h1>
+      <DistrictRating state={state} previous={previous} />
       <div className="causal-summary">
         <h2>Why this future changed</h2>
         <p>{policies}.</p>
@@ -121,6 +124,12 @@ export default function Testimony({
           ↗
         </Button>
       </div>
+      {state.year !== 2126 && (
+        <p className="consequence-flag">
+          Next council: {getScenario(leadScenario(state), state).title}.{' '}
+          {getScenario(leadScenario(state), state).question}
+        </p>
+      )}
       <p className="small muted" role="status" style={{ marginTop: 16 }}>
         {failed
           ? 'Recording unavailable · the full testimony is above.'

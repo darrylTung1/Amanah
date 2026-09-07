@@ -20,7 +20,7 @@ const paths = [
         d('visitor_levy', 'sunset_10y'),
         d('pedestrianise', 'loading_window'),
       ],
-      [d('land_trust')],
+      [d('land_trust'), d('visitor_levy', 'sunset_10y')],
     ],
   },
   {
@@ -52,9 +52,9 @@ const paths = [
   },
 ];
 let report =
-  '# Current programmes — model v2\n\nThree periods, up to three policies each. These are fictional scenarios computed by the game, not forecasts. Existing v1 links use the previous engine. All policy costs, conditions and final values below are computed from source.\n\n';
+  '# Current programmes — model v2\n\nThree periods, two required policies and an optional third each. These are fictional scenarios computed by the game, not forecasts. Existing v1 links use the previous engine. All policy costs, conditions and final values below are computed from source.\n\n';
 report +=
-  '## How the game plays\n\nEnter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add up to three different policies, then advance to 2036, 2050 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.\n\n';
+  '## How the game plays\n\nEnter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add two or three different policies, then advance to 2036, 2050 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.\n\n';
 report +=
   '## Balance rules\n\nNew periods add 20 capacity. Annual capacity can fund upkeep at 1.2% of each policy’s positive upfront cost, retaining at least 60% of its annual strength. Positive policy effects are multiplied by (1 − the current index), so higher conditions have diminishing returns. Renewals have half the immediate effect and replace the old policy. Sunset policies keep their specified decay and receive no maintenance floor. Version 2 has gentler baseline drift and couplings; the exact coefficients are in engine/model.ts. The five irreversible thresholds remain.\n\n';
 const scripts = [],

@@ -1,6 +1,8 @@
 # Current game: three-period programmes (model v2)
 
-New games allow 1–3 distinct policies per period. Additions preview immediate effects; advancing commits the programme. Twenty capacity is added in 2036 and 2050. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 receipts retain their original equations.
+New games require two distinct policies per period, with an optional third. Older one-policy records still replay. Additions preview immediate effects; advancing commits the programme. Twenty capacity is added in 2036 and 2050. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 receipts retain their original equations.
+
+The overall district rating equally averages all five conditions (20% each), rounded once to /100. Categories below 30 are flagged separately; capacity and lasting harms are not folded into the score.
 
 See PROGRAMMES.md for current playthroughs and RECORDING-SCRIPTS.md for current scripts. Older single-decision calculations below describe model v1.
 

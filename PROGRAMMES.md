@@ -1,10 +1,10 @@
 # Current programmes — model v2
 
-Three periods, up to three policies each. These are fictional scenarios computed by the game, not forecasts. Existing v1 links use the previous engine. All policy costs, conditions and final values below are computed from source.
+Three periods, two required policies and an optional third each. These are fictional scenarios computed by the game, not forecasts. Existing v1 links use the previous engine. All policy costs, conditions and final values below are computed from source.
 
 ## How the game plays
 
-Enter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add up to three different policies, then advance to 2036, 2050 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.
+Enter Kampong Glam without navigation. Meet Salmah or click a parcel, choose a policy, agree to any required protection, and add it to the programme. The board previews the immediate changes and capacity remaining. Add two or three different policies, then advance to 2036, 2050 or 2126. Renewals replace earlier policies; they do not stack. Undoing an earlier draft item removes later items as well, avoiding unfunded or unauthorized dependent agreements.
 
 ## Balance rules
 
@@ -16,11 +16,11 @@ New periods add 20 capacity. Annual capacity can fund upkeep at 1.2% of each pol
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | 2026 | Rent covenant + Cooling retrofit | 58 | 2036 | 62 | 62 | 68 | 45 | 61 |
 | 2036 | Trade & apprenticeship grant + Community visitor levy + Pedestrianise & shade | 29 | 2050 | 58 | 73 | 70 | 57 | 71 |
-| 2050 | Community land trust | 40 | 2126 | 57 | 98 | 98 | 71 | 61 |
+| 2050 | Community land trust + Community visitor levy | 25 | 2126 | 63 | 98 | 98 | 82 | 63 |
 
 Flags: {"TRUST_DIVIDEND":2055}.
 
-[Completed receipt](https://sociopoly-voices.qisheng370.chatgpt.site/receipt?d=eyJ2IjoyLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl0sImFjdGlvbnMiOlt7ImxldmVyIjoiY29vbGluZ19yZXRyb2ZpdCIsInJpZGVycyI6W119XX0seyJsZXZlciI6InRyYWRlX2dyYW50IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoicGVkZXN0cmlhbmlzZSIsInJpZGVycyI6WyJsb2FkaW5nX3dpbmRvdyJdfV19LHsibGV2ZXIiOiJsYW5kX3RydXN0IiwicmlkZXJzIjpbXX1dfQ)
+[Completed receipt](https://sociopoly-voices.qisheng370.chatgpt.site/receipt?d=eyJ2IjoyLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl0sImFjdGlvbnMiOlt7ImxldmVyIjoiY29vbGluZ19yZXRyb2ZpdCIsInJpZGVycyI6W119XX0seyJsZXZlciI6InRyYWRlX2dyYW50IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoicGVkZXN0cmlhbmlzZSIsInJpZGVycyI6WyJsb2FkaW5nX3dpbmRvdyJdfV19LHsibGV2ZXIiOiJsYW5kX3RydXN0IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfV19XX0)
 
 ## Visitor boom
 

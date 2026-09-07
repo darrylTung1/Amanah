@@ -42,16 +42,24 @@
         },
         {
           "lever": "land_trust",
-          "riders": []
+          "riders": [],
+          "actions": [
+            {
+              "lever": "visitor_levy",
+              "riders": [
+                "sunset_10y"
+              ]
+            }
+          ]
         }
       ]
     },
     "final": {
-      "affordability": 57,
+      "affordability": 63,
       "continuity": 98,
       "vitality": 98,
-      "equity": 71,
-      "habitability": 61
+      "equity": 82,
+      "habitability": 63
     },
     "firstFlags": {
       "TRUST_DIVIDEND": 2055

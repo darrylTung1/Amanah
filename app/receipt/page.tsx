@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
+import DistrictRating from '@/components/DistrictRating';
 import { Button } from '@/components/ui/button';
 import {
   roundMoves,
@@ -60,6 +61,7 @@ export default function Receipt() {
         <p className="muted">
           What you chose. What the district inherited. What cannot be undone.
         </p>
+        <DistrictRating state={final} previous={initial} />
         <div className="actions">
           <Button
             className="primary"

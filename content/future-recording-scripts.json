@@ -85,7 +85,7 @@
   },
   {
     "kind": "future",
-    "key": "eyJ2IjoyLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl0sImFjdGlvbnMiOlt7ImxldmVyIjoiY29vbGluZ19yZXRyb2ZpdCIsInJpZGVycyI6W119XX0seyJsZXZlciI6InRyYWRlX2dyYW50IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoicGVkZXN0cmlhbmlzZSIsInJpZGVycyI6WyJsb2FkaW5nX3dpbmRvdyJdfV19LHsibGV2ZXIiOiJsYW5kX3RydXN0IiwicmlkZXJzIjpbXX1dfQ|2126",
+    "key": "eyJ2IjoyLCJ3ZWlnaHRzIjpbMywzLDIsMl0sInJvdW5kcyI6W3sibGV2ZXIiOiJyZW50X2NvdmVuYW50IiwicmlkZXJzIjpbImNvbXBlbnNhdGlvbl9mdW5kIl0sImFjdGlvbnMiOlt7ImxldmVyIjoiY29vbGluZ19yZXRyb2ZpdCIsInJpZGVycyI6W119XX0seyJsZXZlciI6InRyYWRlX2dyYW50IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfSx7ImxldmVyIjoicGVkZXN0cmlhbmlzZSIsInJpZGVycyI6WyJsb2FkaW5nX3dpbmRvdyJdfV19LHsibGV2ZXIiOiJsYW5kX3RydXN0IiwicmlkZXJzIjpbXSwiYWN0aW9ucyI6W3sibGV2ZXIiOiJ2aXNpdG9yX2xldnkiLCJyaWRlcnMiOlsic3Vuc2V0XzEweSJdfV19XX0|2126",
     "filename": "shared-stewardship-2126.mp3",
     "path": "shared-stewardship",
     "year": 2126,
@@ -133,7 +133,15 @@
         },
         {
           "lever": "land_trust",
-          "riders": []
+          "riders": [],
+          "actions": [
+            {
+              "lever": "visitor_levy",
+              "riders": [
+                "sunset_10y"
+              ]
+            }
+          ]
         }
       ]
     }

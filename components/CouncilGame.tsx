@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
+import DistrictRating from '@/components/DistrictRating';
 import Testimony from '@/components/Testimony';
 import RecordedDialogue from '@/components/RecordedDialogue';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,6 @@ import {
   decode,
   encode,
   run,
-  keys,
   levers,
   policy,
   riders,
@@ -46,6 +46,7 @@ export default function CouncilGame({
   const [accepted, setAccepted] = useState(false);
   const [future, setFuture] = useState<State | null>(null);
   const [draft, setDraft] = useState<Decision[]>([]);
+  const [notice, setNotice] = useState('');
   const [previous, setPrevious] = useState<State | null>(null);
   useEffect(() => {
     try {
@@ -80,6 +81,7 @@ export default function CouncilGame({
     ? { ...record, rounds: [...record.rounds, programme(draft)] }
     : record;
   const state = run(previewRecord, year).at(-1)!;
+  const minPolicies = record.v === 2 ? 2 : 1;
   const maxPolicies = record.v === 2 ? 3 : 1;
   const scene = getScenario(sceneId ?? leadScenario(original), state);
   const speaker = people.find((p) => p.id === scene.speaker)!;
@@ -134,16 +136,25 @@ export default function CouncilGame({
     )
       return;
     setDraft([...draft, decision]);
+    setNotice(
+      `${levers[decision.lever].name} added. ${draft.length + 1 < minPolicies ? 'Choose a second policy before advancing.' : draft.length + 1 < maxPolicies ? 'Ready. Add an optional third policy or advance time.' : 'Programme complete. Advance time when ready.'}`,
+    );
+    requestAnimationFrame(() => {
+      const node = document.getElementById('programme-next');
+      node?.scrollIntoView({ block: 'center' });
+      node?.focus({ preventScroll: true });
+    });
     setLever(null);
     setAccepted(false);
   }
   function removePolicy(index: number) {
     setDraft(draft.slice(0, index));
+    setNotice('Programme updated. Review your remaining choices.');
     setLever(null);
     setAccepted(false);
   }
   function commit() {
-    if (!record || !draft.length) return;
+    if (!record || draft.length < minPolicies) return;
     const next = { ...record, rounds: [...record.rounds, programme(draft)] };
     const target = [2036, 2050, 2126][record.rounds.length];
     const result = run(next, target).at(-1)!;
@@ -153,10 +164,12 @@ export default function CouncilGame({
         '',
         '/council?d=' + encode(next) + (demo ? '&demo=1' : ''),
       );
+    setNotice('');
     setPrevious(original);
     setDraft([]);
     setRecord(next);
     setFuture(result);
+    requestAnimationFrame(() => window.scrollTo({ top: 0 }));
     setSceneId(null);
     setLever(null);
     setAccepted(false);
@@ -197,7 +210,10 @@ export default function CouncilGame({
           onContinue={() => {
             if (future.year === 2126)
               location.href = '/receipt?d=' + encode(record);
-            else setFuture(null);
+            else {
+              setFuture(null);
+              window.scrollTo({ top: 0 });
+            }
           }}
         />
       ) : (
@@ -221,8 +237,8 @@ export default function CouncilGame({
               </h2>
               <p className="small muted">
                 {draft.length
-                  ? 'The board previews your proposed changes. Advance time when ready.'
-                  : 'Start with Salmah’s shop, then explore other places. Policies share the capacity budget.'}
+                  ? 'Build a complete programme. The board previews your proposed changes.'
+                  : 'Explore the district and combine policies within a shared capacity budget.'}
               </p>
             </div>
             {record.rounds.length === 0 && draft.length === 0 && (
@@ -254,19 +270,12 @@ export default function CouncilGame({
                 </li>
               ))}
             </ol>
-            <Button
-              className="primary"
-              disabled={!draft.length}
-              onClick={commit}
-            >
-              Advance to {[2036, 2050, 2126][record.rounds.length]} →
-            </Button>
             <details>
               <summary>How the programme works</summary>
               <p>
-                Choose one to {maxPolicies} different policies. Renew policies
-                in later periods. Undoing an earlier addition removes later
-                additions so funding and agreements remain valid.
+                Choose {minPolicies} to {maxPolicies} different policies. Renew
+                policies in later periods. Undoing an earlier addition removes
+                later additions so funding and agreements remain valid.
                 {record.v === 2
                   ? ' Each new period adds 20 capacity. Annual capacity pays upkeep. Renewals replace earlier policies, rather than stacking them.'
                   : ''}
@@ -284,20 +293,11 @@ export default function CouncilGame({
                 Select a place to explore its dilemma. Add up to {maxPolicies}{' '}
                 policies before advancing time.
               </p>
-              <details className="district-conditions">
-                <summary>District conditions</summary>
-                <div className="metrics">
-                  {keys.map((k) => (
-                    <div className="metric" key={k}>
-                      <label>{k}</label>
-                      <strong>
-                        {Math.round(state[k] * 100)}
-                        <small> /100</small>
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-              </details>
+              <DistrictRating
+                state={state}
+                previous={draft.length ? original : undefined}
+                preview={draft.length > 0}
+              />
             </section>
             <aside
               id="scene-story"
@@ -305,6 +305,26 @@ export default function CouncilGame({
               className="councilpanel"
               aria-label="Scenario and choices"
             >
+              <div id="programme-next" tabIndex={-1} className="programme-next">
+                {notice && <p role="status">{notice}</p>}
+                {draft.length > 0 && draft.length < maxPolicies && (
+                  <div className="next-places">
+                    <p className="small">Continue building your programme:</p>
+                    {['shade', 'trades', 'commons', 'food']
+                      .filter((id) => sceneParcel(scene.id) !== id)
+                      .slice(0, 3)
+                      .map((id) => (
+                        <button
+                          key={id}
+                          className="secondary"
+                          onClick={() => selectPlace(id)}
+                        >
+                          Explore {id}
+                        </button>
+                      ))}
+                  </div>
+                )}
+              </div>
               <div className="personhead">
                 <span className="avatar">{speaker.initials}</span>
                 <div>
@@ -379,11 +399,14 @@ export default function CouncilGame({
                     </p>
                   )}
                   <p className="small">
-                    Immediate effect:{' '}
+                    {record.v === 2 &&
+                    allMoves(record).some((d) => d.lever === lever)
+                      ? 'Renewal replaces the earlier policy; immediate effect is halved: '
+                      : 'Immediate effect: '}{' '}
                     {Object.entries(selected.immediate)
                       .map(
                         ([k, v]) =>
-                          `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100)}`,
+                          `${k} ${v > 0 ? '+' : ''}${Math.round(v * 100 * (record.v === 2 && allMoves(record).some((d) => d.lever === lever) ? 0.5 : 1))}`,
                       )
                       .join(' · ')}
                   </p>
@@ -409,6 +432,28 @@ export default function CouncilGame({
                 </section>
               )}
             </aside>
+          </div>
+          <div className="programme-dock" aria-label="Programme progress">
+            <div>
+              <strong>
+                {draft.length}/{maxPolicies} policies ·{' '}
+                {Math.floor(state.capacity)} capacity
+              </strong>
+              <p className="small">
+                {draft.length < minPolicies
+                  ? `Add ${minPolicies - draft.length} more to complete this period`
+                  : draft.length < maxPolicies
+                    ? 'Ready to advance · third policy optional'
+                    : 'Programme complete'}
+              </p>
+            </div>
+            <Button
+              className="primary"
+              disabled={draft.length < minPolicies}
+              onClick={commit}
+            >
+              Advance to {[2036, 2050, 2126][record.rounds.length]} →
+            </Button>
           </div>
         </main>
       )}
