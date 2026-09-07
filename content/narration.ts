@@ -24,11 +24,15 @@ export function testimony(s: State, district: DistrictId = 'kampong-glam') {
           : 'I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway.'
         : 'I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it.';
   const districtOpening =
-    district === 'chinatown'
+    district === 'little-india'
       ? s.year === 2126
-        ? 'I am reading Chinatown’s council record. Beside the plans are Mr Tan’s repair notes and the schedules from Mr Goh’s arts workshop.'
-        : `I walk along Pagoda Street and think about Mr Tan’s workshop. It is ${s.year}; the decisions in this council record have had time to change the neighbourhood.`
-      : opening;
+        ? 'I am reading Little India’s council record. Kavitha’s textile notes sit beside Mdm Devi’s memories of teaching on Campbell Lane.'
+        : `I walk past Little India Arcade and think about Kavitha’s shop. It is ${s.year}; these decisions have shaped who can stay, work and gather here.`
+      : district === 'chinatown'
+        ? s.year === 2126
+          ? 'I am reading Chinatown’s council record. Beside the plans are Mr Tan’s repair notes and the schedules from Mr Goh’s arts workshop.'
+          : `I walk along Pagoda Street and think about Mr Tan’s workshop. It is ${s.year}; the decisions in this council record have had time to change the neighbourhood.`
+        : opening;
   const lines = [
     districtOpening,
     s.affordability < 0.4
@@ -58,7 +62,11 @@ export function testimony(s: State, district: DistrictId = 'kampong-glam') {
   ];
   return {
     persona:
-      district === 'chinatown' ? `A Chinatown neighbour, ${s.year}` : persona,
+      district === 'little-india'
+        ? `A Little India neighbour, ${s.year}`
+        : district === 'chinatown'
+          ? `A Chinatown neighbour, ${s.year}`
+          : persona,
     text: lines.join(' '),
   };
 }

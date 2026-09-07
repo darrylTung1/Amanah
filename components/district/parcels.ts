@@ -160,13 +160,61 @@ const chinatownPlaces = [
     '#c47752',
   ],
 ];
+const littleIndiaPlaces = [
+  [
+    'Campbell Lane',
+    'Flower garlands, teaching time and the future of living crafts.',
+    '#cb6598',
+  ],
+  [
+    'Sri Veeramakaliamman Temple',
+    'Welcoming, accessible surrounding streets that respect worship and everyday life.',
+    '#b891db',
+  ],
+  [
+    'Former House of Tan Teng Niah',
+    'Shade and places to pause around the colourful heritage house on Kerbau Road.',
+    '#76b59a',
+  ],
+  [
+    'Little India Arcade',
+    'Independent shops need affordable premises and regular customers.',
+    '#dfa351',
+  ],
+  [
+    'Indian Heritage Centre',
+    'Community memories and living practices around Campbell Lane.',
+    '#6cbdc2',
+  ],
+  [
+    'Mustafa Centre',
+    'Busy shopping routes around the centre must also work for neighbouring businesses and workers.',
+    '#d48c62',
+  ],
+  [
+    'Farrer Park',
+    'Space to rest, meet and take part without needing to buy something.',
+    '#8daf74',
+  ],
+  [
+    'Tekka Centre',
+    'Everyday meals, market livelihoods and comfortable access for shoppers and suppliers.',
+    '#deba55',
+  ],
+];
 export function districtParcels(district: DistrictId = 'kampong-glam') {
-  return district === 'chinatown'
+  const local =
+    district === 'little-india'
+      ? littleIndiaPlaces
+      : district === 'chinatown'
+        ? chinatownPlaces
+        : null;
+  return local
     ? parcels.map((p, i) => ({
         ...p,
-        name: chinatownPlaces[i][0],
-        detail: chinatownPlaces[i][1],
-        color: chinatownPlaces[i][2],
+        name: local[i][0],
+        detail: local[i][1],
+        color: local[i][2],
       }))
     : parcels;
 }

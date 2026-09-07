@@ -1,4 +1,5 @@
 'use client';
+import { resolveDistrict } from '@/engine/model';
 import * as m from 'motion/react-m';
 import { useEffect, useState, useId } from 'react';
 import Header from '@/components/Header';
@@ -61,9 +62,7 @@ export default function CouncilGame({
     try {
       const q = new URLSearchParams(location.search);
       const linked = q.has('d') ? decode(q.get('d')!) : null;
-      const requested =
-        districtId ??
-        (q.get('district') === 'chinatown' ? 'chinatown' : 'kampong-glam');
+      const requested = districtId ?? resolveDistrict(q.get('district'));
       const r =
         linked &&
         (!districtId || (linked.district ?? 'kampong-glam') === districtId)
@@ -301,7 +300,7 @@ export default function CouncilGame({
                 <RecordedDialogue
                   key={scene.id + year}
                   clipKey={
-                    (district === 'chinatown' ? 'chinatown|' : '') +
+                    (district === 'kampong-glam' ? '' : district + '|') +
                     'scene|' +
                     scene.id +
                     (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
@@ -356,11 +355,11 @@ export default function CouncilGame({
                       <RecordedDialogue
                         key={responseKey}
                         clipKey={
-                          (district === 'chinatown' ? 'chinatown|' : '') +
+                          (district === 'kampong-glam' ? '' : district + '|') +
                           responseKey
                         }
                         text={
-                          district === 'chinatown'
+                          district !== 'kampong-glam'
                             ? accepted
                               ? `Agreed. ${riders[protection]} is part of this programme.`
                               : counterpart.concern

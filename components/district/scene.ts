@@ -157,6 +157,22 @@ export function createDistrict(
             block,
           );
         box(1.45, 0.09, 0.2, '#c8bb94', 0, 0.16, 0.63, block);
+      } else if (p.kind === 'landmark' && district === 'little-india') {
+        // Abstract stepped gateway; not a surveyed temple replica.
+        box(1.8, 0.48, 1.15, '#ddba9b', 0, 0.32, 0, block);
+        for (let tier = 0; tier < 5; tier++) {
+          box(
+            1.15 - tier * 0.15,
+            0.2,
+            0.72 - tier * 0.08,
+            ['#77b6b3', '#b887be', '#df9a73', '#90bda4', '#d4b45c'][tier],
+            0,
+            0.66 + tier * 0.2,
+            0.15,
+            block,
+          );
+        }
+        box(0.38, 0.45, 0.04, '#365454', 0, 0.31, 0.59, block);
       } else if (p.kind === 'landmark' && district === 'chinatown') {
         // A fictional association courtyard, not a replica of a religious monument.
         box(1.7, 0.6, 1.1, '#e1cfaf', 0, 0.38, 0, block);

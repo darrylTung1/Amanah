@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { encode, validate } from '@/engine/model';
+import { encode, validate, districtIds, resolveDistrict } from '@/engine/model';
 type Context = {
   registerTool: (
     tool: {
@@ -33,7 +33,7 @@ export default function AgentActions() {
               properties: {
                 district: {
                   type: 'string',
-                  enum: ['kampong-glam', 'chinatown'],
+                  enum: districtIds,
                 },
                 weights: {
                   type: 'array',
@@ -51,10 +51,9 @@ export default function AgentActions() {
                 v: 3,
                 district:
                   (input as { district?: unknown }).district ??
-                  (new URLSearchParams(location.search).get('district') ===
-                  'chinatown'
-                    ? 'chinatown'
-                    : 'kampong-glam'),
+                  resolveDistrict(
+                    new URLSearchParams(location.search).get('district'),
+                  ),
                 weights: (input as { weights: unknown }).weights,
                 rounds: [],
               };

@@ -1,4 +1,5 @@
 import data from '../content/scenarios.json' with { type: 'json' };
+import littleIndia from '../content/little-india-scenarios.json' with { type: 'json' };
 import chinatown from '../content/chinatown-scenarios.json' with { type: 'json' };
 import type { DistrictId } from './model.ts';
 import { type State, type LeverId, type RiderId, levers } from './model.ts';
@@ -42,16 +43,20 @@ export function getScenario(
   s: State,
   district: DistrictId = 'kampong-glam',
 ): Scenario {
-  if (district === 'chinatown') {
+  if (district !== 'kampong-glam') {
+    const local = district === 'little-india' ? littleIndia : chinatown;
     const scene =
-      (chinatown as unknown as Scenario[]).find((x) => x.id === id) ??
-      (chinatown[0] as unknown as Scenario);
+      (local as unknown as Scenario[]).find((x) => x.id === id) ??
+      (local[0] as unknown as Scenario);
     if (scene.id === 'hot-afternoon' && s.habitability >= 0.4)
       return { ...scene, title: 'A comfortable route' };
     if (scene.id === 'six-weeks' && s.year !== 2026)
       return {
         ...scene,
-        title: 'Keeping a place in Chinatown',
+        title:
+          district === 'little-india'
+            ? 'Keeping a place in Little India'
+            : 'Keeping a place in Chinatown',
         dialogue:
           'The lease is only one part of staying here. People need customers, room to learn and neighbours who can afford to remain. Which part of that promise will this council keep?',
       };

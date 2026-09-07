@@ -1,0 +1,155 @@
+[
+  {
+    "id": "six-weeks",
+    "title": "A shop beyond the souvenir",
+    "place": "Little India Arcade",
+    "speaker": "tenant_salmah",
+    "dialogue": "My regular customers come for cloth, advice and someone who remembers what they need. In this imagined future, the next lease is harder to afford. Training an apprentice takes time that the rent does not give us. How do we keep this a working shop as well as a place people visit?",
+    "question": "Protect the lease, fund an apprentice, or invest in shared ownership?",
+    "options": [
+      [
+        "rent_covenant",
+        "Keep independent traders in place, with owner compensation."
+      ],
+      ["trade_grant", "Pay for skills to be taught; rent pressure remains."],
+      [
+        "land_trust",
+        "Put premises into shared ownership at a high upfront cost."
+      ]
+    ],
+    "consequence": "Rent relief buys time. Apprenticeships preserve practice. Shared ownership needs capacity that could fund other needs."
+  },
+  {
+    "id": "empty-stool",
+    "title": "Who ties the next garland?",
+    "place": "Campbell Lane",
+    "speaker": "custodian_rahim",
+    "dialogue": "A flower garland is made by hand, with a rhythm you learn beside someone. Around Campbell Lane, our fictional workshop needs time to teach as well as orders to fill. A photograph can show the finished garland. Who will pay for the hours it takes to learn?",
+    "question": "Support teaching, secure a home for it, or adapt another space?",
+    "options": [
+      ["trade_grant", "Fund mentoring and time to practise."],
+      ["rent_covenant", "Protect affordable premises with compensation."],
+      [
+        "adaptive_reuse",
+        "Bring an old unit into use while retaining its archive."
+      ]
+    ],
+    "consequence": "An archive protects records, while active teaching sustains continuity. More commercial demand can still displace learners."
+  },
+  {
+    "id": "cannot-relearn",
+    "title": "The hands missing from the record",
+    "place": "Campbell Lane",
+    "speaker": "custodian_rahim",
+    "dialogue": "Our teaching chain has broken in this future. We have photographs and oral histories, but fewer people who can guide a learner through the work. New funding can support the knowledge that remains. It cannot promise to bring every lost skill back.",
+    "question": "Rebuild teaching, secure long-term space, or protect surviving records?",
+    "options": [
+      [
+        "trade_grant",
+        "Rebuild practice gradually; lost knowledge limits recovery."
+      ],
+      ["land_trust", "Secure space for a long commitment."],
+      ["adaptive_reuse", "Keep surviving records inside a newly used space."]
+    ],
+    "consequence": "Once continuity crosses the lasting-loss threshold, grants cannot instantly restore it."
+  },
+  {
+    "id": "who-belongs",
+    "title": "Space around a living temple",
+    "place": "Sri Veeramakaliamman Temple · surrounding streets",
+    "speaker": "youth_faiz",
+    "dialogue": "Around Sri Veeramakaliamman Temple, people come to worship, work and visit. Older neighbours need comfortable access, and gatherings need space without blocking anyone’s daily journey. Can visitor income support the surrounding neighbourhood while respecting religious life?",
+    "question": "Share visitor income, support nearby community premises, or invest in learning?",
+    "options": [
+      ["land_trust", "Support community ownership of nearby premises."],
+      [
+        "visitor_levy",
+        "Raise funds and distribute benefits, with a ten-year sunset."
+      ],
+      ["trade_grant", "Make learning and participation more viable."]
+    ],
+    "consequence": "A busy district does not automatically share its gains. Equity needs direct support."
+  },
+  {
+    "id": "hot-afternoon",
+    "title": "Beyond the colourful photograph",
+    "place": "Former House of Tan Teng Niah · Kerbau Road",
+    "speaker": "operator_jo",
+    "dialogue": "People stop to photograph the Former House of Tan Teng Niah. But the surrounding walk needs shade and somewhere to pause, especially for older visitors and people working nearby. Can we improve the public space without treating the heritage house itself as something to redevelop?",
+    "question": "Cool nearby buildings, improve shade and walking access, or raise shared funds?",
+    "options": [
+      ["cooling_retrofit", "Improve comfort in existing spaces."],
+      [
+        "pedestrianise",
+        "Add shade and walking space while retaining a loading window."
+      ],
+      ["visitor_levy", "Fund community improvements, with a sunset review."]
+    ],
+    "consequence": "Cooling directly improves habitability. Pedestrianisation also attracts activity and can increase rent pressure."
+  },
+  {
+    "id": "too-busy",
+    "title": "Who benefits from the footfall?",
+    "place": "Mustafa Centre · surrounding streets",
+    "speaker": "operator_jo",
+    "dialogue": "Shopping around Mustafa Centre brings customers to the wider neighbourhood. Yet a crowded route does not guarantee that small shops or the people working late share the benefits. Should the next investment protect nearby tenants, share visitor income or grow evening activity?",
+    "question": "Redistribute benefits, protect traders, or expand evening activity?",
+    "options": [
+      ["visitor_levy", "Share visitor income, accepting some loss of demand."],
+      ["rent_covenant", "Protect existing traders from rising rent pressure."],
+      [
+        "night_economy",
+        "Bring more evening activity, with a quiet-hours agreement."
+      ]
+    ],
+    "consequence": "High vitality alongside weak continuity can lock the district into visitor monoculture."
+  },
+  {
+    "id": "new-keys",
+    "title": "A story with room to continue",
+    "place": "Indian Heritage Centre · nearby shophouses",
+    "speaker": "custodian_rahim",
+    "dialogue": "The Indian Heritage Centre holds stories of Singapore’s Indian communities. Nearby, our fictional workshop needs premises where those skills can still be practised. If a shophouse takes on a new use, will local teaching and community memories have a place in it?",
+    "question": "Support reuse of nearby shophouses, invest in teaching, or secure community premises?",
+    "options": [
+      [
+        "adaptive_reuse",
+        "Allow new activity with an archive protection clause."
+      ],
+      ["trade_grant", "Fund living practice instead of a display alone."],
+      ["land_trust", "Invest in long-term shared ownership."]
+    ],
+    "consequence": "Reuse brings activity but may increase rent pressure. Records alone do not keep a living practice alive."
+  },
+  {
+    "id": "after-dark",
+    "title": "Keep the market working",
+    "place": "Tekka Centre",
+    "speaker": "tenant_salmah",
+    "dialogue": "At Tekka Centre, a meal, a market trip and a familiar face belong to the same day. In this imagined future, our food business is considering more evening trade. But staff need rest, deliveries need access and the neighbourhood needs comfortable streets. What would make that growth worthwhile?",
+    "question": "Extend evenings, improve comfort, or make room for walking?",
+    "options": [
+      ["night_economy", "Expand evening activity with a noise curfew."],
+      ["cooling_retrofit", "Make existing spaces more comfortable."],
+      ["pedestrianise", "Improve walking and shade with delivery access."]
+    ],
+    "consequence": "A curfew reduces some harms; it does not remove the long-term trade-offs of night activity."
+  },
+  {
+    "id": "everyday-space",
+    "title": "A place to spend a day off",
+    "place": "Farrer Park",
+    "speaker": "youth_faiz",
+    "dialogue": "Some people come here to meet friends on their day off. Others live nearby and want shared space that feels welcoming and cared for. Resting and belonging should not depend on buying a meal or a ticket. How can the district fund everyday places for people to gather?",
+    "question": "Share visitor income, support community premises, or fund the next generation?",
+    "options": [
+      ["land_trust", "Support community ownership of nearby premises."],
+      [
+        "visitor_levy",
+        "Raise funds and distribute benefits, with a ten-year sunset."
+      ],
+      ["trade_grant", "Make learning and participation more viable."]
+    ],
+    "consequence": "A busy district does not automatically share its gains. Equity needs direct support."
+  }
+]

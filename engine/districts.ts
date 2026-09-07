@@ -3,6 +3,7 @@ import { people, type DistrictId } from './model.ts';
 export const districtNames: Record<DistrictId, string> = {
   'kampong-glam': 'Kampong Glam',
   chinatown: 'Chinatown',
+  'little-india': 'Little India',
 };
 const chinatownPeople = [
   {
@@ -46,8 +47,56 @@ const chinatownPeople = [
     concern: 'The streets must work for staff, deliveries and neighbours.',
   },
 ];
+const littleIndiaPeople = [
+  {
+    name: 'Kavitha',
+    initials: 'K',
+    role: 'Independent textile-shop tenant',
+    evidence:
+      'A fictional Little India Arcade trader balancing rent, regular customers and teaching time.',
+    concern:
+      'Keep an independent shop affordable enough to pass on its skills.',
+  },
+  {
+    name: 'Arun',
+    initials: 'A',
+    role: 'Neighbourhood volunteer',
+    evidence:
+      'A fictional volunteer advocating for residents, young people and workers who gather here on their days off.',
+    concern:
+      'A welcoming district needs places to rest without having to spend.',
+  },
+  {
+    name: 'Mdm Devi',
+    initials: 'MD',
+    role: 'Craft mentor and oral-history collector',
+    evidence:
+      'A fictional mentor supporting flower-garland teaching and community memories.',
+    concern: 'An archive needs living teachers beside it.',
+  },
+  {
+    name: 'Mr Menon',
+    initials: 'MM',
+    role: 'Family property owner',
+    evidence:
+      'A fictional shophouse owner balancing maintenance and long-term tenancy commitments.',
+    concern: 'A lasting rent promise needs a funded compensation agreement.',
+  },
+  {
+    name: 'Farah',
+    initials: 'F',
+    role: 'Food business operator',
+    evidence:
+      'A fictional operator balancing staff livelihoods, customer access and deliveries.',
+    concern: 'Keep the streets usable for staff, suppliers and neighbours.',
+  },
+];
 export function districtPeople(district: DistrictId = 'kampong-glam') {
-  return district === 'chinatown'
-    ? people.map((p, i) => ({ ...p, ...chinatownPeople[i] }))
-    : people;
+  const local =
+    district === 'little-india'
+      ? littleIndiaPeople
+      : district === 'chinatown'
+        ? chinatownPeople
+        : null;
+  return local ? people.map((p, i) => ({ ...p, ...local[i] })) : people;
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import SingaporeMap from '@/components/SingaporeMap';
 import CouncilGame from '@/components/CouncilGame';
 import AgentActions from '@/components/AgentActions';
-import { decode, type DistrictId } from '@/engine/model';
+import { decode, isDistrictId, type DistrictId } from '@/engine/model';
 import { districtNames } from '@/engine/districts';
 export default function Home() {
   const [district, setDistrict] = useState<DistrictId | null>(null);
@@ -31,7 +31,7 @@ export default function Home() {
         /* Council handles invalid records. */
       }
     }
-    if (id === 'kampong-glam' || id === 'chinatown') {
+    if (isDistrictId(id)) {
       setDistrict(id);
       setLast(id);
       setVisited([id]);
@@ -43,7 +43,9 @@ export default function Home() {
       ?.focus({ preventScroll: true });
   }, [district, last]);
   return (
-    <div className={`shell game-shell${district ? '' : ' game-shell-frontpage'}`}>
+    <div
+      className={`shell game-shell${district ? '' : ' game-shell-frontpage'}`}
+    >
       <AgentActions />
       <header className="topbar">
         <a

@@ -18,3 +18,16 @@ Kampong Glam uses Sultan Mosque, Malay Heritage Centre, Aliwal Arts Centre, Haji
 - [Malay Heritage Centre: the precinct](https://www.malayheritage.gov.sg/en/about-us/about-kampong-gelam-precinct)
 
 Checked 7 September 2026. No opening hours or real-time operating claims are used.
+
+## Little India
+
+Eight stops: Campbell Lane, Sri Veeramakaliamman Temple, Former House of Tan Teng Niah, Little India Arcade, Indian Heritage Centre, Mustafa Centre, Farrer Park and Tekka Centre. The board represents the wider precinct, including Farrer Park. Map marker is an approximate precinct centre, not a property boundary.
+
+Real places anchor fictional future dilemmas. Characters do not represent the named institutions. Temple choices affect surrounding public space and nearby premises; reuse choices near the Indian Heritage Centre concern neighbouring shophouses. No claims about actual leases, staffing, expansion plans or current opening hours are made.
+
+- [STB: Little India](https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/little-india/)
+- [NHB: Little India heritage trail, Serangoon in the 1900s](https://www.roots.gov.sg/places/places-landing/trails/little-india-heritage-trail-Serangoon-in-the-1900s)
+- [NHB: Little India heritage trail booklet](https://www.roots.gov.sg/~/media/Roots/Files/little-india-heritage-trail/nhb_littleindia-trail-booklet_2018.pdf)
+- [Indian Heritage Centre](https://www.indianheritage.gov.sg/en/plan-your-visit/location-opening-hours)
+
+Checked 7 September 2026. The shared illustrative policy equations remain consistent across all three districts; the game does not claim independently calibrated local forecasts.

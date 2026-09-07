@@ -33,6 +33,7 @@ writeFileSync(
     paths,
     kampongGlam: project([103.859, 1.302]),
     chinatown: project([103.8436, 1.2838]),
+    littleIndia: project([103.8523, 1.3066]),
   }),
 );
 console.log('Prepared Singapore outline:', paths.length, 'island polygons.');

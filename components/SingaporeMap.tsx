@@ -1,7 +1,8 @@
 'use client';
+import './SingaporeMap.css';
 import map from '@/content/singapore-map.json';
 import { districtNames } from '@/engine/districts';
-import type { DistrictId } from '@/engine/model';
+import { districtIds, type DistrictId } from '@/engine/model';
 
 export default function SingaporeMap({
   active,
@@ -12,7 +13,12 @@ export default function SingaporeMap({
   onEnter: (id: DistrictId) => void;
   selected: DistrictId;
 }) {
-  const [x, y] = selected === 'chinatown' ? map.chinatown : map.kampongGlam;
+  const points = {
+    'kampong-glam': map.kampongGlam,
+    chinatown: map.chinatown,
+    'little-india': map.littleIndia,
+  };
+  const [x, y] = points[selected];
   return (
     <main className="island-screen">
       <div className={`island-map ${!active ? 'island-map-zooming' : ''}`}>
@@ -23,7 +29,7 @@ export default function SingaporeMap({
           <svg
             viewBox="0 0 1000 620"
             role="img"
-            aria-label="Silhouette map of Singapore. Kampong Glam and Chinatown are marked in the south of the main island."
+            aria-label="Silhouette map of Singapore. Kampong Glam, Chinatown and Little India are marked in the south of the main island."
           >
             <defs>
               <linearGradient id="island-fill" x1="0" y1="0" x2="1" y2="1">
@@ -66,9 +72,8 @@ export default function SingaporeMap({
               <path d="M0-10L-6 12L0 7L6 12Z" fill="currentColor" />
             </g>
           </svg>
-          {(['kampong-glam', 'chinatown'] as DistrictId[]).map((id) => {
-            const [px, py] =
-              id === 'chinatown' ? map.chinatown : map.kampongGlam;
+          {districtIds.map((id) => {
+            const [px, py] = points[id];
             return (
               <button
                 key={id}

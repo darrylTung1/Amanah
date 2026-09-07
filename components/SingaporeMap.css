@@ -1,0 +1,20 @@
+.island-pin-little-india .island-pin-label {
+  position: absolute;
+  right: 44px;
+  top: -90px;
+  border-color: #cda6ef;
+}
+.island-pin-little-india .island-pin-dot {
+  border-color: #cda6ef;
+  background: #a576ce2e;
+}
+.island-pin-little-india .island-pin-dot::after {
+  background: #cda6ef;
+  box-shadow: 0 0 22px #a576ce;
+}
+@media (max-width: 750px) {
+  .game-shell .island-pin-little-india .island-pin-label {
+    right: 24px;
+    top: -60px;
+  }
+}

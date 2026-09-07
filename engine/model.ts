@@ -138,7 +138,21 @@ export function programme(moves: Decision[]): Decision {
     ...(moves.length > 1 ? { actions: moves.slice(1) } : {}),
   };
 }
-export type DistrictId = 'kampong-glam' | 'chinatown';
+export const districtIds = [
+  'kampong-glam',
+  'chinatown',
+  'little-india',
+] as const;
+export type DistrictId = (typeof districtIds)[number];
+export function isDistrictId(value: unknown): value is DistrictId {
+  return (
+    typeof value === 'string' &&
+    (districtIds as readonly string[]).includes(value)
+  );
+}
+export function resolveDistrict(value: unknown): DistrictId {
+  return isDistrictId(value) ? value : 'kampong-glam';
+}
 export type DecisionRecord = {
   district?: DistrictId;
   v: 1 | 2 | 3;
@@ -382,8 +396,7 @@ export function validate(x: unknown): asserts x is DecisionRecord {
   if (!x || typeof x !== 'object') throw Error('Invalid decision record');
   const r = x as DecisionRecord;
   if (
-    (r.district !== undefined &&
-      !['kampong-glam', 'chinatown'].includes(r.district)) ||
+    (r.district !== undefined && !isDistrictId(r.district)) ||
     ![1, 2, 3].includes(r.v) ||
     !Array.isArray(r.weights) ||
     r.weights.length !== 4 ||
