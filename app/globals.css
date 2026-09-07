@@ -1811,8 +1811,16 @@ summary:focus-visible {
 }
 .programme-menu summary {
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 650;
   color: var(--primary);
+}
+.game-shell .programme-dock > div > strong {
+  font-size: 1rem;
+}
+.game-shell .programme-dock > div > .small {
+  font-size: 0.875rem;
+  color: var(--foreground);
 }
 .programme-undo {
   margin-left: 12px;
