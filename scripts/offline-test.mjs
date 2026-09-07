@@ -46,7 +46,7 @@ for (const path of ['/', '/council?d=abc&demo=1', '/receipt?d=abc']) {
   });
   const r = await result;
   assert.equal(r.status, 200);
-  assert.match(await r.text(), /Sociopoly/);
+  assert.match(await r.text(), /Amanah/);
 }
 for (const [url, response] of storage) {
   if (url.endsWith('.wav')) {

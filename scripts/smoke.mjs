@@ -9,7 +9,7 @@ const record = {
 for (const path of ['/', '/council', '/receipt?d=invalid']) {
   const r = await fetch(origin + path);
   assert.equal(r.status, 200, path);
-  assert.match(await r.text(), /Sociopoly/);
+  assert.match(await r.text(), /Amanah/);
 }
 const post = (path, body) =>
   fetch(origin + path, {

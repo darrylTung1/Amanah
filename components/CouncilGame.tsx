@@ -1,7 +1,7 @@
 'use client';
 import { resolveDistrict } from '@/engine/model';
 import * as m from 'motion/react-m';
-import { useEffect, useState, useId } from 'react';
+import { useEffect, useState, useId, useCallback } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
@@ -38,6 +38,7 @@ import {
 } from '@/engine/scenarios';
 import scripts from '@/content/council-recording-scripts.json';
 import { districtPeople, districtNames } from '@/engine/districts';
+import { readSave, saveKey, type GameSave } from '@/engine/save';
 const base: DecisionRecord = { v: 3, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
@@ -58,23 +59,93 @@ export default function CouncilGame({
   const [draft, setDraft] = useState<Decision[]>([]);
   const [notice, setNotice] = useState('');
   const [previous, setPrevious] = useState<State | null>(null);
+  const [saveStatus, setSaveStatus] = useState('');
+  const [saveReady, setSaveReady] = useState(false);
   useEffect(() => {
     try {
       const q = new URLSearchParams(location.search);
       const linked = q.has('d') ? decode(q.get('d')!) : null;
       const requested = districtId ?? resolveDistrict(q.get('district'));
-      const r =
+      let r =
         linked &&
         (!districtId || (linked.district ?? 'kampong-glam') === districtId)
           ? linked
           : { ...base, district: requested };
+      let saved: GameSave | null = null;
+      // Explicit shared links take precedence over this browser's progress.
+      if (!linked) {
+        try {
+          const value = localStorage.getItem(saveKey(requested));
+          if (value) saved = readSave(value, requested);
+          if (saved) r = saved.record;
+        } catch {
+          setSaveStatus('Your save could not be opened. Saving is paused.');
+          setRecord(r);
+          return;
+        }
+      }
       run(r);
       setRecord(r);
+      setDraft(saved?.draft ?? []);
+      setSceneId(saved?.sceneId ?? null);
+      setLever(saved?.lever ?? null);
+      setAccepted(saved?.accepted ?? false);
+      if (saved?.showingFuture) {
+        setFuture(run(r, outcomeYears(r)[r.rounds.length - 1]).at(-1)!);
+        setPrevious(
+          run(
+            { ...r, rounds: r.rounds.slice(0, -1) },
+            councilYears(r)[r.rounds.length - 1],
+          ).at(-1)!,
+        );
+      } else {
+        setFuture(null);
+        setPrevious(null);
+      }
       setDemo(q.get('demo') === '1');
+      setSaveReady(true);
     } catch {
       setError('This council link is invalid. Start a new game to continue.');
     }
   }, [districtId]);
+  const saveProgress = useCallback(() => {
+    if (!record) return;
+    try {
+      const save: GameSave = {
+        version: 1,
+        record,
+        draft,
+        sceneId,
+        lever,
+        accepted,
+        showingFuture: !!future,
+      };
+      localStorage.setItem(
+        saveKey(record.district ?? 'kampong-glam'),
+        JSON.stringify(save),
+      );
+      const url = new URL(location.href);
+      if (
+        url.searchParams.has('d') &&
+        (decode(url.searchParams.get('d')!).district ?? 'kampong-glam') ===
+          (record.district ?? 'kampong-glam')
+      ) {
+        url.searchParams.delete('d');
+        url.searchParams.set('district', record.district ?? 'kampong-glam');
+        history.replaceState(null, '', url);
+      }
+      setSaveReady(true);
+      setSaveStatus('Autosaved on this browser');
+    } catch {
+      setSaveStatus('Autosave unavailable. Check browser storage and reload.');
+    }
+  }, [record, draft, sceneId, lever, accepted, future]);
+  useEffect(() => {
+    // Report the result of synchronizing game state with browser storage.
+    // oxlint-disable-next-line react(react-compiler)
+    if (saveReady && record && (!districtId || record.district === districtId))
+      saveProgress();
+  }, [record, saveProgress, saveReady, districtId]);
   if (error)
     return (
       <main className="errorpage">
@@ -88,6 +159,7 @@ export default function CouncilGame({
     return (
       <main className="errorpage">
         <h1>Your council has concluded.</h1>
+        <output>{saveStatus}</output>
         <a href={'/receipt?d=' + encode(record)}>Open your legacy receipt →</a>
       </main>
     );
@@ -186,7 +258,7 @@ export default function CouncilGame({
       history.replaceState(
         null,
         '',
-        '/council?d=' + encode(next) + (demo ? '&demo=1' : ''),
+        '/council?district=' + district + (demo ? '&demo=1' : ''),
       );
     setNotice('');
     setPrevious(original);
@@ -232,6 +304,9 @@ export default function CouncilGame({
   return (
     <div className={embedded ? 'embedded-council' : 'shell game-shell'}>
       {!embedded && <Header demo={demo} district={district} />}
+      <div className="game-save-bar">
+        <output aria-live="polite">{saveStatus}</output>
+      </div>
       {future ? (
         <Testimony
           state={future}

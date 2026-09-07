@@ -10,7 +10,7 @@ The overall district rating equally averages all five conditions (20% each), rou
 
 See PROGRAMMES.md for current playthroughs and RECORDING-SCRIPTS.md for current scripts. Older single-decision calculations below describe model v1.
 
-# Sociopoly: Voices of the next hundred years
+# Amanah: Voices of the next hundred years
 
 A deterministic district simulation in which five fictional stakeholders negotiate three decisions for Kampong Gelam. The council can negotiate a condition; it cannot change a single simulation coefficient. Every annual outcome can be reconstructed from a URL.
 

@@ -2229,3 +2229,12 @@ summary:focus-visible {
     margin-left: 4px;
   }
 }
+.game-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+}

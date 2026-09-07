@@ -57,7 +57,7 @@ export default function Home() {
             enter(null);
           }}
         >
-          <span className="brandmark">✳</span>Sociopoly
+          <span className="brandmark">✳</span>Amanah
         </a>
         <div className="toplinks">
           {district && (

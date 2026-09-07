@@ -1,4 +1,4 @@
-# Sociopoly: Voices of the Next Hundred Years
+# Amanah: Voices of the Next Hundred Years
 ## Design + technical specification + Codex build plan
 
 **Event:** CloudHacks 2026, Advanced division. Submissions close 10:00, Tue 8 Sept.

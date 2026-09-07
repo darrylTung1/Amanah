@@ -254,7 +254,7 @@ export default function Receipt() {
         </p>
       </main>
       <footer className="footer">
-        <span>Sociopoly · Voices of the next hundred years</span>
+        <span>Amanah · Voices of the next hundred years</span>
         <span>CloudHacks 2026</span>
       </footer>
     </div>

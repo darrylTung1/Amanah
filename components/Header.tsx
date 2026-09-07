@@ -10,7 +10,7 @@ export default function Header({
   return (
     <header className="topbar">
       <a className="brand" href="/">
-        <span className="brandmark">✳</span>Sociopoly
+        <span className="brandmark">✳</span>Amanah
       </a>
       <div className="toplinks">
         <span className="muted small">Voices of the next hundred years</span>

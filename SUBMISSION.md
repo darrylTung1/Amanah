@@ -2,7 +2,7 @@
 
 ## Project title
 
-Sociopoly: Voices of the next hundred years
+Amanah: Voices of the next hundred years
 
 ## Short description
 
