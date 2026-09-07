@@ -351,7 +351,15 @@ export default function CouncilGame({
                 selectedParcel={sceneParcel(scene.id)}
               />
               <details className="game-rating">
-                <summary>
+                <summary onClick={(event) => {
+                  const details = event.currentTarget.parentElement as HTMLDetailsElement;
+                  const panel = details.closest<HTMLElement>('.district');
+                  const artwork = panel?.querySelector<HTMLElement>('.clothframe');
+                  if (!panel || !artwork) return;
+                  // Keep the picture and disclosure in place while the content expands below.
+                  if (details.open) panel.style.removeProperty('--district-art-height');
+                  else panel.style.setProperty('--district-art-height', `${artwork.getBoundingClientRect().height}px`);
+                }}>
                   District rating{' '}
                   <strong>{districtRating(state).score}/100</strong>
                   <span className="disclosure-closed">Show categories</span>

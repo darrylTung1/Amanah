@@ -1726,7 +1726,11 @@ summary:focus-visible {
   min-height: 0;
   padding: 12px;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: var(--district-art-height, minmax(0, 1fr)) auto;
+  overflow-y: auto;
+  overflow-anchor: none;
+  scrollbar-gutter: stable;
+  align-content: start;
   position: relative;
   gap: 8px;
 }
@@ -1802,10 +1806,7 @@ summary:focus-visible {
   cursor: pointer;
 }
 .game-rating[open] .district-rating {
-  position: absolute;
-  inset: 8px 8px 38px;
-  overflow-y: auto;
-  z-index: 25;
+  position: static;
   margin: 0;
   box-shadow: 0 8px 30px #0008;
 }
@@ -2320,14 +2321,8 @@ summary:focus-visible {
 details[open] > summary .disclosure-open { display: inline; }
 
 .game-shell .game-rating[open] > summary {
-  position: absolute;
-  inset: 8px 8px auto;
-  z-index: 26;
-  margin: 0;
-  box-shadow: 0 6px 20px #0007;
-}
-.game-shell .game-rating[open] .district-rating {
-  inset: 62px 8px 8px;
+  position: static;
+  margin: 0 0 10px;
 }
 
 /* Preserve the supplied square portrait frames. */
