@@ -1,18 +1,18 @@
 'use client';
 import map from '@/content/singapore-map.json';
+import { districtNames } from '@/engine/districts';
+import type { DistrictId } from '@/engine/model';
 
 export default function SingaporeMap({
   active,
   onEnter,
+  selected,
 }: {
   active: boolean;
-  onEnter: () => void;
+  onEnter: (id: DistrictId) => void;
+  selected: DistrictId;
 }) {
-  const [x, y] = map.kampongGlam;
-  function enter() {
-    // Reveal the already-mounted council immediately; CSS overlaps the scenes.
-    if (active) onEnter();
-  }
+  const [x, y] = selected === 'chinatown' ? map.chinatown : map.kampongGlam;
   return (
     <main className="island-screen">
       <div className={`island-map ${!active ? 'island-map-zooming' : ''}`}>
@@ -23,7 +23,7 @@ export default function SingaporeMap({
           <svg
             viewBox="0 0 1000 620"
             role="img"
-            aria-label="Silhouette map of Singapore. Kampong Glam is marked in the south of the main island."
+            aria-label="Silhouette map of Singapore. Kampong Glam and Chinatown are marked in the south of the main island."
           >
             <defs>
               <linearGradient id="island-fill" x1="0" y1="0" x2="1" y2="1">
@@ -66,23 +66,30 @@ export default function SingaporeMap({
               <path d="M0-10L-6 12L0 7L6 12Z" fill="currentColor" />
             </g>
           </svg>
-          <button
-            id="singapore-marker"
-            type="button"
-            className="island-pin"
-            style={{ left: `${x / 10}%`, top: `${y / 6.2}%` }}
-            onClick={enter}
-            disabled={!active}
-            aria-label="Enter Kampong Glam council"
-          >
-            <span className="island-pin-dot" aria-hidden="true" />
-            <span className="island-pin-label">
-              <small>Enter the council</small>
-              <strong>
-                Kampong Glam <span aria-hidden="true">↗</span>
-              </strong>
-            </span>
-          </button>
+          {(['kampong-glam', 'chinatown'] as DistrictId[]).map((id) => {
+            const [px, py] =
+              id === 'chinatown' ? map.chinatown : map.kampongGlam;
+            return (
+              <button
+                key={id}
+                id={`singapore-marker-${id}`}
+                type="button"
+                className={`island-pin island-pin-${id}`}
+                style={{ left: `${px / 10}%`, top: `${py / 6.2}%` }}
+                onClick={() => active && onEnter(id)}
+                disabled={!active}
+                aria-label={`Enter ${districtNames[id]} council`}
+              >
+                <span className="island-pin-dot" aria-hidden="true" />
+                <span className="island-pin-label">
+                  <small>Enter the council</small>
+                  <strong>
+                    {districtNames[id]} <span aria-hidden="true">↗</span>
+                  </strong>
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="island-caption">

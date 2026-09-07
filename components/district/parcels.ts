@@ -1,4 +1,4 @@
-import type { Metric, State } from '../../engine/model';
+import type { Metric, State, DistrictId } from '../../engine/model';
 export const parcels = [
   {
     id: 'trades',
@@ -116,3 +116,56 @@ export const parcels = [
 }[];
 export const parcelCondition = (state: State, index: number) =>
   state[parcels[index].metric];
+
+const chinatownPlaces = [
+  [
+    'Kreta Ayer arts workshop',
+    'Rehearsal, mentoring and living cultural practice.',
+    '#bb6b58',
+  ],
+  [
+    'Telok Ayer shared courtyard',
+    'A shared courtyard represents participation across communities.',
+    '#77998d',
+  ],
+  [
+    'Ann Siang walking route',
+    'Shade and places to pause support everyday journeys.',
+    '#8ab17f',
+  ],
+  [
+    'Pagoda Street shophouses',
+    'Independent tenants need affordable premises and regular customers.',
+    '#cf7055',
+  ],
+  [
+    'Bukit Pasoh association spaces',
+    'Community records and living activities need room together.',
+    '#b8a47b',
+  ],
+  [
+    'Trengganu Street visitors',
+    'Visitor activity brings trade, alongside pressure on everyday uses.',
+    '#b79050',
+  ],
+  [
+    'Chinatown Complex community',
+    'A conceptual block for neighbours, learners and shared benefits.',
+    '#83a3aa',
+  ],
+  [
+    'Smith Street food businesses',
+    'Food businesses balance evening activity and neighbourhood comfort.',
+    '#c47752',
+  ],
+];
+export function districtParcels(district: DistrictId = 'kampong-glam') {
+  return district === 'chinatown'
+    ? parcels.map((p, i) => ({
+        ...p,
+        name: chinatownPlaces[i][0],
+        detail: chinatownPlaces[i][1],
+        color: chinatownPlaces[i][2],
+      }))
+    : parcels;
+}

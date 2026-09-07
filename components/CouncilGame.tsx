@@ -1,6 +1,6 @@
 'use client';
 import * as m from 'motion/react-m';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
@@ -20,7 +20,7 @@ import {
   levers,
   policy,
   riders,
-  people,
+  type DistrictId,
   type DecisionRecord,
   type LeverId,
   type State,
@@ -36,12 +36,17 @@ import {
   policyOwner,
 } from '@/engine/scenarios';
 import scripts from '@/content/council-recording-scripts.json';
+import { districtPeople, districtNames } from '@/engine/districts';
 const base: DecisionRecord = { v: 3, weights: [3, 3, 2, 2], rounds: [] };
 export default function CouncilGame({
   embedded = false,
+  districtId,
 }: {
   embedded?: boolean;
+  districtId?: DistrictId;
 }) {
+  const storyId = useId();
+  const nextId = useId();
   const [record, setRecord] = useState<DecisionRecord | null>(null);
   const [error, setError] = useState('');
   const [demo, setDemo] = useState(false);
@@ -55,14 +60,22 @@ export default function CouncilGame({
   useEffect(() => {
     try {
       const q = new URLSearchParams(location.search);
-      const r = q.has('d') ? decode(q.get('d')!) : base;
+      const linked = q.has('d') ? decode(q.get('d')!) : null;
+      const requested =
+        districtId ??
+        (q.get('district') === 'chinatown' ? 'chinatown' : 'kampong-glam');
+      const r =
+        linked &&
+        (!districtId || (linked.district ?? 'kampong-glam') === districtId)
+          ? linked
+          : { ...base, district: requested };
       run(r);
       setRecord(r);
       setDemo(q.get('demo') === '1');
     } catch {
       setError('This council link is invalid. Start a new game to continue.');
     }
-  }, []);
+  }, [districtId]);
   if (error)
     return (
       <main className="errorpage">
@@ -79,6 +92,8 @@ export default function CouncilGame({
         <a href={'/receipt?d=' + encode(record)}>Open your legacy receipt →</a>
       </main>
     );
+  const district = record.district ?? 'kampong-glam';
+  const people = districtPeople(district);
   const year = councilYears(record)[record.rounds.length] ?? 2126;
   const original = run(record, year).at(-1)!;
   const previewRecord = draft.length
@@ -87,7 +102,7 @@ export default function CouncilGame({
   const state = run(previewRecord, year).at(-1)!;
   const minPolicies = record.v >= 2 ? 2 : 1;
   const maxPolicies = record.v >= 2 ? 3 : 1;
-  const scene = getScenario(sceneId ?? leadScenario(original), state);
+  const scene = getScenario(sceneId ?? leadScenario(original), state, district);
   const speaker = people.find((p) => p.id === scene.speaker)!;
   const owner = lever ? policyOwner(lever) : null;
   const previouslyCleared =
@@ -107,12 +122,12 @@ export default function CouncilGame({
   function choose(id: LeverId) {
     setLever(id);
     setAccepted(false);
-    document.getElementById('scene-story')?.scrollTo({ top: 0 });
+    document.getElementById(storyId)?.scrollTo({ top: 0 });
   }
   function selectPlace(id: string) {
     setNotice('');
     setSceneId(parcelScenario(id, state));
-    document.getElementById('scene-story')?.scrollTo({ top: 0 });
+    document.getElementById(storyId)?.scrollTo({ top: 0 });
     setLever(null);
     setAccepted(false);
   }
@@ -147,7 +162,7 @@ export default function CouncilGame({
       `${levers[decision.lever].name} added. ${draft.length + 1 < minPolicies ? 'Choose a second policy before advancing.' : draft.length + 1 < maxPolicies ? 'Ready. Add an optional third policy or advance time.' : 'Programme complete. Advance time when ready.'}`,
     );
     requestAnimationFrame(() => {
-      const node = document.getElementById('programme-next');
+      const node = document.getElementById(nextId);
       node?.scrollIntoView({ block: 'center' });
       node?.focus({ preventScroll: true });
     });
@@ -217,7 +232,7 @@ export default function CouncilGame({
   }
   return (
     <div className={embedded ? 'embedded-council' : 'shell game-shell'}>
-      {!embedded && <Header demo={demo} />}
+      {!embedded && <Header demo={demo} district={district} />}
       {future ? (
         <Testimony
           state={future}
@@ -238,7 +253,8 @@ export default function CouncilGame({
           <div className="councilhead">
             <div>
               <p className="eyebrow">
-                {year} · Period {record.rounds.length + 1} of 3
+                {districtNames[district]} · {year} · Period{' '}
+                {record.rounds.length + 1} of 3
               </p>
               <h1>{scene.title}</h1>
             </div>
@@ -246,6 +262,7 @@ export default function CouncilGame({
           <div className="councilgrid">
             <section className="district">
               <Cloth
+                district={district}
                 state={state}
                 onParcel={selectPlace}
                 selectedParcel={sceneParcel(scene.id)}
@@ -264,12 +281,12 @@ export default function CouncilGame({
               </details>
             </section>
             <aside
-              id="scene-story"
+              id={storyId}
               tabIndex={-1}
               className="councilpanel"
               aria-label="Scenario and choices"
             >
-              <div id="programme-next" tabIndex={-1} className="programme-next">
+              <div id={nextId} tabIndex={-1} className="programme-next">
                 {notice && <p role="status">{notice}</p>}
               </div>
               <div className="personhead">
@@ -284,6 +301,7 @@ export default function CouncilGame({
                 <RecordedDialogue
                   key={scene.id + year}
                   clipKey={
+                    (district === 'chinatown' ? 'chinatown|' : '') +
                     'scene|' +
                     scene.id +
                     (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
@@ -337,8 +355,17 @@ export default function CouncilGame({
                       </p>
                       <RecordedDialogue
                         key={responseKey}
-                        clipKey={responseKey}
-                        text={response?.text ?? counterpart.concern}
+                        clipKey={
+                          (district === 'chinatown' ? 'chinatown|' : '') +
+                          responseKey
+                        }
+                        text={
+                          district === 'chinatown'
+                            ? accepted
+                              ? `Agreed. ${riders[protection]} is part of this programme.`
+                              : counterpart.concern
+                            : (response?.text ?? counterpart.concern)
+                        }
                       />
                       {!accepted ? (
                         <Button className="secondary" onClick={offer}>

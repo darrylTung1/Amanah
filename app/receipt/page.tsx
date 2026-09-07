@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
+import { districtNames, districtPeople } from '@/engine/districts';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
 import DistrictHistory from '@/components/DistrictHistory';
@@ -48,15 +49,17 @@ export default function Receipt() {
         </main>
       </div>
     );
+  const district = record.district ?? 'kampong-glam';
+  const roster = districtPeople(district);
   const timeline = run(record);
   const final = timeline.at(-1)!;
   const baseline = run({ ...record, rounds: [] }).at(-1)!;
   const harms = final.flags.filter((f) => f !== 'TRUST_DIVIDEND');
   return (
     <div className="shell">
-      <Header />
+      <Header district={district} />
       <main className="receipt">
-        <p className="eyebrow">2126 · The record of your council</p>
+        <p className="eyebrow">2126 · {districtNames[district]} council</p>
         <h1>
           Your <span className="gold">legacy receipt.</span>
         </h1>
@@ -134,7 +137,10 @@ export default function Receipt() {
             {utilities(final).map((p) => (
               <div className="winner" key={p.id}>
                 <div>
-                  <p>{p.name}</p>
+                  <p>
+                    {roster.find((person) => person.id === p.id)?.name ??
+                      p.name}
+                  </p>
                   <small>{p.reason}</small>
                 </div>
                 <strong className={p.change >= 0 ? 'status' : 'warning'}>
@@ -236,8 +242,8 @@ export default function Receipt() {
         <section className="receiptcard">
           <h2>The district, then and now.</h2>
           <div className="receiptboards">
-            <Cloth state={initial} compact />
-            <Cloth state={final} compact />
+            <Cloth state={initial} district={district} compact />
+            <Cloth state={final} district={district} compact />
           </div>
         </section>
         <p className="small muted" style={{ marginTop: 25 }}>

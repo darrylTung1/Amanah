@@ -3,21 +3,47 @@ import { useEffect, useState } from 'react';
 import SingaporeMap from '@/components/SingaporeMap';
 import CouncilGame from '@/components/CouncilGame';
 import AgentActions from '@/components/AgentActions';
-
+import { decode, type DistrictId } from '@/engine/model';
+import { districtNames } from '@/engine/districts';
 export default function Home() {
-  const [district, setDistrict] = useState(false);
+  const [district, setDistrict] = useState<DistrictId | null>(null);
+  const [visited, setVisited] = useState<DistrictId[]>([]);
+  const [last, setLast] = useState<DistrictId>('kampong-glam');
+  function enter(id: DistrictId | null) {
+    setDistrict(id);
+    if (id) {
+      setVisited((v) => (v.includes(id) ? v : [...v, id]));
+      setLast(id);
+    }
+    const url = new URL(location.href);
+    url.searchParams.delete('d');
+    if (id) url.searchParams.set('district', id);
+    else url.searchParams.delete('district');
+    history.replaceState(null, '', url);
+  }
   useEffect(() => {
-    setDistrict(
-      new URLSearchParams(location.search).get('district') === 'kampong-glam',
-    );
+    const q = new URLSearchParams(location.search);
+    let id = q.get('district');
+    if (q.has('d')) {
+      try {
+        id = decode(q.get('d')!).district ?? 'kampong-glam';
+      } catch {
+        /* Council handles invalid records. */
+      }
+    }
+    if (id === 'kampong-glam' || id === 'chinatown') {
+      setDistrict(id);
+      setLast(id);
+      setVisited([id]);
+    }
   }, []);
   useEffect(() => {
     document
-      .getElementById(district ? 'district-entry' : 'singapore-marker')
+      .getElementById(district ? 'district-entry' : `singapore-marker-${last}`)
       ?.focus({ preventScroll: true });
-  }, [district]);
+  }, [district, last]);
   return (
-    <div className="shell game-shell">
+    <div className={`shell game-shell${district ? '' : ' game-shell-frontpage'}`}>
       <AgentActions />
       <header className="topbar">
         <a
@@ -25,7 +51,7 @@ export default function Home() {
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            setDistrict(false);
+            enter(null);
           }}
         >
           <span className="brandmark">✳</span>Sociopoly
@@ -35,31 +61,34 @@ export default function Home() {
             <button
               id="district-entry"
               className="text-action"
-              onClick={() => setDistrict(false)}
+              onClick={() => enter(null)}
             >
               ← Singapore
             </button>
           )}
           <span className="tag">
-            {district ? 'Kampong Glam' : 'Singapore, 2026'}
+            {district ? districtNames[district] : 'Singapore, 2026'}
           </span>
         </div>
       </header>
       <div className="home-scenes">
         <div
           className={`home-scene home-scene-map${district ? ' home-scene-inactive' : ''}`}
-          inert={district}
-          aria-hidden={district}
+          inert={!!district}
+          aria-hidden={!!district}
         >
-          <SingaporeMap active={!district} onEnter={() => setDistrict(true)} />
+          <SingaporeMap active={!district} onEnter={enter} selected={last} />
         </div>
-        <div
-          className={district ? 'home-scene' : 'home-scene home-scene-inactive'}
-          inert={!district}
-          aria-hidden={!district}
-        >
-          <CouncilGame embedded />
-        </div>
+        {visited.map((id) => (
+          <div
+            key={id}
+            className={`home-scene${district !== id ? ' home-scene-inactive' : ''}`}
+            inert={district !== id}
+            aria-hidden={district !== id}
+          >
+            <CouncilGame embedded districtId={id} />
+          </div>
+        ))}
       </div>
     </div>
   );

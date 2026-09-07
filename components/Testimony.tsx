@@ -99,7 +99,7 @@ export default function Testimony({
           your choices.
         </small>
       </div>
-      <Cloth state={state} compact />
+      <Cloth state={state} district={record.district} compact />
       {state.flags
         .filter((f) => !previous?.flags.includes(f))
         .map((f) => (
@@ -127,8 +127,9 @@ export default function Testimony({
       </div>
       {state.year !== 2126 && (
         <p className="consequence-flag">
-          Next council: {getScenario(leadScenario(state), state).title}.{' '}
-          {getScenario(leadScenario(state), state).question}
+          Next council:{' '}
+          {getScenario(leadScenario(state), state, record.district).title}.{' '}
+          {getScenario(leadScenario(state), state, record.district).question}
         </p>
       )}
       <p className="small muted" role="status" style={{ marginTop: 16 }}>

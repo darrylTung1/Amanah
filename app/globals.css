@@ -1610,6 +1610,24 @@ summary:focus-visible {
 .game-shell .topbar {
   height: 60px;
 }
+.game-shell-frontpage {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+}
+.game-shell-frontpage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('/images/heritage-at-dusk-v2.webp');
+  background-size: auto min(35dvh, 19.7vw);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  mask-image: linear-gradient(to bottom, transparent 15%, #000 65%);
+}
 .game-shell .toplinks {
   display: flex;
   gap: 16px;
@@ -2140,4 +2158,56 @@ summary:focus-visible {
   background: color-mix(in srgb, var(--category-color) 23%, var(--indigo-deep));
   border-color: var(--category-color);
   box-shadow: inset 0 -2px var(--category-color);
+}
+/* Nearby districts use offset labels so both map markers remain selectable. */
+.island-pin-chinatown .island-pin-label {
+  position: absolute;
+  right: 54px;
+  top: 34px;
+  border-color: #ed9c7e;
+}
+.island-pin-chinatown .island-pin-dot {
+  border-color: #ed9c7e;
+  background: #d779512e;
+}
+.island-pin-chinatown .island-pin-dot::after {
+  background: #f2a080;
+  box-shadow: 0 0 22px #c56442;
+}
+.island-pin-kampong-glam .island-pin-label {
+  position: relative;
+  top: -26px;
+}
+@media (max-width: 750px) {
+  .game-shell .island-pin {
+    transform: translate(-14px, -14px);
+    min-height: 28px;
+    gap: 6px;
+  }
+  .game-shell .island-pin-dot {
+    width: 28px;
+    height: 28px;
+  }
+  .game-shell .island-pin-dot::after {
+    width: 10px;
+    height: 10px;
+    left: 8px;
+    top: 8px;
+  }
+  .game-shell .island-pin-label {
+    padding: 8px;
+  }
+  .game-shell .island-pin-label small {
+    display: none;
+  }
+  .game-shell .island-pin-kampong-glam .island-pin-label {
+    top: -24px;
+  }
+  .game-shell .island-pin-chinatown .island-pin-label {
+    right: 34px;
+    top: 26px;
+  }
+  .game-shell .island-pin-label strong span {
+    margin-left: 4px;
+  }
 }

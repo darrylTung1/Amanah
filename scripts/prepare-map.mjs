@@ -29,6 +29,10 @@ const paths = polygons.map((p) =>
 );
 writeFileSync(
   'content/singapore-map.json',
-  JSON.stringify({ paths, kampongGlam: project([103.859, 1.302]) }),
+  JSON.stringify({
+    paths,
+    kampongGlam: project([103.859, 1.302]),
+    chinatown: project([103.8436, 1.2838]),
+  }),
 );
 console.log('Prepared Singapore outline:', paths.length, 'island polygons.');

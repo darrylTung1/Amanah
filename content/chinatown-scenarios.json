@@ -1,0 +1,186 @@
+[
+  {
+    "id": "six-weeks",
+    "title": "A shop worth keeping",
+    "place": "Pagoda Street shophouses",
+    "speaker": "tenant_salmah",
+    "dialogue": "My parents taught me to repair things people would otherwise throw away. Now the renewal costs more, and visitors photograph the shop more often than they bring work through the door. I need a reason for an apprentice to believe there is a future here.",
+    "question": "Protect the lease, fund an apprentice, or invest in shared ownership?",
+    "options": [
+      [
+        "rent_covenant",
+        "Keep independent traders in place, with owner compensation."
+      ],
+      [
+        "trade_grant",
+        "Pay for skills to be taught; rent pressure remains."
+      ],
+      [
+        "land_trust",
+        "Put premises into shared ownership at a high upfront cost."
+      ]
+    ],
+    "consequence": "Rent relief buys time. Apprenticeships preserve practice. Shared ownership needs capacity that could fund other needs."
+  },
+  {
+    "id": "empty-stool",
+    "title": "Who learns the next verse?",
+    "place": "Kreta Ayer arts workshop",
+    "speaker": "custodian_rahim",
+    "dialogue": "We can store a costume and record a song. Teaching someone to move, speak and perform takes years of shared practice. The young people are interested, but rehearsal space competes with work and bills.",
+    "question": "Support teaching, secure a home for it, or adapt another space?",
+    "options": [
+      [
+        "trade_grant",
+        "Fund mentoring and time to practise."
+      ],
+      [
+        "rent_covenant",
+        "Protect affordable premises with compensation."
+      ],
+      [
+        "adaptive_reuse",
+        "Bring an old unit into use while retaining its archive."
+      ]
+    ],
+    "consequence": "An archive protects records, while active teaching sustains continuity. More commercial demand can still displace learners."
+  },
+  {
+    "id": "cannot-relearn",
+    "title": "The missing teacher",
+    "place": "Kreta Ayer arts workshop",
+    "speaker": "custodian_rahim",
+    "dialogue": "There are recordings, but nobody here remembers how to correct the smallest mistakes. The chain of teaching has been broken. We can start again with what survives, but we cannot call it an instant recovery.",
+    "question": "Rebuild teaching, secure long-term space, or protect surviving records?",
+    "options": [
+      [
+        "trade_grant",
+        "Rebuild practice gradually; lost knowledge limits recovery."
+      ],
+      [
+        "land_trust",
+        "Secure space for a long commitment."
+      ],
+      [
+        "adaptive_reuse",
+        "Keep surviving records inside a newly used space."
+      ]
+    ],
+    "consequence": "Once continuity crosses the lasting-loss threshold, grants cannot instantly restore it."
+  },
+  {
+    "id": "who-belongs",
+    "title": "A room for the neighbourhood",
+    "place": "Chinatown Complex community spaces",
+    "speaker": "youth_faiz",
+    "dialogue": "The programme looks full on a poster. Some neighbours still have nowhere comfortable to sit, and some young people cannot afford to take part. I want the people who use this place every day to have a say in its future.",
+    "question": "Share ownership, redistribute visitor income, or fund participation?",
+    "options": [
+      [
+        "land_trust",
+        "Invest in shared control and affordability."
+      ],
+      [
+        "visitor_levy",
+        "Raise funds and distribute benefits, with a ten-year sunset."
+      ],
+      [
+        "trade_grant",
+        "Make learning and participation more viable."
+      ]
+    ],
+    "consequence": "A busy district does not automatically share its gains. Equity needs direct support."
+  },
+  {
+    "id": "hot-afternoon",
+    "title": "The walk between stops",
+    "place": "Ann Siang walking route",
+    "speaker": "operator_jo",
+    "dialogue": "The route works on a brochure. In the afternoon, people need shade and somewhere to pause. Our staff and suppliers use these streets too. A comfortable route must work for everyday journeys as well as a guided visit.",
+    "question": "Cool buildings, shade the route, or raise capacity first?",
+    "options": [
+      [
+        "cooling_retrofit",
+        "Improve comfort in existing spaces."
+      ],
+      [
+        "pedestrianise",
+        "Add shade and walking space while retaining a loading window."
+      ],
+      [
+        "visitor_levy",
+        "Fund community improvements, with a sunset review."
+      ]
+    ],
+    "consequence": "Cooling directly improves habitability. Pedestrianisation also attracts activity and can increase rent pressure."
+  },
+  {
+    "id": "too-busy",
+    "title": "A crowd is not a community",
+    "place": "Trengganu Street visitor businesses",
+    "speaker": "operator_jo",
+    "dialogue": "A full street helps my staff earn a living. But when every unit chases the same visitor, regular customers lose their reasons to come. I want a working visitor economy that leaves room for ordinary neighbourhood life.",
+    "question": "Redistribute benefits, protect traders, or expand evening activity?",
+    "options": [
+      [
+        "visitor_levy",
+        "Share visitor income, accepting some loss of demand."
+      ],
+      [
+        "rent_covenant",
+        "Protect existing traders from rising rent pressure."
+      ],
+      [
+        "night_economy",
+        "Bring more evening activity, with a quiet-hours agreement."
+      ]
+    ],
+    "consequence": "High vitality alongside weak continuity can lock the district into visitor monoculture."
+  },
+  {
+    "id": "new-keys",
+    "title": "More than a preserved doorway",
+    "place": "Bukit Pasoh association spaces",
+    "speaker": "custodian_rahim",
+    "dialogue": "The doorway has been cared for, but what happens beyond it matters too. A new use could pay for the space. I want the records and the chance to learn from them to remain part of everyday life.",
+    "question": "Adapt the space, support teaching, or pursue shared ownership?",
+    "options": [
+      [
+        "adaptive_reuse",
+        "Allow new activity with an archive protection clause."
+      ],
+      [
+        "trade_grant",
+        "Fund living practice instead of a display alone."
+      ],
+      [
+        "land_trust",
+        "Invest in long-term shared ownership."
+      ]
+    ],
+    "consequence": "Reuse brings activity but may increase rent pressure. Records alone do not keep a living practice alive."
+  },
+  {
+    "id": "after-dark",
+    "title": "When the shutters close",
+    "place": "Smith Street food businesses",
+    "speaker": "tenant_salmah",
+    "dialogue": "Evening customers help our neighbours earn a living. The same street is also somebody’s route home. If we extend the busy hours, quiet time and comfortable space need to be part of the bargain.",
+    "question": "Extend evenings, improve comfort, or make room for walking?",
+    "options": [
+      [
+        "night_economy",
+        "Expand evening activity with a noise curfew."
+      ],
+      [
+        "cooling_retrofit",
+        "Make existing spaces more comfortable."
+      ],
+      [
+        "pedestrianise",
+        "Improve walking and shade with delivery access."
+      ]
+    ],
+    "consequence": "A curfew reduces some harms; it does not remove the long-term trade-offs of night activity."
+  }
+]

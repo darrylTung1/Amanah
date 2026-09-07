@@ -31,6 +31,10 @@ export default function AgentActions() {
             inputSchema: {
               type: 'object',
               properties: {
+                district: {
+                  type: 'string',
+                  enum: ['kampong-glam', 'chinatown'],
+                },
                 weights: {
                   type: 'array',
                   items: { type: 'integer', minimum: 0, maximum: 10 },
@@ -45,6 +49,12 @@ export default function AgentActions() {
             execute(input) {
               const record = {
                 v: 3,
+                district:
+                  (input as { district?: unknown }).district ??
+                  (new URLSearchParams(location.search).get('district') ===
+                  'chinatown'
+                    ? 'chinatown'
+                    : 'kampong-glam'),
                 weights: (input as { weights: unknown }).weights,
                 rounds: [],
               };

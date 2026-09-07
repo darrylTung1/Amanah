@@ -1,3 +1,7 @@
+# Playable districts
+
+Choose Kampong Glam or Chinatown from the Singapore map. Each district has its own places, characters and dialogue, with independent in-page council progress and district-aware receipt links. Both use the same illustrative policy engine. See [CHINATOWN.md](CHINATOWN.md) for the new district, research sources and future recording keys.
+
 # Current game: three-period programmes (model v3)
 
 New games require two distinct policies per period, with an optional third. Older one-policy records still replay. Additions preview immediate effects; advancing commits the programme. New councils act in 2026, 2060 and 2093, reaching 2126 after intervals of 34, 33 and 33 years. Twenty capacity is added in 2060 and 2093. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 and v2 receipts retain their original equations and 2026 / 2036 / 2050 schedule. Version 3 changes timing only; it uses the same policy coefficients and maintenance rules as version 2.

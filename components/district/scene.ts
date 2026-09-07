@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { parcels, parcelCondition } from './parcels';
-import type { State } from '../../engine/model';
+import { districtParcels } from './parcels';
+import type { State, DistrictId } from '../../engine/model';
 export type DistrictView = {
   update: (state: State) => void;
   select: (index: number) => void;
@@ -14,7 +14,9 @@ export function createDistrict(
   host: HTMLElement,
   state: State,
   onSelect: (index: number) => void,
+  district: DistrictId = 'kampong-glam',
 ): DistrictView {
+  const parcels = districtParcels(district);
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true,
@@ -133,7 +135,7 @@ export function createDistrict(
     box(0.55, 0.016, 8.7, '#57716e', -1.75, -0.043, 0);
     box(0.55, 0.016, 8.7, '#57716e', 1.75, -0.043, 0);
     parcels.forEach((p, i) => {
-      const health = parcelCondition(s, i);
+      const health = s[p.metric];
       const block = new THREE.Group();
       block.position.set(p.x, 0, p.z);
       block.userData.parcel = i;
@@ -155,6 +157,15 @@ export function createDistrict(
             block,
           );
         box(1.45, 0.09, 0.2, '#c8bb94', 0, 0.16, 0.63, block);
+      } else if (p.kind === 'landmark' && district === 'chinatown') {
+        // A fictional association courtyard, not a replica of a religious monument.
+        box(1.7, 0.6, 1.1, '#e1cfaf', 0, 0.38, 0, block);
+        box(1.95, 0.12, 1.35, '#88463c', 0, 0.75, 0, block);
+        box(1.55, 0.12, 0.95, '#a85543', 0, 0.89, 0, block);
+        box(1.1, 0.1, 0.6, '#c77054', 0, 1.01, 0, block);
+        for (const x of [-0.7, 0.7])
+          box(0.08, 0.7, 0.08, '#9d4237', x, 0.4, 0.57, block);
+        box(0.45, 0.38, 0.03, '#365454', 0, 0.29, 0.56, block);
       } else if (p.kind === 'landmark') {
         box(1.65, 0.65, 1.1, '#e3d6b6', 0, 0.4, 0, block);
         box(1.8, 0.1, 1.2, '#b79d6b', 0, 0.76, 0, block);
@@ -214,7 +225,7 @@ export function createDistrict(
           box(w - 0.04, h, 1.1, facade, x, h / 2 + 0.09, -0.13, block);
           const roof = mesh(
             new THREE.CylinderGeometry(0.6, 0.6, w - 0.015, 3, 1),
-            mat('#865b48'),
+            mat(district === 'chinatown' ? '#a65442' : '#865b48'),
             x,
             h + 0.14,
             -0.13,
@@ -271,6 +282,22 @@ export function createDistrict(
       }
       const has = (id: string) => s.investments?.some((x) => x === id);
       // Policy symbols illustrate investment, not surveyed buildings or individual outcomes.
+      if (
+        district === 'chinatown' &&
+        ['arab', 'visitors', 'food'].includes(p.id)
+      ) {
+        for (const x of [-0.7, 0, 0.7]) {
+          mesh(
+            new THREE.SphereGeometry(0.085, 8, 6),
+            mat('#c85d48'),
+            x,
+            0.9,
+            0.73,
+            block,
+          );
+          box(0.012, 0.18, 0.012, '#d6b473', x, 1.04, 0.73, block);
+        }
+      }
       if (p.id === 'arab' && (has('rent_covenant') || has('land_trust'))) {
         box(
           0.5,

@@ -1,20 +1,24 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import type { State } from '@/engine/model';
+import type { State, DistrictId } from '@/engine/model';
 import { Button } from '@/components/ui/button';
-import { parcels } from './district/parcels';
+import { districtParcels } from './district/parcels';
+import { districtNames } from '@/engine/districts';
 import type { DistrictView } from './district/scene';
 export default function Cloth({
   state,
+  district = 'kampong-glam',
   compact = false,
   onParcel,
   selectedParcel,
 }: {
   state: State;
+  district?: DistrictId;
   compact?: boolean;
   onParcel?: (id: string) => void;
   selectedParcel?: string;
 }) {
+  const parcels = districtParcels(district);
   const host = useRef<HTMLDivElement>(null);
   const view = useRef<DistrictView | null>(null);
   const current = useRef(state);
@@ -38,6 +42,7 @@ export default function Cloth({
               setSelected(index);
               callback.current?.(parcels[index].id);
             },
+            district,
           );
           setStatus('ready');
         } catch {
@@ -52,7 +57,7 @@ export default function Cloth({
       view.current?.dispose();
       view.current = null;
     };
-  }, []);
+  }, [district]);
   useEffect(() => {
     view.current?.update(state);
   }, [
@@ -83,7 +88,7 @@ export default function Cloth({
       className={`clothframe district3d ${compact ? 'district3d-compact' : ''}`}
     >
       <div className="maphead">
-        <span>Kampong Gelam · interactive district</span>
+        <span>{districtNames[district]} · interactive district</span>
         <span>{state.year}</span>
       </div>
       <div className="district3d-stage">

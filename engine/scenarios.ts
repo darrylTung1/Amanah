@@ -1,4 +1,6 @@
 import data from '../content/scenarios.json' with { type: 'json' };
+import chinatown from '../content/chinatown-scenarios.json' with { type: 'json' };
+import type { DistrictId } from './model.ts';
 import { type State, type LeverId, type RiderId, levers } from './model.ts';
 export type Scenario = {
   id: string;
@@ -35,7 +37,26 @@ export function leadScenario(s: State): string {
   if (s.vitality < 0.4) return 'new-keys';
   return 'six-weeks';
 }
-export function getScenario(id: string, s: State): Scenario {
+export function getScenario(
+  id: string,
+  s: State,
+  district: DistrictId = 'kampong-glam',
+): Scenario {
+  if (district === 'chinatown') {
+    const scene =
+      (chinatown as unknown as Scenario[]).find((x) => x.id === id) ??
+      (chinatown[0] as unknown as Scenario);
+    if (scene.id === 'hot-afternoon' && s.habitability >= 0.4)
+      return { ...scene, title: 'A comfortable route' };
+    if (scene.id === 'six-weeks' && s.year !== 2026)
+      return {
+        ...scene,
+        title: 'Keeping a place in Chinatown',
+        dialogue:
+          'The lease is only one part of staying here. People need customers, room to learn and neighbours who can afford to remain. Which part of that promise will this council keep?',
+      };
+    return scene;
+  }
   const scene = scenarios.find((x) => x.id === id) ?? scenarios[0];
   if (scene.id === 'hot-afternoon' && s.habitability >= 0.4)
     return { ...scene, title: 'A cooler street' };

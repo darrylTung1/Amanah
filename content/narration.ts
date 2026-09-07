@@ -1,5 +1,10 @@
-import { flagText, keys, type State } from '../engine/model.ts';
-export function testimony(s: State) {
+import {
+  flagText,
+  keys,
+  type State,
+  type DistrictId,
+} from '../engine/model.ts';
+export function testimony(s: State, district: DistrictId = 'kampong-glam') {
   const persona =
     s.year === 2126
       ? 'An archivist, 2126'
@@ -18,8 +23,14 @@ export function testimony(s: State) {
             : 'My grandmother Salmah taught me to recognise a cloth by its weight. I still think of her when I walk along Arab Street.'
           : 'I know Salmah through the stories people tell about this unit on Arab Street. I keep a piece of batik beside the doorway.'
         : 'I pass Salmah’s shop on Arab Street and look at the batik in the window. Ten years have changed the street around it.';
+  const districtOpening =
+    district === 'chinatown'
+      ? s.year === 2126
+        ? 'I am reading Chinatown’s council record. Beside the plans are Mr Tan’s repair notes and the schedules from Mr Goh’s arts workshop.'
+        : `I walk along Pagoda Street and think about Mr Tan’s workshop. It is ${s.year}; the decisions in this council record have had time to change the neighbourhood.`
+      : opening;
   const lines = [
-    opening,
+    districtOpening,
     s.affordability < 0.4
       ? 'Staying here has become difficult for the people who made this place their home.'
       : s.affordability < 0.65
@@ -45,7 +56,11 @@ export function testimony(s: State) {
       ? 'Some knowledge in this record cannot simply be taught again.'
       : 'What happens next will depend on who keeps showing up.',
   ];
-  return { persona, text: lines.join(' ') };
+  return {
+    persona:
+      district === 'chinatown' ? `A Chinatown neighbour, ${s.year}` : persona,
+    text: lines.join(' '),
+  };
 }
 export function digest(s: State) {
   return {
