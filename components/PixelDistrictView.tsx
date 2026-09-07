@@ -27,6 +27,7 @@ export default function PixelDistrictView({ state, compact = false, onParcel, di
   const [revealed, setRevealed] = useState(false);
   const [backgrounds, setBackgrounds] = useState<Record<string, string>>({});
   const src = selected ? artwork(state, selected) : '';
+  const closeupReady = !!selected && loaded === src && zoomDone;
   function matchBackground(image: HTMLImageElement, path: string) {
     // Read only the empty corners so buildings do not tint the surrounding space.
     const canvas = document.createElement('canvas');
@@ -56,9 +57,10 @@ export default function PixelDistrictView({ state, compact = false, onParcel, di
   }
   return (
     <div className={`clothframe chinatown-art ${compact ? 'chinatown-art-compact' : ''}`}>
-      <div className="chinatown-art-stage" style={{ background: backgrounds[selected && loaded === src && zoomDone ? src : overview] }}>
+      <div className="chinatown-art-stage" style={{ background: backgrounds[closeupReady ? src : overview] }}>
         <div className="chinatown-art-square">
-          {!revealed && <m.img
+          {/* Remove the overview before fading in the masked closeup, so its edges cannot show through. */}
+          {!revealed && !closeupReady && <m.img
             className="chinatown-overview"
             src={overview}
             onLoad={(event) => matchBackground(event.currentTarget, overview)}
