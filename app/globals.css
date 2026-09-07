@@ -792,3 +792,149 @@ small,
     display: none;
   }
 }
+.district3d {
+  padding: 20px 18px 16px;
+}
+.district3d-stage {
+  position: relative;
+  height: 400px;
+  min-width: 0;
+}
+.district3d-canvas {
+  position: absolute;
+  inset: 0;
+  outline-offset: -3px;
+  cursor: grab;
+  touch-action: none;
+}
+.district3d-canvas:active {
+  cursor: grabbing;
+}
+.district3d-canvas:focus-visible {
+  outline: 2px solid var(--turmeric);
+}
+.district3d-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.district3d-toolbar {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  display: flex;
+  gap: 6px;
+}
+.district3d-toolbar .secondary {
+  min-height: 34px !important;
+  padding: 4px 10px !important;
+  background: #0e1729dd !important;
+  font-size: 0.875rem;
+}
+.district3d-caption {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.district3d-message {
+  position: absolute;
+  inset: 70px 30px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.district3d-inspector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.district3d-inspector p {
+  font-size: 1.125rem;
+}
+.district3d-inspector strong {
+  font-weight: 500;
+  font-size: 1.65rem;
+}
+.district3d-detail {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+  min-height: 42px;
+  margin: 7px 0 12px;
+}
+.district3d-parcels {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 12px 0 16px;
+}
+.district3d-parcels button {
+  background: #0e172950;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted-foreground);
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 6px 9px;
+  min-height: 32px;
+}
+.district3d-parcels button.selected {
+  border-color: var(--turmeric);
+  color: var(--resist);
+  background: #d9a32314;
+}
+.district3d-compact .district3d-stage {
+  height: 290px;
+}
+.district3d .mapfoot {
+  font-size: 0.75rem;
+}
+.introgrid .district3d-stage {
+  height: 380px;
+}
+@media (max-width: 500px) {
+  .district3d-stage,
+  .introgrid .district3d-stage {
+    height: 310px;
+  }
+  .district3d {
+    padding: 14px 10px;
+  }
+  .district3d-parcels button {
+    font-size: 0.75rem;
+  }
+  .district3d .maphead {
+    font-size: 0.75rem;
+  }
+  .district3d .mapfoot span:last-child {
+    display: none;
+  }
+}
+@media print {
+  .district3d-stage,
+  .district3d-compact .district3d-stage {
+    height: 150px !important;
+  }
+  .district3d-parcels,
+  .district3d-toolbar,
+  .district3d-caption {
+    display: none;
+  }
+  .district3d-inspector {
+    padding-top: 5px;
+  }
+  .district3d-inspector p {
+    font-size: 9pt;
+  }
+  .district3d-inspector strong {
+    font-size: 11pt;
+  }
+}

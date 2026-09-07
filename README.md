@@ -107,3 +107,9 @@ The tests cover the four requested acceptance cases, all compatible single-polic
 Live microphone, account-side agent creation, real model/TTS latency, mobile-data access and full offline browser operation require testing with the configured accounts/browser. Do not describe those as verified merely because unit tests or a production build pass. The optional WebMCP start-council action is feature-detected; normal controls do not depend on it.
 
 Submission materials are in `SUBMISSION.md`. A public judging URL, custom `.xyz` domain, Devpost submission and captured demo video require the final account/domain details; private hosting is a review surface until public access is configured.
+
+## Interactive 3D district
+
+The board now uses a lazy-loaded Three.js diorama instead of the original SVG. Drag to orbit, scroll/pinch or use the buttons to zoom, and click a parcel to inspect its simulation condition. Left/right arrow keys rotate the focused model; Home resets it. The parcel buttons provide keyboard-accessible inspection and remain available if WebGL is unsupported.
+
+Shophouse colour and open storefronts reflect each parcel's index; trees reflect habitability and street activity reflects vitality. These are illustrative visual encodings, not actual counts or a surveyed model of Kampong Gelam. The model renders on changes, limits pixel density, preserves the camera when outcomes update, and disposes its graphics resources when leaving a page. Three.js is included in the production offline cache.
