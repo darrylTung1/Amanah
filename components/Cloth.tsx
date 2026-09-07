@@ -168,6 +168,7 @@ export default function Cloth({
         {parcels.map((p, i) => (
           <button
             key={p.id}
+            data-category={p.metric}
             aria-pressed={selected === i}
             className={selected === i ? 'selected' : ''}
             onClick={() => select(i)}

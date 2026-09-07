@@ -2122,3 +2122,22 @@ summary:focus-visible {
 .barrow[data-category] .track .outcome {
   background: var(--category-color);
 }
+.rating-categories .rating-category,
+.barrow[data-category] {
+  background: color-mix(in srgb, var(--category-color) 9%, var(--indigo-deep));
+  border: 1px solid color-mix(in srgb, var(--category-color) 35%, transparent);
+  border-left: 3px solid var(--category-color);
+  border-radius: 8px;
+  padding: 12px;
+}
+.district3d-parcels button[data-category] {
+  background: color-mix(in srgb, var(--category-color) 9%, var(--indigo-deep));
+  border-color: color-mix(in srgb, var(--category-color) 40%, transparent);
+  color: var(--category-color);
+}
+.district3d-parcels button[data-category]:hover,
+.district3d-parcels button[data-category][aria-pressed='true'] {
+  background: color-mix(in srgb, var(--category-color) 23%, var(--indigo-deep));
+  border-color: var(--category-color);
+  box-shadow: inset 0 -2px var(--category-color);
+}
