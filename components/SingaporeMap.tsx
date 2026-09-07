@@ -57,7 +57,7 @@ export default function SingaporeMap({
               ))}
             </g>
             <text x="500" y="572" className="island-sea" textAnchor="middle">
-              S I N G A P O R E S T R A I T
+              Singapore
             </text>
             <g transform="translate(928 72)" className="island-compass">
               <text y="-20" textAnchor="middle">
@@ -86,7 +86,6 @@ export default function SingaporeMap({
         </div>
       </div>
       <div className="island-caption">
-        <span>Choose a district</span>
         <a href="/maps/ATTRIBUTION.txt" target="_blank" rel="noreferrer">
           Map attribution
         </a>

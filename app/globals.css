@@ -879,7 +879,7 @@ small,
 .district3d-parcels button {
   background: #0e172950;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 12px;
   color: var(--muted-foreground);
   font-family: inherit;
   font-size: 0.75rem;
@@ -991,7 +991,7 @@ small,
 }
 .island-sea {
   fill: #9daab8;
-  font-size: 12px;
+  font-size: 18px;
 }
 .island-compass {
   color: #c6c8c5;
@@ -1629,7 +1629,7 @@ summary:focus-visible {
 }
 .game-shell .island-screen {
   height: 100%;
-  padding: 12px 0 0;
+  padding: 4px 0 0;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   justify-items: center;
@@ -1637,7 +1637,7 @@ summary:focus-visible {
   container-type: size;
 }
 .game-shell .island-map {
-  width: min(100cqw, calc((100cqh - 48px) * 1000 / 620));
+  width: min(100cqw, calc((100cqh - 28px) * 1000 / 620));
   height: auto;
   min-height: 0;
   max-height: none;
@@ -1645,13 +1645,15 @@ summary:focus-visible {
   margin: 0;
 }
 .game-shell .island-cartography {
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -2%;
+  width: 104%;
+  height: 104%;
 }
 .game-shell .island-caption {
   width: 100%;
-  padding: 10px 0;
+  padding: 4px 0;
+  align-items: flex-end;
+  justify-content: flex-end;
   font-size: 0.875rem;
 }
 .game-shell .scenario-game {
@@ -1766,6 +1768,16 @@ summary:focus-visible {
   white-space: nowrap;
   font-size: 0.875rem;
   color: var(--primary);
+}
+.programme-undo {
+  margin-left: 12px;
+  font-size: 0.875rem;
+  min-height: 32px;
+}
+.programme-undo:disabled {
+  opacity: 0.4;
+  cursor: default;
+  text-decoration: none;
 }
 .programme-popover {
   position: absolute;

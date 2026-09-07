@@ -153,8 +153,11 @@ export default function CouncilGame({
     setAccepted(false);
   }
   function removePolicy(index: number) {
+    if (index < 0 || index >= draft.length) return;
     setDraft(draft.slice(0, index));
-    setNotice('Programme updated. Review your remaining choices.');
+    setNotice(
+      `${levers[draft[index].lever].name}${index < draft.length - 1 ? ' and later additions' : ''} undone. Capacity restored.`,
+    );
     setLever(null);
     setAccepted(false);
   }
@@ -423,6 +426,18 @@ export default function CouncilGame({
             </details>
             <div>
               <strong> {Math.floor(state.capacity)} capacity</strong>
+              <button
+                className="text-action programme-undo"
+                disabled={draft.length === 0}
+                onClick={() => removePolicy(draft.length - 1)}
+                title={
+                  draft.length
+                    ? `Undo ${levers[draft[draft.length - 1].lever].name}`
+                    : 'Add a policy to undo it'
+                }
+              >
+                ↶ Undo last policy
+              </button>
               <p className="small">
                 {draft.length < minPolicies
                   ? `Add ${minPolicies - draft.length} more to complete this period`
