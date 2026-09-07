@@ -29,13 +29,16 @@ export default function Testimony({
   const impact = keys
     .map((key) => ({
       key,
-      points: Math.round((state[key] - without[key]) * 100),
+      points: Math.round(state[key] * 100) - Math.round(without[key] * 100),
     }))
     .sort((a, b) => Math.abs(b.points) - Math.abs(a.points))
     .slice(0, 2);
   const policies = roundMoves(record.rounds.at(-1)!)
     .map((d) => levers[d.lever].name)
     .join(', ');
+  const [comparison, setComparison] = useState<'previous' | 'without'>(
+    'previous',
+  );
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     setFailed(false);
@@ -48,7 +51,35 @@ export default function Testimony({
       <h1>
         {state.year}: <span className="gold">what changed.</span>
       </h1>
-      <DistrictRating state={state} previous={previous} />
+      <div
+        className="stats-comparison"
+        role="group"
+        aria-label="Compare district conditions"
+      >
+        <button
+          className="secondary"
+          aria-pressed={comparison === 'previous'}
+          onClick={() => setComparison('previous')}
+        >
+          Since {previous?.year ?? 2026}
+        </button>
+        <button
+          className="secondary"
+          aria-pressed={comparison === 'without'}
+          onClick={() => setComparison('without')}
+        >
+          No new policies
+        </button>
+      </div>
+      <DistrictRating
+        state={state}
+        previous={comparison === 'without' ? without : previous}
+        comparisonLabel={
+          comparison === 'without'
+            ? `versus no new policies in this period, at ${state.year}`
+            : undefined
+        }
+      />
       <div className="causal-summary">
         <h2>Why this future changed</h2>
         <p>{policies}.</p>
@@ -73,32 +104,6 @@ export default function Testimony({
         </small>
       </div>
       <Cloth state={state} compact />
-      {previous && (
-        <div
-          className="consequence-changes"
-          aria-label="Changes since your decision"
-        >
-          {keys.map((k) => {
-            const delta =
-              Math.round(state[k] * 100) - Math.round(previous[k] * 100);
-            return (
-              <div key={k}>
-                <small>{k}</small>
-                <strong>
-                  {Math.round(previous[k] * 100)} → {Math.round(state[k] * 100)}
-                </strong>
-                <span className={delta < 0 ? 'warning' : 'gold'}>
-                  {delta > 0 ? '+' : ''}
-                  {delta} points
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      )}
-      <p className="small muted">
-        Changes include your policy and the district’s evolution over time.
-      </p>
       {state.flags
         .filter((f) => !previous?.flags.includes(f))
         .map((f) => (

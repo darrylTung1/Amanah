@@ -1909,3 +1909,142 @@ summary:focus-visible {
     align-items: center;
   }
 }
+.animated-stat {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 2ch;
+}
+.category-values {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+  text-transform: none;
+}
+.category-before {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.category-delta {
+  min-width: 66px;
+  text-align: center;
+  padding: 3px 7px;
+  font-size: 0.875rem;
+  border-radius: 5px;
+}
+.category-delta.gain {
+  color: #9de2c0;
+  background: #9de2c014;
+}
+.category-delta.loss {
+  color: #ffb19e;
+  background: #ffb19e14;
+}
+.category-delta.steady {
+  color: var(--muted-foreground);
+  background: #ffffff08;
+}
+.rating-categories .rating-category {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 6px 10px;
+}
+.rating-category .rating-bar {
+  height: 10px;
+}
+.rating-change-band {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+}
+.rating-change-band.gain {
+  background: #9de2c0;
+}
+.rating-change-band.loss {
+  background: repeating-linear-gradient(120deg, #ffb19e 0 3px, #542f32 3px 6px);
+}
+.rating-category .rating-previous {
+  z-index: 1;
+  height: 16px;
+  top: -3px;
+}
+.stats-comparison {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.stats-comparison button {
+  font-size: 0.875rem;
+  padding: 8px 12px;
+}
+.stats-comparison button[aria-pressed='true'] {
+  border-color: var(--primary);
+  background: #d9a32318;
+  color: var(--primary);
+}
+.history-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+}
+.history-select select {
+  color: var(--foreground);
+  background: var(--indigo-deep);
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-transform: capitalize;
+  border-radius: 6px;
+}
+.history-select strong {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.district-history svg {
+  width: 100%;
+  overflow: visible;
+  margin-top: 12px;
+}
+.district-history svg text {
+  fill: var(--muted-foreground);
+  font: 12px sans-serif;
+}
+.history-grid {
+  stroke: #ffffff18;
+  stroke-dasharray: 3 4;
+}
+.history-data {
+  margin-top: 12px;
+}
+@media (max-width: 450px) {
+  .category-values {
+    gap: 5px;
+  }
+  .category-delta {
+    min-width: 58px;
+    padding: 3px 4px;
+  }
+  .category-values {
+    justify-content: flex-end;
+  }
+}
+@media print {
+  .history-data > * {
+    display: block;
+  }
+}
+
+@media print {
+  .animated-stat > span:first-child {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+  }
+  .animated-stat > span:last-child {
+    display: none;
+  }
+}

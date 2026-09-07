@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
+import DistrictHistory from '@/components/DistrictHistory';
 import { Button } from '@/components/ui/button';
 import {
   roundMoves,
@@ -187,34 +188,38 @@ export default function Receipt() {
           </section>
           <section className="receiptcard">
             <h2>The years in between.</h2>
-            <table className="history">
-              <caption className="small muted" style={{ textAlign: 'left' }}>
-                Annual engine, sampled at council horizons. All indices /100.
-              </caption>
-              <thead>
-                <tr>
-                  <th>Year</th>
-                  {keys.map((k) => (
-                    <th key={k} title={k}>
-                      {k[0].toUpperCase()}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[2026, 2036, 2050, 2075, 2100, 2126].map((y) => {
-                  const s = timeline.find((s) => s.year === y)!;
-                  return (
-                    <tr key={y}>
-                      <td>{y}</td>
-                      {keys.map((k) => (
-                        <td key={k}>{Math.round(s[k] * 100)}</td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <DistrictHistory timeline={timeline} />
+            <details className="history-data">
+              <summary>Data table</summary>
+              <table className="history">
+                <caption className="small muted" style={{ textAlign: 'left' }}>
+                  Annual engine, sampled at council horizons. All indices /100.
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    {keys.map((k) => (
+                      <th key={k} title={k}>
+                        {k[0].toUpperCase()}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[2026, 2036, 2050, 2075, 2100, 2126].map((y) => {
+                    const s = timeline.find((s) => s.year === y)!;
+                    return (
+                      <tr key={y}>
+                        <td>{y}</td>
+                        {keys.map((k) => (
+                          <td key={k}>{Math.round(s[k] * 100)}</td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </details>
             <p className="small muted" style={{ marginTop: 10 }}>
               A affordability · C continuity · V vitality · E equity · H
               habitability. Council-year values include that year’s immediate
