@@ -1962,7 +1962,8 @@ summary:focus-visible {
   }
 }
 
-.game-shell .scene-voice summary {
+.scene-voice .concern-heading {
+  margin: 0;
   font-size: 0.875rem;
   color: var(--primary);
 }

@@ -58,8 +58,7 @@ export default function CouncilGame({
   const [sceneId, setSceneId] = useState<string | null>(null);
   const [lever, setLever] = useState<LeverId | null>(null);
   const [accepted, setAccepted] = useState(false);
-  const [concernOpen, setConcernOpen] = useState(false);
-  useEffect(() => { if (!isActive) setConcernOpen(false); }, [isActive]);
+  const [concernVisit, setConcernVisit] = useState(0);
   const [future, setFuture] = useState<State | null>(null);
   const [draft, setDraft] = useState<Decision[]>([]);
   const [notice, setNotice] = useState('');
@@ -201,7 +200,7 @@ export default function CouncilGame({
     document.getElementById(storyId)?.scrollTo({ top: 0 });
   }
   function selectPlace(id: string) {
-    setConcernOpen(false);
+    setConcernVisit((visit) => visit + 1);
     setNotice('');
     setSceneId(parcelScenario(id, state));
     document.getElementById(storyId)?.scrollTo({ top: 0 });
@@ -382,10 +381,10 @@ export default function CouncilGame({
                   <small>{scene.place}</small>
                 </div>
               </div>
-              <details className="scene-voice" open={concernOpen} onToggle={(event) => setConcernOpen(event.currentTarget.open)}>
-                <summary>Their concern</summary>
+              <section className="scene-voice" aria-label="Their concern">
+                <h3 className="concern-heading">Their concern</h3>
                 <RecordedDialogue
-                  key={scene.id + year}
+                  key={`${scene.id}-${year}-${concernVisit}`}
                   clipKey={
                     (district === 'kampong-glam' ? '' : district + '|') +
                     'scene|' +
@@ -393,9 +392,9 @@ export default function CouncilGame({
                     (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
                   }
                   text={scene.dialogue}
-                  active={concernOpen && isActive}
+                  active={isActive}
                 />
-              </details>
+              </section>
               <div className="scene-choices" hidden={!!lever}>
                 <h3>{scene.question}</h3>
                 {scene.options.map(([id, description]) =>
