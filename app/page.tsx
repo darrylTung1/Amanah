@@ -17,7 +17,7 @@ export default function Home() {
       ?.focus({ preventScroll: true });
   }, [district]);
   return (
-    <div className="shell">
+    <div className="shell game-shell">
       <AgentActions />
       <header className="topbar">
         <a
@@ -31,7 +31,15 @@ export default function Home() {
           <span className="brandmark">✳</span>Sociopoly
         </a>
         <div className="toplinks">
-          <span className="muted small">Voices of the next hundred years</span>
+          {district && (
+            <button
+              id="district-entry"
+              className="text-action"
+              onClick={() => setDistrict(false)}
+            >
+              ← Singapore
+            </button>
+          )}
           <span className="tag">
             {district ? 'Kampong Glam' : 'Singapore, 2026'}
           </span>
@@ -39,7 +47,7 @@ export default function Home() {
       </header>
       <div className="home-scenes">
         <div
-          className={district ? 'home-scene home-scene-inactive' : 'home-scene'}
+          className={`home-scene home-scene-map${district ? ' home-scene-inactive' : ''}`}
           inert={district}
           aria-hidden={district}
         >
@@ -50,22 +58,9 @@ export default function Home() {
           inert={!district}
           aria-hidden={!district}
         >
-          <button
-            id="district-entry"
-            className="island-back"
-            onClick={() => setDistrict(false)}
-          >
-            ← Back to Singapore
-          </button>
           <CouncilGame embedded />
         </div>
       </div>
-      <footer className="footer">
-        <span>A fictional council grounded in real trade-offs.</span>
-        <span>
-          Illustrative simulation, not an urban forecast. · CloudHacks 2026
-        </span>
-      </footer>
     </div>
   );
 }

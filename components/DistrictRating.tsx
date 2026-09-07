@@ -1,3 +1,5 @@
+'use client';
+import * as m from 'motion/react-m';
 import { keys, type State } from '@/engine/model';
 import { districtRating } from '@/engine/rating';
 
@@ -42,14 +44,33 @@ export default function DistrictRating({
             <span>{key}</span>
             <strong>{Math.round(state[key] * 100)}</strong>
             <meter
+              className="rating-accessible-meter"
               min={0}
               max={100}
               value={state[key] * 100}
               aria-label={key}
             />
+            <div className="rating-bar" aria-hidden="true">
+              <m.span
+                initial={{ scaleX: previous?.[key] ?? state[key] }}
+                animate={{ scaleX: state[key] }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+              />
+              {previous && (
+                <span
+                  className="rating-previous"
+                  style={{ left: `${previous[key] * 100}%` }}
+                />
+              )}
+            </div>
           </div>
         ))}
       </div>
+      {previous && (
+        <p className="rating-bar-key">
+          Line marks the previous condition · All values /100
+        </p>
+      )}
       {rating.critical.length > 0 && (
         <p className="warning">
           Needs urgent attention: {rating.critical.join(', ')} below 30/100.

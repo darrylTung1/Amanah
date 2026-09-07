@@ -1,8 +1,10 @@
 'use client';
+import * as m from 'motion/react-m';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
+import { districtRating } from '@/engine/rating';
 import Testimony from '@/components/Testimony';
 import RecordedDialogue from '@/components/RecordedDialogue';
 import { Button } from '@/components/ui/button';
@@ -103,9 +105,12 @@ export default function CouncilGame({
   function choose(id: LeverId) {
     setLever(id);
     setAccepted(false);
+    document.getElementById('scene-story')?.scrollTo({ top: 0 });
   }
   function selectPlace(id: string) {
+    setNotice('');
     setSceneId(parcelScenario(id, state));
+    document.getElementById('scene-story')?.scrollTo({ top: 0 });
     setLever(null);
     setAccepted(false);
   }
@@ -177,9 +182,16 @@ export default function CouncilGame({
   function choice(id: LeverId, description: string) {
     const cost = costFor(id);
     return (
-      <button
+      <m.button
         key={id}
         className={`policy-choice ${lever === id ? 'selected' : ''}`}
+        initial={false}
+        animate={{ x: lever === id ? 3 : 0 }}
+        whileTap={
+          draft.some((d) => d.lever === id) || draft.length >= maxPolicies
+            ? undefined
+            : { scale: 0.99 }
+        }
         aria-pressed={lever === id}
         disabled={
           draft.some((d) => d.lever === id) || draft.length >= maxPolicies
@@ -195,11 +207,11 @@ export default function CouncilGame({
           {Math.abs(cost)}
           <small>capacity</small>
         </span>
-      </button>
+      </m.button>
     );
   }
   return (
-    <div className={embedded ? 'embedded-council' : 'shell'}>
+    <div className={embedded ? 'embedded-council' : 'shell game-shell'}>
       {!embedded && <Header demo={demo} />}
       {future ? (
         <Testimony
@@ -225,63 +237,7 @@ export default function CouncilGame({
               </p>
               <h1>{scene.title}</h1>
             </div>
-            <p className="capacity">
-              Available capacity <strong>{Math.floor(state.capacity)}</strong>
-              <small> /100</small>
-            </p>
           </div>
-          <section className="programme-tray" aria-label="Your programme">
-            <div>
-              <h2>
-                Your programme · {draft.length}/{maxPolicies}
-              </h2>
-              <p className="small muted">
-                {draft.length
-                  ? 'Build a complete programme. The board previews your proposed changes.'
-                  : 'Explore the district and combine policies within a shared capacity budget.'}
-              </p>
-            </div>
-            {record.rounds.length === 0 && draft.length === 0 && (
-              <button
-                className="secondary meet-salmah"
-                onClick={() => {
-                  setSceneId('six-weeks');
-                  const node = document.getElementById('scene-story');
-                  node?.scrollIntoView({ block: 'start' });
-                  node?.focus({ preventScroll: true });
-                }}
-              >
-                Meet Salmah →
-              </button>
-            )}
-            <ol>
-              {draft.map((d, i) => (
-                <li key={d.lever}>
-                  <span>{levers[d.lever].name}</span>
-                  <button
-                    className="text-action"
-                    onClick={() => removePolicy(i)}
-                    aria-label={
-                      'Undo ' + levers[d.lever].name + ' and later additions'
-                    }
-                  >
-                    Undo{i < draft.length - 1 ? ' from here' : ''}
-                  </button>
-                </li>
-              ))}
-            </ol>
-            <details>
-              <summary>How the programme works</summary>
-              <p>
-                Choose {minPolicies} to {maxPolicies} different policies. Renew
-                policies in later periods. Undoing an earlier addition removes
-                later additions so funding and agreements remain valid.
-                {record.v === 2
-                  ? ' Each new period adds 20 capacity. Annual capacity pays upkeep. Renewals replace earlier policies, rather than stacking them.'
-                  : ''}
-              </p>
-            </details>
-          </section>
           <div className="councilgrid">
             <section className="district">
               <Cloth
@@ -289,15 +245,18 @@ export default function CouncilGame({
                 onParcel={selectPlace}
                 selectedParcel={sceneParcel(scene.id)}
               />
-              <p className="small muted scene-map-help">
-                Select a place to explore its dilemma. Add up to {maxPolicies}{' '}
-                policies before advancing time.
-              </p>
-              <DistrictRating
-                state={state}
-                previous={draft.length ? original : undefined}
-                preview={draft.length > 0}
-              />
+              <details className="game-rating">
+                <summary>
+                  District rating{' '}
+                  <strong>{districtRating(state).score}/100</strong> · View
+                  categories
+                </summary>
+                <DistrictRating
+                  state={state}
+                  previous={draft.length ? original : undefined}
+                  preview={draft.length > 0}
+                />
+              </details>
             </section>
             <aside
               id="scene-story"
@@ -307,23 +266,6 @@ export default function CouncilGame({
             >
               <div id="programme-next" tabIndex={-1} className="programme-next">
                 {notice && <p role="status">{notice}</p>}
-                {draft.length > 0 && draft.length < maxPolicies && (
-                  <div className="next-places">
-                    <p className="small">Continue building your programme:</p>
-                    {['shade', 'trades', 'commons', 'food']
-                      .filter((id) => sceneParcel(scene.id) !== id)
-                      .slice(0, 3)
-                      .map((id) => (
-                        <button
-                          key={id}
-                          className="secondary"
-                          onClick={() => selectPlace(id)}
-                        >
-                          Explore {id}
-                        </button>
-                      ))}
-                  </div>
-                )}
               </div>
               <div className="personhead">
                 <span className="avatar">{speaker.initials}</span>
@@ -332,16 +274,19 @@ export default function CouncilGame({
                   <small>{scene.place}</small>
                 </div>
               </div>
-              <RecordedDialogue
-                key={scene.id + year}
-                clipKey={
-                  'scene|' +
-                  scene.id +
-                  (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
-                }
-                text={scene.dialogue}
-              />
-              <div className="scene-choices">
+              <details className="scene-voice">
+                <summary>Their concern</summary>
+                <RecordedDialogue
+                  key={scene.id + year}
+                  clipKey={
+                    'scene|' +
+                    scene.id +
+                    (scene.id === 'six-weeks' && year !== 2026 ? '|later' : '')
+                  }
+                  text={scene.dialogue}
+                />
+              </details>
+              <div className="scene-choices" hidden={!!lever}>
                 <h3>{scene.question}</h3>
                 {scene.options.map(([id, description]) =>
                   choice(id, description),
@@ -359,10 +304,22 @@ export default function CouncilGame({
                 <small>Costs include required protections.</small>
               </div>
               {lever && selected && (
-                <section
+                <m.section
+                  key={lever}
+                  initial={{ opacity: 0.7, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
                   className="decision-review"
                   aria-label="Review decision"
                 >
+                  <button
+                    className="text-action"
+                    onClick={() => {
+                      setLever(null);
+                      setAccepted(false);
+                    }}
+                  >
+                    ← All choices
+                  </button>
                   <h3>{levers[lever].name}</h3>
                   <p>{policyExplanation[lever]}</p>
                   {counterpart && protection && (
@@ -429,16 +386,43 @@ export default function CouncilGame({
                     Add to programme · {selected.cost < 0 ? 'raise' : 'spend'}{' '}
                     {Math.abs(selected.cost)} capacity
                   </Button>
-                </section>
+                </m.section>
               )}
             </aside>
           </div>
           <div className="programme-dock" aria-label="Programme progress">
+            <details className="programme-menu">
+              <summary>
+                Programme {draft.length}/{maxPolicies}
+              </summary>
+              <div className="programme-popover">
+                <ol>
+                  {draft.map((d, i) => (
+                    <li key={d.lever}>
+                      <span>{levers[d.lever].name}</span>
+                      <button
+                        className="text-action"
+                        onClick={() => removePolicy(i)}
+                        aria-label={
+                          'Undo ' +
+                          levers[d.lever].name +
+                          ' and later additions'
+                        }
+                      >
+                        Undo{i < draft.length - 1 ? ' from here' : ''}
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+                <p className="small">
+                  Choose {minPolicies}–{maxPolicies} different policies. Undo
+                  removes that policy and later additions. New periods add 20
+                  capacity; renewals replace earlier policies.
+                </p>
+              </div>
+            </details>
             <div>
-              <strong>
-                {draft.length}/{maxPolicies} policies ·{' '}
-                {Math.floor(state.capacity)} capacity
-              </strong>
+              <strong> {Math.floor(state.capacity)} capacity</strong>
               <p className="small">
                 {draft.length < minPolicies
                   ? `Add ${minPolicies - draft.length} more to complete this period`

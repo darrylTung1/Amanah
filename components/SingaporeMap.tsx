@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
 import map from '@/content/singapore-map.json';
 
 export default function SingaporeMap({
@@ -9,42 +8,14 @@ export default function SingaporeMap({
   active: boolean;
   onEnter: () => void;
 }) {
-  const [zooming, setZooming] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [x, y] = map.kampongGlam;
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
-  useEffect(() => {
-    if (active) setZooming(false);
-    else if (timer.current) clearTimeout(timer.current);
-  }, [active]);
   function enter() {
-    if (zooming) return;
-    setZooming(true);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-      onEnter();
-    else timer.current = setTimeout(onEnter, 1100);
+    // Reveal the already-mounted council immediately; CSS overlaps the scenes.
+    if (active) onEnter();
   }
   return (
     <main className="island-screen">
-      <div className="island-heading">
-        <div>
-          <p className="eyebrow">Choose your own heritage · 2026</p>
-          <h1>
-            Singapore<span className="gold">.</span>
-          </h1>
-        </div>
-        <p>
-          Every neighbourhood holds a story.
-          <br />
-          Select Kampong Glam to shape its next chapter.
-        </p>
-      </div>
-      <div className={`island-map ${zooming ? 'island-map-zooming' : ''}`}>
+      <div className={`island-map ${!active ? 'island-map-zooming' : ''}`}>
         <div
           className="island-cartography"
           style={{ transformOrigin: `${x / 10}% ${y / 6.2}%` }}
@@ -101,30 +72,23 @@ export default function SingaporeMap({
             className="island-pin"
             style={{ left: `${x / 10}%`, top: `${y / 6.2}%` }}
             onClick={enter}
-            disabled={zooming}
-            aria-label="Zoom into Kampong Glam"
+            disabled={!active}
+            aria-label="Enter Kampong Glam council"
           >
             <span className="island-pin-dot" aria-hidden="true" />
             <span className="island-pin-label">
-              <small>Explore district</small>
+              <small>Enter the council</small>
               <strong>
                 Kampong Glam <span aria-hidden="true">↗</span>
               </strong>
             </span>
           </button>
         </div>
-        <span className="island-zoom-status" role="status">
-          {zooming ? 'Entering Kampong Glam…' : ''}
-        </span>
-        <div className="island-map-note">
-          <span>01 / KAMPONG GLAM</span>
-          <span>Five voices. Three periods. One shared future.</span>
-        </div>
       </div>
       <div className="island-caption">
-        <span>Click the district marker to zoom in.</span>
+        <span>Choose a district</span>
         <a href="/maps/ATTRIBUTION.txt" target="_blank" rel="noreferrer">
-          Map: geoBoundaries / URA · simplified 2016 outline
+          Map attribution
         </a>
       </div>
     </main>

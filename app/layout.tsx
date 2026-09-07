@@ -3,6 +3,7 @@ import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/newsreader';
 import './globals.css';
 import Offline from '@/components/Offline';
+import MotionProvider from '@/components/MotionProvider';
 export const metadata: Metadata = {
   icons: { icon: '/favicon.svg' },
   title: 'Sociopoly · Voices of the next hundred years',
@@ -17,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Offline />
       </body>
     </html>
