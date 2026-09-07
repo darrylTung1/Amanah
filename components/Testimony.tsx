@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { testimony } from '@/content/narration';
 import { recordedTestimony } from '@/content/recordings';
 import type { State, DecisionRecord } from '@/engine/model';
 import { Button } from '@/components/ui/button';
@@ -45,9 +44,6 @@ export default function Testimony({
   }, [clip.audio]);
   return (
     <section className="testimony">
-      <p className="eyebrow">
-        A voice from {state.year} · {testimony(state).persona}
-      </p>
       <h1>
         {state.year}: <span className="gold">what changed.</span>
       </h1>

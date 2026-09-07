@@ -445,10 +445,10 @@ small,
 }
 .testimony {
   max-width: 850px;
-  margin: 60px auto;
+  margin: 0 auto;
 }
 .testimony h1 {
-  margin: 18px 0 35px;
+  margin: 0 0 20px;
 }
 .testimony .quote {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
