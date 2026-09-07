@@ -1062,9 +1062,11 @@ small,
   border-color: #ffd375;
 }
 .island-pin:focus-visible {
+  outline: none;
+}
+.island-pin:focus-visible .island-pin-label {
   outline: 2px solid #ffd375;
-  outline-offset: 8px;
-  border-radius: 10px;
+  outline-offset: 4px;
 }
 .island-pin-label strong span {
   display: inline-block;

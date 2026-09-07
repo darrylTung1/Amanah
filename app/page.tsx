@@ -38,10 +38,11 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
+    if (!district && visited.length === 0) return;
     document
       .getElementById(district ? 'district-entry' : `singapore-marker-${last}`)
       ?.focus({ preventScroll: true });
-  }, [district, last]);
+  }, [district, last, visited.length]);
   return (
     <div
       className={`shell game-shell${district ? '' : ' game-shell-frontpage'}`}
