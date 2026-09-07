@@ -47,13 +47,14 @@ assert.ok(a.text.length > 100);
 const start = performance.now();
 r = await post('/api/narrate', { record, year: 2036 });
 assert.equal(r.status, 200);
-assert.equal(r.headers.get('X-Narration-Cache'), 'hit');
+assert.equal(a.source, 'written');
+assert.equal(a.audio, null);
 assert.deepEqual(await r.json(), a);
-console.log(`Narration cache hit: ${Math.round(performance.now() - start)}ms`);
+console.log(`Local narration response: ${Math.round(performance.now() - start)}ms`);
 r = await post('/api/narrate', { record, year: 2126 });
 assert.equal(r.status, 400);
 r = await fetch(origin + '/api/agent-url?person=not_a_person');
-assert.equal(r.status, 400);
+assert.equal(r.status, 404);
 const completed = {
   ...record,
   rounds: [
@@ -65,5 +66,5 @@ const completed = {
 r = await fetch(origin + '/receipt?d=' + encode(completed));
 assert.equal(r.status, 200);
 console.log(
-  'HTTP smoke checks passed: routes, authority, invalid requests, narration fallback/cache and completed receipt route.',
+  'HTTP smoke checks passed: routes, authority, invalid requests, prerecorded narration fallback and completed receipt route.',
 );

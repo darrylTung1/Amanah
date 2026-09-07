@@ -24,24 +24,30 @@ npm start
 
 This project uses the Next App Router API through Vinext, React, strict TypeScript, Tailwind and the supplied accessible Base UI/Shadcn components. Sites deploys the resulting Cloudflare Worker. It differs from the spec’s suggested Next 15/Vercel deployment stack; the game and engine remain portable, but the current Worker deployment is not a Vercel build.
 
-## Live voice setup
+## Prerecorded dialogue
 
-The game is playable without credentials, using an explicitly labelled written, rule-based negotiation. That fallback is not an LLM conversation.
+The application uses local audio files and rule-based negotiation. It makes no ElevenLabs or OpenAI API calls and needs no API keys or microphone permissions. The live SDK, signed-session route and API generation scripts have been removed.
 
-1. Copy `.env.example` to `.env.local` if that file does not already exist. Keep API keys out of source control and chat.
-2. Set `ELEVENLABS_API_KEY`, `OPENAI_API_KEY`, five stakeholder voice IDs and the narrator voice IDs. The account’s actual voice library determines available casting. Choose distinct voices and listen before the pitch.
-3. `node scripts/agents.mjs` generates five reviewable configurations in `content/agents/`.
-4. `node scripts/agents.mjs --create` creates missing agents and writes their IDs to `.env.local`. It skips configured IDs and preserves completed work if a later creation fails. This command makes account changes and requires valid ElevenLabs permissions. Alternatively import/configure the agents manually and set the five IDs.
-5. Each agent uses an authenticated signed URL, three dynamic variables (`lever`, `allowed_riders`, `year`) and the blocking client tool `resolve_position`. The setup files include the tool schema, persona, evidence and priorities.
-6. Restart the local server after changing credentials. Hosted secrets must also be configured separately; `.env.local` is never uploaded.
+Place supplied MP3, WAV or OGG files in `public/audio/dialogue/`. Add their exact transcripts to `public/audio/dialogue/manifest.json`:
 
-The current SDK requires `ConversationProvider`; the voice component wraps its hooks accordingly. Switching people or policies is disabled while connecting/connected. Ending a call releases the session; unmounting also tears it down. The written fallback remains available after a connection failure.
+```json
+{
+  "landlord_teo|intro": {
+    "audio": "/audio/dialogue/teo-intro.mp3",
+    "text": "Exact transcript of the recording."
+  },
+  "landlord_teo|rent_covenant|compensation_fund": {
+    "audio": "/audio/dialogue/teo-compensation.mp3",
+    "text": "Exact transcript of this agreement recording."
+  }
+}
+```
 
-`resolve_position` is checked on the server for stakeholder authority, stance, one compatible rider and an explanation of at most 18 words. Empty rider strings from the SDK’s string schema normalize to `null`. Invalid combinations hold the veto. This is a schema boundary, not cryptographic proof that a URL was produced by a particular conversation. Receipts encode policy decisions, not authenticated conversation transcripts.
+Council keys are `person|intro` for opening dialogue and `person|lever|rider` for conditional responses, or `person|lever|hold` for refusals. Person and policy IDs are in `engine/model.ts`. The engine decides the agreement; playing audio does not grant a policy or clear a veto.
 
-OpenAI generates constrained testimony from an engine-derived digest. ElevenLabs Flash v2.5 produces speech. Service failures retain deterministic written testimony. A bounded, in-memory insertion-order cache retains twelve recent narrations per Worker isolate; it is not a durable cross-instance cache. Pre-generated ElevenLabs audio is served from the bundled manifest. Narration cache keys also distinguish policy history so a coarse outcome bucket cannot accidentally reuse testimony from a different run. Generated language is prompt-constrained, not a verified forecast or factual historical record.
+Future recordings use `public/audio/precached/manifest.json`, keyed by `encode(record) + "|" + year`, with `audio`, exact `text` and `source: "elevenlabs"`. This prevents a recording from describing a different decision path. Generate the standard path transcripts with `node scripts/prepare-demo.mjs`; record those scripts in ElevenLabs separately and update the manifest.
 
-API references: [ElevenLabs React SDK](https://elevenlabs.io/docs/eleven-agents/libraries/react), [signed URLs](https://elevenlabs.io/docs/api-reference/conversations/get-signed-url), [agent creation](https://elevenlabs.io/docs/api-reference/agents/create), [TTS](https://elevenlabs.io/docs/api-reference/text-to-speech/convert), [OpenAI Responses](https://developers.openai.com/api/reference/resources/responses/methods/create).
+Only supplied, matched recordings play. Missing or failed audio preserves written dialogue and game progression. The existing device-voice clips remain clearly labelled and limited to rehearsal mode. Actual ElevenLabs files still need to be supplied.
 
 ## Offline rehearsal
 
@@ -53,15 +59,7 @@ The recorded path uses default weights `[3,3,2,2]`:
 2. 2036: Trade & apprenticeship grant, no rider.
 3. 2050: Cooling retrofit, no rider.
 
-The repository initially includes clearly labelled **Windows device-voice recordings**, not ElevenLabs output. To replace them with ElevenLabs audio after configuring the account:
-
-```sh
-node scripts/prepare-demo.mjs
-node scripts/precache-elevenlabs.mjs
-npm run build
-```
-
-Other decision paths always retain written testimony; optional browser speech depends on the device having an offline voice. The existing recordings are specific to the standard rehearsal path. The service worker deliberately never caches API responses or signed voice URLs.
+The bundled recordings are labelled Windows device-voice rehearsal audio. Replace them with your pregenerated ElevenLabs files using the manifest above. Other decision paths retain written testimony. Rebuild after adding recordings so the service worker includes them; API responses are never cached.
 
 ## The deterministic engine
 
@@ -78,7 +76,7 @@ dH = -.004 - .020 max(0,V-.65)
 dK =  1.2  + 6 max(0,V-.50)
 ```
 
-Every enacted policy adds `annual × decay^(year − enactmentYear)`. The first annual interval uses exponent zero. Immediate effects and capacity costs apply at the enactment year. Policy-year snapshots include immediate effects. A sunset rider preserves the first ten years of decay, then multiplies by .80 each later year. “Lineage only” scales immediate/annual effect magnitudes; fiscal cost is unchanged. Compensation permanently clears the landlord’s veto for subsequent council rounds. Neither agents nor narration choose numbers.
+Every enacted policy adds `annual × decay^(year − enactmentYear)`. The first annual interval uses exponent zero. Immediate effects and capacity costs apply at the enactment year. Policy-year snapshots include immediate effects. A sunset rider preserves the first ten years of decay, then multiplies by .80 each later year. “Lineage only” scales immediate/annual effect magnitudes; fiscal cost is unchanged. Compensation permanently clears the landlord’s veto for subsequent council rounds. Neither dialogue nor narration chooses numbers.
 
 Irreversible flags:
 
@@ -104,9 +102,9 @@ The original spec contains a contradictory “three rounds”/“round 3 optiona
 
 The tests cover the four requested acceptance cases, all compatible single-policy/rider bounds, irreversible history, invalid URL records, capacity accounting, and negotiation authority. `scripts/smoke.mjs` checks real HTTP routes and valid/invalid resolution and narration requests against a running server.
 
-Live microphone, account-side agent creation, real model/TTS latency, mobile-data access and full offline browser operation require testing with the configured accounts/browser. Do not describe those as verified merely because unit tests or a production build pass. The optional WebMCP start-council action is feature-detected; normal controls do not depend on it.
+Supplied recording playback, mobile-data access and full offline browser operation require browser testing. Do not describe those as verified merely because unit tests or a production build pass. The optional WebMCP start-council action is feature-detected; normal controls do not depend on it.
 
-Submission materials are in `SUBMISSION.md`. A public judging URL, custom `.xyz` domain, Devpost submission and captured demo video require the final account/domain details; private hosting is a review surface until public access is configured.
+Submission materials are in `SUBMISSION.md`. The Sites judging URL is public. A custom domain, Devpost submission and captured demo video remain separate delivery steps.
 
 ## Interactive 3D district
 

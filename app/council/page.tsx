@@ -35,7 +35,6 @@ export default function Council() {
   const [lever, setLever] = useState<LeverId>('rent_covenant');
   const [position, setPosition] = useState<Position | null>(null);
   const [argument, setArgument] = useState('');
-  const [busy, setBusy] = useState(false);
   const [future, setFuture] = useState<State | null>(null);
   const [bleed, setBleed] = useState(false);
   useEffect(() => {
@@ -119,7 +118,7 @@ export default function Council() {
     if (typeof v === 'string') setPerson(v);
   }
   function commit() {
-    if (!record || !cleared || selected.cost > state.capacity || busy) return;
+    if (!record || !cleared || selected.cost > state.capacity) return;
     const next = { ...record, rounds: [...record.rounds, decision] };
     const target = [2036, 2050, 2126][record.rounds.length];
     const result = run(next, target).at(-1)!;
@@ -195,7 +194,6 @@ export default function Council() {
                 {people.map((member) => (
                   <button
                     key={member.id}
-                    disabled={busy}
                     className={person === member.id ? 'active' : ''}
                     aria-pressed={person === member.id}
                     onClick={() => {
@@ -228,21 +226,20 @@ export default function Council() {
               {veto === person && !cleared && (
                 <p className="warning">● Holds a veto on this proposal</p>
               )}
-              {!demo && (
-                <VoiceCouncil
-                  key={person + lever + year}
-                  person={person}
-                  lever={lever}
-                  record={record}
-                  onPosition={setPosition}
-                  onBusy={setBusy}
-                />
-              )}
+              <VoiceCouncil
+                key={
+                  person +
+                  lever +
+                  year +
+                  (position?.rider ?? position?.stance ?? '')
+                }
+                person={person}
+                lever={lever}
+                position={veto === person ? position : null}
+              />
               <div className="negotiation">
                 <label htmlFor="argument" className="small">
-                  {demo
-                    ? 'Scripted rehearsal'
-                    : 'Written fallback · scripted negotiation'}
+                  {demo ? 'Scripted rehearsal' : 'Make your proposal'}
                 </label>
                 <textarea
                   id="argument"
@@ -263,9 +260,7 @@ export default function Council() {
                 />
                 <Button
                   className="secondary"
-                  disabled={
-                    busy || argument.trim().length < 8 || veto !== person
-                  }
+                  disabled={argument.trim().length < 8 || veto !== person}
                   onClick={() =>
                     setPosition(scriptedPosition(lever, person, argument))
                   }
@@ -300,7 +295,6 @@ export default function Council() {
               <Select
                 value={lever}
                 onValueChange={(id) => id && choose(id as LeverId)}
-                disabled={busy}
               >
                 <SelectTrigger className="select" aria-label="Choose a policy">
                   <SelectValue>{levers[lever].name}</SelectValue>
@@ -337,7 +331,7 @@ export default function Council() {
               <div className="actions">
                 <Button
                   className="primary"
-                  disabled={!cleared || selected.cost > state.capacity || busy}
+                  disabled={!cleared || selected.cost > state.capacity}
                   onClick={commit}
                 >
                   Commit & move to {[2036, 2050, 2126][record.rounds.length]} ↗
