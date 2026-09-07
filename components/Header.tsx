@@ -1,5 +1,6 @@
 import type { DistrictId } from '@/engine/model';
 import { districtNames } from '@/engine/districts';
+import BrandMark from '@/components/BrandMark';
 export default function Header({
   demo = false,
   district = 'kampong-glam',
@@ -10,7 +11,7 @@ export default function Header({
   return (
     <header className="topbar">
       <a className="brand" href="/">
-        <span className="brandmark">✳</span>Amanah
+        <BrandMark />Amanah
       </a>
       <div className="toplinks">
         <span className="muted small">Voices of the next hundred years</span>

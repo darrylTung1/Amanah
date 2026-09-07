@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import SingaporeMap from '@/components/SingaporeMap';
 import CouncilGame from '@/components/CouncilGame';
 import AgentActions from '@/components/AgentActions';
+import BrandMark from '@/components/BrandMark';
 import { decode, isDistrictId, type DistrictId } from '@/engine/model';
 import { districtNames } from '@/engine/districts';
 export default function Home() {
@@ -57,7 +58,7 @@ export default function Home() {
             enter(null);
           }}
         >
-          <span className="brandmark">✳</span>Amanah
+          <BrandMark />Amanah
         </a>
         <div className="toplinks">
           {district && (

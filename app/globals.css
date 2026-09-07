@@ -110,8 +110,10 @@ small,
   align-items: center;
 }
 .brandmark {
-  color: var(--turmeric);
-  font-size: 2rem;
+  display: block;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
 }
 .tag {
   border: 1px solid var(--border);
