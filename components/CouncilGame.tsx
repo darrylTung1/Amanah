@@ -3,6 +3,7 @@ import { resolveDistrict } from '@/engine/model';
 import * as m from 'motion/react-m';
 import { useEffect, useState, useId, useCallback } from 'react';
 import Header from '@/components/Header';
+import RestartDistrict from '@/components/RestartDistrict';
 import CharacterPortrait from '@/components/CharacterPortrait';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
@@ -165,6 +166,7 @@ export default function CouncilGame({
         <h1>Your council has concluded.</h1>
         <output>{saveStatus}</output>
         <a href={'/receipt?d=' + encode(record)}>Open your legacy receipt →</a>
+        <RestartDistrict district={record.district ?? 'kampong-glam'} />
       </main>
     );
   const district = record.district ?? 'kampong-glam';
@@ -315,6 +317,7 @@ export default function CouncilGame({
       {!embedded && <Header demo={demo} district={district} />}
       <div className="game-save-bar">
         <output aria-live="polite">{saveStatus}</output>
+        <RestartDistrict district={district} />
       </div>
       {future ? (
         <Testimony

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
+import RestartDistrict from '@/components/RestartDistrict';
 import { districtNames, districtPeople } from '@/engine/districts';
 import Cloth from '@/components/Cloth';
 import DistrictRating from '@/components/DistrictRating';
@@ -88,7 +89,7 @@ export default function Receipt() {
           <Button className="secondary" onClick={() => window.print()}>
             Print decision brief
           </Button>
-          <a href="/">Convene again →</a>
+          <RestartDistrict district={district} />
           <span className="status" role="status">
             {copied}
           </span>

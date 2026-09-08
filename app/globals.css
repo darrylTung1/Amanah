@@ -2255,6 +2255,8 @@ summary:focus-visible {
 }
 .game-save-bar {
   display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
   align-items: center;
   justify-content: flex-end;
   min-height: 21px;
