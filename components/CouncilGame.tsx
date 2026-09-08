@@ -175,7 +175,7 @@ export default function CouncilGame({
     ? { ...record, rounds: [...record.rounds, programme(draft)] }
     : record;
   const state = run(previewRecord, year).at(-1)!;
-  const minPolicies = record.v >= 2 ? 2 : 1;
+  const minPolicies = record.v >= 2 ? 3 : 1;
   const maxPolicies = record.v >= 2 ? 3 : 1;
   const scene = getScenario(sceneId ?? leadScenario(original), state, district);
   const speaker = people.find((p) => p.id === scene.speaker)!;
@@ -235,7 +235,7 @@ export default function CouncilGame({
       return;
     setDraft([...draft, decision]);
     setNotice(
-      `${levers[decision.lever].name} added. ${draft.length + 1 < minPolicies ? 'Choose a second policy before advancing.' : draft.length + 1 < maxPolicies ? 'Ready. Add an optional third policy or advance time.' : 'Programme complete. Advance time when ready.'}`,
+      `${levers[decision.lever].name} added. ${draft.length + 1 < minPolicies ? `Add ${minPolicies - draft.length - 1} more ${minPolicies - draft.length - 1 === 1 ? 'policy' : 'policies'} before advancing.` : 'Programme complete. Advance time when ready.'}`,
     );
     requestAnimationFrame(() => {
       const node = document.getElementById(nextId);
@@ -542,7 +542,7 @@ export default function CouncilGame({
                   ))}
                 </ol>
                 <p className="small">
-                  Choose {minPolicies}–{maxPolicies} different policies. Undo
+                  Choose {minPolicies} different policies before advancing. Undo
                   removes that policy and later additions. New periods add 20
                   capacity; renewals replace earlier policies.
                 </p>
@@ -565,9 +565,7 @@ export default function CouncilGame({
               <p className="small">
                 {draft.length < minPolicies
                   ? `Add ${minPolicies - draft.length} more to complete this period`
-                  : draft.length < maxPolicies
-                    ? 'Ready to advance · third policy optional'
-                    : 'Programme complete'}
+                  : 'Programme complete'}
               </p>
             </div>
             <Button
