@@ -2,25 +2,42 @@
 
 > **Winning project of CloudHacks 2026.**
 
-Amanah is an interactive civic simulation about the choices that shape Singapore's neighbourhoods across a century. Convene five community voices, negotiate public policy, and see how today's decisions change Kampong Glam, Chinatown, or Little India from 2026 to 2126.
+Amanah is an interactive civic simulation about stewardship, trade-offs, and the future of Singapore's heritage districts. Listen to community voices, negotiate the conditions attached to public policy, and see what each district inherits over the next hundred years.
 
 [Play Amanah](https://amanah.royalslyer.chatgpt.site/)
 
-![Amanah's Singapore district selection screen](public/images/frontpage-dusk.png)
+![Amanah's heritage district artwork at dusk](public/images/frontpage-dusk.png)
 
-## What you do
+## Explore three districts
 
-- Choose a district and explore its interactive 3D streetscape.
-- Meet residents and stakeholders with competing priorities.
-- Build a three-policy programme in each of three decision periods.
-- Follow the effects on affordability, cultural continuity, vitality, equity, and habitability.
-- Share a URL-encoded receipt that can reproduce the complete outcome.
+- **Kampong Glam:** Sultan Mosque, Arab Street, and Haji Lane
+- **Chinatown:** Sri Mariamman Temple, Duxton Road, and Maxwell Food Centre
+- **Little India:** Sri Veeramakaliamman Temple, the Former House of Tan Teng Niah, and the Indian Heritage Centre
 
-The simulation is deterministic: the same starting priorities and policy choices always produce the same result. Its coefficients are illustrative, not calibrated forecasts of real neighbourhoods.
+Each district has its own illustrated locations, fictional stakeholders, concerns, and future testimony. Progress is saved locally in the browser, and each district can be played independently.
 
-## Why Amanah
+## How it plays
 
-Urban policy rarely has a single winner. Amanah makes those trade-offs tangible by connecting policy choices to community testimony, long-term consequences, and irreversible risks. It is designed to prompt discussion about stewardship: what we inherit, what we change, and what we leave behind.
+1. Enter a district and explore its landmarks and community stories.
+2. Build a three-policy programme for 2026, 2060, and 2093.
+3. Negotiate required protections—such as an owner compensation fund, noise curfew, or policy sunset—to earn stakeholder agreement.
+4. Preview how each choice changes affordability, cultural continuity, vitality, equity, habitability, and shared capacity.
+5. Advance through time to 2126 and compare the result with the previous period or with taking no new action.
+
+Illustrations, testimony, and scenarios change as the district evolves. Policies can be renewed, agreements can carry forward, and some long-term thresholds cannot be undone.
+
+## The legacy receipt
+
+Every completed council produces a shareable, URL-encoded legacy receipt. It records:
+
+- The district's final rating and five conditions
+- Starting priorities compared with achieved outcomes
+- Which stakeholders gained or lost
+- Irreversible thresholds crossed during the century
+- All three policy programmes and their negotiated conditions
+- Annual condition history and before-and-after district illustrations
+
+The receipt can be copied as a link or printed as a decision brief. Because the simulation is deterministic, the same encoded decisions reproduce the same outcome without an account or server-side save.
 
 ## Run locally
 
@@ -33,8 +50,6 @@ npm run dev
 
 Open the local URL printed in the terminal.
 
-Useful checks:
-
 ```sh
 npm test
 npm run lint
@@ -42,18 +57,17 @@ npm run typecheck
 npm run build
 ```
 
-## How it works
+## Built with
 
-- **Frontend:** React, TypeScript, Tailwind CSS, Three.js, and the Next App Router API through Vinext
-- **Hosting:** Cloudflare Workers via OpenAI Sites
-- **Simulation:** a pure, deterministic engine with no network, database, clock, or randomness dependency
-- **Dialogue:** local prerecorded audio with written fallbacks; no microphone or API key is required for playback
-- **Offline support:** production assets and recordings are cached after the first online visit
+- React and TypeScript
+- Tailwind CSS
+- Vinext and the Next App Router API
+- Cloudflare Workers via OpenAI Sites
+- A pure deterministic simulation engine separated from the interface
+- Prerecorded stakeholder audio with written transcript fallbacks
 
-New councils make decisions in 2026, 2060, and 2093, then see the district in 2126. Each outcome tracks five conditions and capacity, with transparent yearly updates and persistent consequences. The engine lives in [`engine/model.ts`](engine/model.ts), separate from the interface.
+## Model boundaries
 
-## Important limits
-
-Amanah is a conversation tool, not an urban forecast. Its people are fictional, its visual encodings are illustrative, and its policy coefficients are not based on surveyed or predictive data. The interface exposes intermediate outcomes and irreversible flags so that players can inspect the model's reasoning instead of treating a final score as fact.
+Amanah is a conversation tool, not an urban forecast. Its characters and testimony are fictional, its district views are illustrative, and its coefficients are calibrated for legibility rather than prediction. A shared receipt reproduces the selected decisions and computed outcomes; it is not a verified transcript of a real negotiation.
 
 [Source and map attribution](ATTRIBUTION.md)
