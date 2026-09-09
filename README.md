@@ -4,7 +4,7 @@
 
 Amanah is an interactive civic simulation about the choices that shape Singapore's neighbourhoods across a century. Convene five community voices, negotiate public policy, and see how today's decisions change Kampong Glam, Chinatown, or Little India from 2026 to 2126.
 
-[Play Amanah](https://amanah.royalslyer.chatgpt.site/) · [Read the submission](SUBMISSION.md)
+[Play Amanah](https://amanah.royalslyer.chatgpt.site/)
 
 ![Amanah's Singapore district selection screen](public/images/frontpage-dusk.png)
 
@@ -54,7 +54,6 @@ New councils make decisions in 2026, 2060, and 2093, then see the district in 21
 
 ## Project documentation
 
-- [`SUBMISSION.md`](SUBMISSION.md) — hackathon submission and judging notes
 - [`SPEC.md`](SPEC.md) — product and simulation specification
 - [`SCENARIOS.md`](SCENARIOS.md) — district scenarios and stakeholder encounters
 - [`PROGRAMMES.md`](PROGRAMMES.md) — policy programmes and reference playthroughs
