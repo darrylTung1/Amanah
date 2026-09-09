@@ -52,14 +52,8 @@ npm run build
 
 New councils make decisions in 2026, 2060, and 2093, then see the district in 2126. Each outcome tracks five conditions and capacity, with transparent yearly updates and persistent consequences. The engine lives in [`engine/model.ts`](engine/model.ts), separate from the interface.
 
-## Project documentation
-
-- [`SPEC.md`](SPEC.md) — product and simulation specification
-- [`SCENARIOS.md`](SCENARIOS.md) — district scenarios and stakeholder encounters
-- [`PROGRAMMES.md`](PROGRAMMES.md) — policy programmes and reference playthroughs
-- [`RECORDING-SCRIPTS.md`](RECORDING-SCRIPTS.md) — dialogue recording workflow
-- [`CHINATOWN.md`](CHINATOWN.md) — Chinatown research notes and content references
-
 ## Important limits
 
 Amanah is a conversation tool, not an urban forecast. Its people are fictional, its visual encodings are illustrative, and its policy coefficients are not based on surveyed or predictive data. The interface exposes intermediate outcomes and irreversible flags so that players can inspect the model's reasoning instead of treating a final score as fact.
+
+[Source and map attribution](ATTRIBUTION.md)
