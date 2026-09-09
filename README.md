@@ -1,135 +1,66 @@
-# Playable districts
+# Amanah
 
-Choose Kampong Glam or Chinatown from the Singapore map. Each district has its own places, characters and dialogue, with independent in-page council progress and district-aware receipt links. Both use the same illustrative policy engine. See [CHINATOWN.md](CHINATOWN.md) for the new district, research sources and future recording keys.
+> **Winning project of CloudHacks 2026.**
 
-# Current game: three-period programmes (model v3)
+Amanah is an interactive civic simulation about the choices that shape Singapore's neighbourhoods across a century. Convene five community voices, negotiate public policy, and see how today's decisions change Kampong Glam, Chinatown, or Little India from 2026 to 2126.
 
-New games require two distinct policies per period, with an optional third. Older one-policy records still replay. Additions preview immediate effects; advancing commits the programme. New councils act in 2026, 2060 and 2093, reaching 2126 after intervals of 34, 33 and 33 years. Twenty capacity is added in 2060 and 2093. Maintained policies retain at least 60% of their annual strength while upkeep (1.2% of positive upfront cost per year) is affordable. Positive policy effects diminish as an index improves. Renewals replace prior policies and give half the immediate benefit. A ten-year sunset still decays away. Existing v1 and v2 receipts retain their original equations and 2026 / 2036 / 2050 schedule. Version 3 changes timing only; it uses the same policy coefficients and maintenance rules as version 2.
+[Play Amanah](https://amanah.royalslyer.chatgpt.site/) · [Read the submission](SUBMISSION.md)
 
-The overall district rating equally averages all five conditions (20% each), rounded once to /100. Categories below 30 are flagged separately; capacity and lasting harms are not folded into the score.
+![Amanah's Singapore district selection screen](public/images/frontpage-dusk.png)
 
-See PROGRAMMES.md for current playthroughs and RECORDING-SCRIPTS.md for current scripts. Older single-decision calculations below describe model v1.
+## What you do
 
-# Amanah: Voices of the next hundred years
+- Choose a district and explore its interactive 3D streetscape.
+- Meet residents and stakeholders with competing priorities.
+- Build a three-policy programme in each of three decision periods.
+- Follow the effects on affordability, cultural continuity, vitality, equity, and habitability.
+- Share a URL-encoded receipt that can reproduce the complete outcome.
 
-A deterministic district simulation in which five fictional stakeholders negotiate three decisions for Kampong Gelam. The council can negotiate a condition; it cannot change a single simulation coefficient. Every annual outcome can be reconstructed from a URL.
+The simulation is deterministic: the same starting priorities and policy choices always produce the same result. Its coefficients are illustrative, not calibrated forecasts of real neighbourhoods.
 
-Built for CloudHacks 2026, Advanced division. Repository name: Amanah.
+## Why Amanah
 
-## Run
+Urban policy rarely has a single winner. Amanah makes those trade-offs tangible by connecting policy choices to community testimony, long-term consequences, and irreversible risks. It is designed to prompt discussion about stewardship: what we inherit, what we change, and what we leave behind.
 
-Node 24 recommended (22.13+ supported by the application tooling).
+## Run locally
+
+Requires Node.js 22.13 or later; Node.js 24 is recommended.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open the printed local URL. Click Kampong Glam on the Singapore map to enter the playable council immediately. There is no introduction or allocation screen; starting priorities default to [3,3,2,2]. Negotiate or choose an unrestricted policy and make three moves. The island and council stay mounted, so returning to the map preserves the game and camera without navigation. The new-game horizons are 2026 → 2060 → 2093 → 2126. The final intervention is in 2093, leaving 33 years until the ending.
+Open the local URL printed in the terminal.
+
+Useful checks:
 
 ```sh
 npm test
+npm run lint
 npm run typecheck
 npm run build
-npm start
 ```
 
-This project uses the Next App Router API through Vinext, React, strict TypeScript, Tailwind and the supplied accessible Base UI/Shadcn components. Sites deploys the resulting Cloudflare Worker. It differs from the spec’s suggested Next 15/Vercel deployment stack; the game and engine remain portable, but the current Worker deployment is not a Vercel build.
+## How it works
 
-## Prerecorded dialogue
+- **Frontend:** React, TypeScript, Tailwind CSS, Three.js, and the Next App Router API through Vinext
+- **Hosting:** Cloudflare Workers via OpenAI Sites
+- **Simulation:** a pure, deterministic engine with no network, database, clock, or randomness dependency
+- **Dialogue:** local prerecorded audio with written fallbacks; no microphone or API key is required for playback
+- **Offline support:** production assets and recordings are cached after the first online visit
 
-Concerns are always visible and automatically play bundled Singlish recordings when entering a district or selecting a location in the saved Singaporean Chinese, Malay and Indian male/female voices, assigned per character in `scripts/generate-concerns.mjs`. Jo uses the Chinese female voice until a dedicated voice is available. Changing locations or leaving the district stops the previous recording. Selecting a location again replays its concern. If browser autoplay is blocked, the audio controls remain available. Recordings must match the current concern text exactly; stale clips fall back to text.
+New councils make decisions in 2026, 2060, and 2093, then see the district in 2126. Each outcome tracks five conditions and capacity, with transparent yearly updates and persistent consequences. The engine lives in [`engine/model.ts`](engine/model.ts), separate from the interface.
 
-To regenerate concern audio, set `ELEVENLABS_API_KEY` in the ignored `.env.local`, then run `node --experimental-strip-types scripts/generate-concerns.mjs`. This optional build-time script uses ElevenLabs credits and caches audio by text, voice and model. It updates the dialogue manifest after each clip and safely resumes completed work. Rebuild after generation for offline caching. Playback itself makes no live voice API calls and needs no credentials.
+## Project documentation
 
-The application uses local audio files and rule-based negotiation. It makes no ElevenLabs or OpenAI API calls and needs no API keys or microphone permissions. The live SDK and signed-session route have been removed; audio generation is an optional local script.
+- [`SUBMISSION.md`](SUBMISSION.md) — hackathon submission and judging notes
+- [`SPEC.md`](SPEC.md) — product and simulation specification
+- [`SCENARIOS.md`](SCENARIOS.md) — district scenarios and stakeholder encounters
+- [`PROGRAMMES.md`](PROGRAMMES.md) — policy programmes and reference playthroughs
+- [`RECORDING-SCRIPTS.md`](RECORDING-SCRIPTS.md) — dialogue recording workflow
+- [`CHINATOWN.md`](CHINATOWN.md) — Chinatown research notes and content references
 
-Place supplied MP3, WAV or OGG files in `public/audio/dialogue/`. Add their exact transcripts to `public/audio/dialogue/manifest.json`:
+## Important limits
 
-```json
-{
-  "landlord_teo|intro": {
-    "audio": "/audio/dialogue/teo-intro.mp3",
-    "text": "Exact transcript of the recording."
-  },
-  "landlord_teo|rent_covenant|compensation_fund": {
-    "audio": "/audio/dialogue/teo-compensation.mp3",
-    "text": "Exact transcript of this agreement recording."
-  }
-}
-```
-
-Scene openings use `scene|SCENE_ID` (see `content/scenarios.json`); the later tenancy variant uses `scene|six-weeks|later`. The player reads the scene transcript if no recording is supplied. Negotiation uses explicit protection buttons rather than keyword matching in a text box.
-
-Council keys are `person|intro` for opening dialogue and `person|lever|rider` for conditional responses, or `person|lever|hold` for refusals. Person and policy IDs are in `engine/model.ts`. The engine decides the agreement; playing audio does not grant a policy or clear a veto.
-
-Future recordings use `public/audio/precached/manifest.json`, keyed by `encode(record) + "|" + year`, with `audio`, exact `text` and `source: "elevenlabs"`. This prevents a recording from describing a different decision path. Generate the standard path transcripts with `node scripts/prepare-demo.mjs`; record those scripts in ElevenLabs separately and update the manifest.
-
-Only supplied, matched recordings play. Missing or failed audio preserves written dialogue and game progression. The existing device-voice clips remain clearly labelled and limited to rehearsal mode. Actual ElevenLabs files still need to be supplied.
-
-## Offline rehearsal
-
-Open `/?demo=1` on the **production build**, while online. Wait for “Offline rehearsal ready” before disconnecting. The service worker caches route shells, JavaScript, CSS, local fonts and recordings. A first-ever offline visit cannot work because no app has yet been downloaded.
-
-The recorded path uses default weights `[3,3,2,2]`:
-
-1. 2026: Rent covenant. Tell Mr Teo “We will provide a compensation fund.” Commit with compensation.
-2. 2036: Trade & apprenticeship grant, no rider.
-3. 2050: Cooling retrofit, no rider.
-
-The bundled recordings are labelled Windows device-voice rehearsal audio. Replace them with your pregenerated ElevenLabs files using the manifest above. Other decision paths retain written testimony. Rebuild after adding recordings so the service worker includes them; API responses are never cached.
-
-## The deterministic engine
-
-`engine/model.ts` has no React, network, clock, randomness or database dependency. The initial values are A=.52, C=.61, V=.68, E=.44, H=.49, K=60. Indices clamp to [.02,.98], capacity to [0,100]. Utility weights, eight levers and seven rider definitions are literal data transcribed from the supplied spec.
-
-Each year computes drift and couplings from the same pre-update state, adds decaying active policies, applies already-active tipping modifiers, clamps, then evaluates new flags. A newly triggered flag takes effect on the next annual update.
-
-```text
-dA = -.008 - .030 max(0,V-.60)
-dC = -.006 - .070 max(0,.50-A) + .020 max(0,A-.65)
-dV =  .004 + .045(C-.50) - .025 max(0,.40-H)
-dE = -.005 + .050(A-.50) - .030 max(0,V-.70)
-dH = -.004 - .020 max(0,V-.65)
-dK =  1.2  + 6 max(0,V-.50)
-```
-
-Every enacted policy adds `annual × decay^(year − enactmentYear)`. The first annual interval uses exponent zero. Immediate effects and capacity costs apply at the enactment year. Policy-year snapshots include immediate effects. A sunset rider preserves the first ten years of decay, then multiplies by .80 each later year. “Lineage only” scales immediate/annual effect magnitudes; fiscal cost is unchanged. Compensation permanently clears the landlord’s veto for subsequent council rounds. Neither dialogue nor narration chooses numbers.
-
-Irreversible flags:
-
-| Flag           | Trigger                                     | Subsequent effect                                 |
-| -------------- | ------------------------------------------- | ------------------------------------------------- |
-| LINEAGE_BROKEN | C < .30 for 5 consecutive years             | Annual continuity recovery capped at .003         |
-| MONOCULTURE    | V > .80 and C < .45                         | Rent pressure coupling doubles                    |
-| EXODUS         | E < .25 for 3 consecutive years             | Equity ceiling .50                                |
-| HEAT_LOCK      | H < .35                                     | Annual vitality −.010; positive H recovery halved |
-| TRUST_DIVIDEND | E > .65 and C > .60 for 5 consecutive years | Annual capacity +3, continuity +.004              |
-
-Trust dividend is a beneficial legacy, not listed as an unresolved harm. Utilities are weighted deltas from 2026, normalized by absolute weight sums. The landlord’s affordability weight is negative, as specified.
-
-### Model limits worth explaining to judges
-
-The coefficients are illustrative, not calibrated urban forecasts. For legacy v1 games, three interventions ending in 2050 often converge to severe decline by 2126. New v3 games spread the interventions across the century, but poor choices can still cause irreversible harm. This is an outcome of the supplied equations and long horizon, not hidden balancing. Intermediate-year tables and first-trigger dates expose differences that a final score alone would hide. A higher utility than another stakeholder does not necessarily mean an absolute gain.
-
-Intent weights are priorities out of ten; outcome indices are conditions out of a hundred. The paired receipt bars deliberately label those different units. They should not be interpreted as a numerical promise-fulfilment score.
-
-The original spec contains a contradictory “three rounds”/“round 3 optional” schedule. This implementation includes all three rounds. It does not fabricate the pitch’s example departure year or claim a flag triggered in 2041 unless the actual run produces that year.
-
-## Tests and delivery boundaries
-
-The tests cover the four requested acceptance cases, all compatible single-policy/rider bounds, irreversible history, invalid URL records, capacity accounting, and negotiation authority. `scripts/smoke.mjs` checks real HTTP routes and valid/invalid resolution and narration requests against a running server.
-
-Supplied recording playback, mobile-data access and full offline browser operation require browser testing. Do not describe those as verified merely because unit tests or a production build pass. The optional WebMCP start-council action is feature-detected; normal controls do not depend on it.
-
-Submission materials are in `SUBMISSION.md`. The Sites judging URL is public. A custom domain, Devpost submission and captured demo video remain separate delivery steps.
-
-## Interactive 3D district
-
-The board now uses a lazy-loaded Three.js diorama instead of the original SVG. Drag to orbit, scroll/pinch or use the buttons to zoom, and click a parcel to inspect its simulation condition. Left/right arrow keys rotate the focused model; Home resets it. The parcel buttons provide keyboard-accessible inspection and remain available if WebGL is unsupported.
-
-Shophouse colour and open storefronts reflect each parcel's index; trees reflect habitability and street activity reflects vitality. These are illustrative visual encodings, not actual counts or a surveyed model of Kampong Gelam. The model renders on changes, limits pixel density, preserves the camera when outcomes update, and disposes its graphics resources when leaving a page. Three.js is included in the production offline cache.
-
-## Scenario-driven play
-
-Click a parcel to meet its stakeholder and choose among three relevant policies. Other policies remain available in a disclosure. Lead scenarios reflect the actual conditions and irreversible flags in later rounds. Required agreements have explicit offer buttons and full capacity costs. Consequence screens show the updated district, before-and-after indices and newly triggered irreversible flags. The engine coefficients are unchanged.
+Amanah is a conversation tool, not an urban forecast. Its people are fictional, its visual encodings are illustrative, and its policy coefficients are not based on surveyed or predictive data. The interface exposes intermediate outcomes and irreversible flags so that players can inspect the model's reasoning instead of treating a final score as fact.
